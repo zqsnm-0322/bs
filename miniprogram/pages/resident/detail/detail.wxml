@@ -1,0 +1,195 @@
+<view class="container">
+  <!-- 老人基本信息 -->
+  <view class="resident-info" wx:if="{{!loading}}">
+    <view class="info-header">
+      <view class="avatar">{{residentInfo.name ? residentInfo.name[0] : '?'}}</view>
+      <view class="info-content">
+        <view class="name">{{residentInfo.name || '未知'}}</view>
+        <view class="details">
+          <text>{{residentInfo.gender || '-'}} | {{residentInfo.age || '-'}}岁</text>
+          <text>{{residentInfo.careZone || '-'}} | {{residentInfo.roomBedNo || '未分配'}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-details">
+      <view class="detail-item">
+        <text class="label">入住编号：</text>
+        <text class="value">{{residentInfo.residentId || '-'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="label">入住时间：</text>
+        <text class="value">{{residentInfo.admitTime || '-'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="label">照护主管：</text>
+        <text class="value">{{residentInfo.careManager || '-'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="label">健康等级：</text>
+        <text class="value">{{residentInfo.healthLevel || '-'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="label">慢性疾病：</text>
+        <text class="value">{{residentInfo.chronicDiseases || '无'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="label">饮食禁忌：</text>
+        <text class="value">{{residentInfo.dietRestriction || '无'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 当前风险状态 -->
+  <view class="risk-section" wx:if="{{!loading && residentInfo.currentRisks}}">
+    <view class="section-title">当前风险状态</view>
+    <view class="risk-tags">
+      <view class="risk-tag {{item.level}}" wx:for="{{residentInfo.currentRisks}}" wx:key="type">
+        {{item.typeName}}{{item.levelName}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 健康预测 -->
+  <view class="predictions-section" wx:if="{{!loading}}">
+    <view class="section-title">
+      <text>健康预测</text>
+      <text class="refresh-btn" bindtap="loadHealthPredictions" wx:if="{{!predictionsLoading}}">刷新</text>
+      <text class="loading-text" wx:if="{{predictionsLoading}}">加载中...</text>
+    </view>
+    
+    <view class="predictions-content" wx:if="{{healthPredictions.length > 0}}">
+      <view class="prediction-summary">
+        <text class="summary-text">基于最新风险评估，预测可能出现的健康问题</text>
+        <text class="assessment-time">评估时间：{{assessmentTime}}</text>
+      </view>
+      
+      <view class="predictions-list">
+        <view 
+          class="prediction-item {{item.severity.toLowerCase()}}" 
+          wx:for="{{healthPredictions}}" 
+          wx:key="index"
+          bindtap="viewPredictionDetail"
+          data-prediction="{{item}}"
+        >
+          <view class="prediction-header">
+            <text class="condition-name">{{item.condition}}</text>
+            <view class="severity-badge {{item.severity.toLowerCase()}}">
+              <text wx:if="{{item.severity === 'CRITICAL'}}">极高风险</text>
+              <text wx:elif="{{item.severity === 'HIGH'}}">高风险</text>
+              <text wx:elif="{{item.severity === 'MEDIUM'}}">中风险</text>
+              <text wx:else>低风险</text>
+            </view>
+          </view>
+          
+          <view class="prediction-meta">
+            <text class="probability">发生概率：{{item.probability}}</text>
+            <text class="timeframe">时间窗口：{{item.timeframe}}</text>
+          </view>
+          
+          <view class="prediction-symptoms">
+            <text class="symptoms-label">主要症状：</text>
+            <text class="symptoms-text">{{item.symptoms[0]}}{{item.symptoms.length > 1 ? '等' : ''}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="predictions-actions">
+        <button class="action-btn primary full-width" bindtap="viewAllPredictions">查看详细预测</button>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{!predictionsLoading && healthPredictions.length === 0}}">
+      <text class="empty-icon">🔮</text>
+      <text class="empty-text">暂无健康预测数据</text>
+      <text class="empty-desc">请先进行风险评估</text>
+    </view>
+  </view>
+
+  <!-- 评估历史 -->
+  <view class="history-section" wx:if="{{!loading}}">
+    <view class="section-title">
+      <text>评估历史</text>
+      <text class="refresh-btn" bindtap="loadRiskHistory" wx:if="{{!historyLoading}}">刷新</text>
+      <text class="loading-text" wx:if="{{historyLoading}}">加载中...</text>
+    </view>
+    
+    <view class="history-list" wx:if="{{riskHistory.length > 0}}">
+      <view class="history-item" 
+            wx:for="{{riskHistory}}" 
+            wx:key="id"
+            bindtap="viewAssessmentDetail"
+            data-id="{{item.id}}">
+        <view class="history-header">
+          <text class="scale-name">{{item.scaleName}}</text>
+          <text class="score">{{item.totalScore}}分</text>
+        </view>
+        <view class="history-content">
+          <view class="risk-level {{item.riskLevel}}">{{item.riskLevelText}}</view>
+          <text class="assessor">评估人：{{item.evaluatorName}}</text>
+        </view>
+        <view class="history-time">{{item.evaluateTime}}</view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{!historyLoading && riskHistory.length === 0}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无评估记录</text>
+    </view>
+  </view>
+
+  <!-- 用药信息 -->
+  <view class="medication-section" wx:if="{{!loading}}">
+    <view class="section-title">
+      <text>用药信息</text>
+      <view class="title-actions">
+        <text class="add-btn" bindtap="addMedication" wx:if="{{userInfo.role === 'CARE_MANAGER'}}">+ 添加用药</text>
+        <text class="refresh-btn" bindtap="loadMedications" wx:if="{{!medicationLoading}}">刷新</text>
+        <text class="loading-text" wx:if="{{medicationLoading}}">加载中...</text>
+      </view>
+    </view>
+    
+    <view class="medication-list" wx:if="{{medications.length > 0}}">
+      <view class="medication-item" 
+            wx:for="{{medications}}" 
+            wx:key="id">
+        <view class="medication-header">
+          <text class="medication-name">{{item.medicationName}}</text>
+          <view class="medication-status {{item.status}}">
+            <text wx:if="{{item.status === 'ACTIVE'}}">进行中</text>
+            <text wx:if="{{item.status === 'COMPLETED'}}">已完成</text>
+            <text wx:if="{{item.status === 'PAUSED'}}">已暂停</text>
+            <text wx:if="{{item.status === 'STOPPED'}}">已停用</text>
+          </view>
+        </view>
+        <view class="medication-info">
+          <text class="info-text">用量：{{item.dosage}}</text>
+          <text class="info-text">频次：{{item.frequency}}</text>
+        </view>
+        <view class="medication-info">
+          <text class="info-text">途径：{{item.route}}</text>
+        </view>
+        <view class="medication-footer">
+          <text class="date-text">开始：{{item.startDate}}</text>
+          <text class="careManager-text" wx:if="{{item.prescribedBy}}">开嘱人：{{item.prescribedBy}}</text>
+        </view>
+        <view class="medication-actions" wx:if="{{userInfo.role === 'CARE_MANAGER'}}">
+          <button class="action-btn edit-btn" bindtap="editMedication" data-id="{{item.id}}">编辑</button>
+          <button wx:if="{{item.status === 'ACTIVE'}}" class="action-btn stop-btn" bindtap="stopMedication" data-id="{{item.id}}" data-name="{{item.medicationName}}">停用</button>
+          <button wx:if="{{item.status === 'STOPPED' || item.status === 'PAUSED'}}" class="action-btn resume-btn" bindtap="resumeMedication" data-id="{{item.id}}" data-name="{{item.medicationName}}">恢复</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{!medicationLoading && medications.length === 0}}">
+      <text class="empty-icon">💊</text>
+      <text class="empty-text">暂无用药记录</text>
+      <button wx:if="{{userInfo.role === 'CARE_MANAGER'}}" class="add-first-btn" bindtap="addMedication">添加第一条用药记录</button>
+    </view>
+  </view>
+</view>

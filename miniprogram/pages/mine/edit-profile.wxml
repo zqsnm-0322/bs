@@ -1,0 +1,95 @@
+<view class="edit-profile-page">
+  <view class="page-header">
+    <text class="page-title">编辑个人信息</text>
+  </view>
+
+  <view class="form-content">
+    <!-- 只读信息 -->
+    <view class="info-section">
+      <view class="section-title">账号信息（不可修改）</view>
+      
+      <view class="info-item readonly">
+        <text class="label">用户名</text>
+        <text class="value">{{userInfo.username || '-'}}</text>
+      </view>
+
+      <view class="info-item readonly">
+        <text class="label">角色</text>
+        <text class="value">
+          {{userInfo.role === 'CARE_MANAGER' ? '照护主管' : userInfo.role === 'CAREGIVER' ? '护理员' : userInfo.role === 'DIRECTOR' ? '院长' : userInfo.role === 'ADMIN' ? '管理员' : '-'}}
+        </text>
+      </view>
+
+      <view class="info-item readonly">
+        <text class="label">护理区</text>
+        <text class="value">{{userInfo.careZone || '-'}}</text>
+      </view>
+    </view>
+
+    <!-- 可编辑信息 -->
+    <view class="form-section">
+      <view class="section-title">个人信息（可修改）</view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>真实姓名</text>
+        </view>
+        <input 
+          class="form-input" 
+          type="text" 
+          value="{{formData.realName}}"
+          placeholder="请输入真实姓名"
+          bindinput="onRealNameInput"
+          maxlength="20"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>手机号码</text>
+        </view>
+        <input 
+          class="form-input" 
+          type="number" 
+          value="{{formData.phone}}"
+          placeholder="请输入手机号码"
+          bindinput="onPhoneInput"
+          maxlength="11"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text>邮箱地址</text>
+        </view>
+        <input 
+          class="form-input" 
+          type="text" 
+          value="{{formData.email}}"
+          placeholder="请输入邮箱地址"
+          bindinput="onEmailInput"
+          maxlength="50"
+        />
+      </view>
+    </view>
+
+    <view class="tips">
+      <text class="tips-icon">💡</text>
+      <text class="tips-text">用户名、角色和护理区由管理员管理，无法自行修改</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-buttons">
+    <button class="cancel-btn" bindtap="onCancel">取消</button>
+    <button 
+      class="submit-btn" 
+      bindtap="onSubmit" 
+      disabled="{{submitting}}"
+      loading="{{submitting}}"
+    >
+      保存
+    </button>
+  </view>
+</view>

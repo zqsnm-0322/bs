@@ -1,0 +1,69 @@
+{
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#409EFF",
+    "navigationBarTitleText": "颐康云"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tools/index",
+        "text": "工具"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ],
+    "selectedColor": "#409EFF",
+    "color": "#999999",
+    "borderStyle": "black"
+  },
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/tools/index",
+    "pages/resident/list/list",
+    "pages/resident/detail/detail",
+    "pages/risk/assess",
+    "pages/risk/assessment-detail",
+    "pages/alert/center",
+    "pages/care/plan",
+    "pages/care/create-plan",
+    "pages/care/plan-detail",
+    "pages/knowledge/base",
+    "pages/mine/mine",
+    "pages/mine/personal-info",
+    "pages/mine/edit-profile",
+    "pages/mine/change-password",
+    "pages/register/register",
+    "pages/health/services",
+    "pages/health/record",
+    "pages/health/education",
+    "pages/health/symptom-report",
+    "pages/health/medication",
+    "pages/health/add-medication",
+    "pages/health/add-vital-signs",
+    "pages/health/visit-service",
+    "pages/health/care-consultation",
+    "pages/health/predictions",
+    "pages/health/risk-report",
+    "pages/statistics/report",
+    "pages/message/list",
+    "pages/task/list",
+    "pages/care-manager/medication/index",
+    "pages/caregiver/symptom-list/index",
+    "pages/caregiver/bed-swap/index",
+    "pages/caregiver/vital-signs/index",
+    "pages/caregiver/medication/index",
+    "pages/assessment-reports/assessment-reports"
+  ]
+}

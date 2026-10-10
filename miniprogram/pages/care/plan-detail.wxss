@@ -1,0 +1,268 @@
+.plan-detail-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 30rpx;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.content {
+  padding-bottom: 40rpx;
+}
+
+/* 信息卡片 */
+.info-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+}
+
+.status {
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.status-ACTIVE {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+.status-COMPLETED {
+  background: #e3f2fd;
+  color: #2196f3;
+}
+
+.status-CANCELLED {
+  background: #fce4ec;
+  color: #e91e63;
+}
+
+/* 信息网格 */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 备注 */
+.notes {
+  padding: 24rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  margin-bottom: 30rpx;
+}
+
+.notes-label {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.notes-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 进度条 */
+.progress-section {
+  margin-top: 30rpx;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.progress-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.progress-value {
+  font-size: 32rpx;
+  color: #17a2b8;
+  font-weight: bold;
+}
+
+.progress-bar {
+  height: 16rpx;
+  background: #e0e0e0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #17a2b8 0%, #138496 100%);
+  border-radius: 8rpx;
+  transition: width 0.3s ease;
+}
+
+/* 任务卡片 */
+.tasks-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.task-item {
+  padding: 30rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  border-left: 6rpx solid #17a2b8;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.task-time {
+  font-size: 26rpx;
+  color: #17a2b8;
+  font-weight: bold;
+}
+
+.task-status {
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.task-status.completed {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+.task-status.pending {
+  background: #fff3e0;
+  color: #ff9800;
+}
+
+.task-content {
+  margin-bottom: 15rpx;
+}
+
+.task-title {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+}
+
+.task-complete-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #e0e0e0;
+  margin-top: 15rpx;
+}
+
+.complete-user,
+.complete-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.task-actions {
+  margin-top: 15rpx;
+}
+
+.complete-btn {
+  width: 100%;
+  height: 70rpx;
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  color: white;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.complete-btn:active {
+  opacity: 0.9;
+}
+
+/* 创建信息 */
+.creator-info {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.creator-text,
+.create-time {
+  font-size: 24rpx;
+  color: #999;
+}

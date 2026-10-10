@@ -1,0 +1,246 @@
+/* 健康宣教页面样式 */
+.education-page {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  background: #fd7e14;
+  padding: 60rpx 40rpx 80rpx;
+  text-align: center;
+  position: relative;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30rpx;
+  left: 0;
+  right: 0;
+  height: 60rpx;
+  background: #f5f5f5;
+  border-radius: 60rpx 60rpx 0 0;
+}
+
+.page-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 16rpx;
+  text-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+/* 搜索区域 */
+.search-section {
+  padding: 20rpx 40rpx 30rpx;
+}
+
+.search-box {
+  background: white;
+  border-radius: 50rpx;
+  padding: 20rpx 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.search-input {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 分类区域 */
+.category-section {
+  padding: 0 40rpx 30rpx;
+}
+
+.category-scroll {
+  white-space: nowrap;
+}
+
+.category-list {
+  display: flex;
+  gap: 20rpx;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx 30rpx;
+  min-width: 120rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.category-item.active {
+  background: #20c997;
+  color: white;
+}
+
+.category-icon {
+  font-size: 32rpx;
+  margin-bottom: 8rpx;
+}
+
+.category-name {
+  font-size: 24rpx;
+  text-align: center;
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 0 40rpx 40rpx;
+}
+
+.education-list {
+  height: calc(100vh - 500rpx);
+}
+
+.education-item {
+  display: flex;
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.education-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.education-header {
+  margin-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-badge {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.badge-icon {
+  font-size: 28rpx;
+  color: white;
+}
+
+.education-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.read-status {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+}
+
+.status-dot.read {
+  background: #52c41a;
+}
+
+.status-dot.unread {
+  background: #faad14;
+}
+
+.status-text {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.education-content {
+  flex: 1;
+}
+
+.education-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+  line-height: 1.4;
+}
+
+.education-summary {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.education-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.info-icon {
+  font-size: 20rpx;
+}
+
+.info-text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.education-arrow {
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-left: 20rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}

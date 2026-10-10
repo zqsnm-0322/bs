@@ -1,0 +1,67 @@
+<view class="predictions-page">
+  <!-- 头部信息 -->
+  <view class="header-info">
+    <view class="resident-info">
+      <text class="resident-name">{{residentInfo.name}}</text>
+      <text class="resident-id">入住编号：{{residentInfo.residentNo || residentInfo.residentId}}</text>
+    </view>
+    <view class="assessment-info">
+      <text class="assessment-time">评估时间：{{assessmentTime}}</text>
+      <view class="risk-badge {{riskLevel.toLowerCase()}}">{{riskLevelText}}</view>
+    </view>
+  </view>
+
+  <!-- 预测列表 -->
+  <view class="predictions-container">
+    <view wx:if="{{predictions.length === 0}}" class="empty-state">
+      <text class="empty-icon">📊</text>
+      <text class="empty-text">暂无健康预测数据</text>
+      <text class="empty-desc">请先进行风险评估</text>
+    </view>
+
+    <view wx:for="{{predictions}}" wx:key="index" class="prediction-card {{item.severity.toLowerCase()}}">
+      <view class="card-header">
+        <view class="condition-info">
+          <text class="condition-name">{{item.condition}}</text>
+          <view class="severity-badge {{item.severity.toLowerCase()}}">
+            {{item.severity === 'CRITICAL' ? '极高风险' : item.severity === 'HIGH' ? '高风险' : item.severity === 'MEDIUM' ? '中风险' : '低风险'}}
+          </view>
+        </view>
+        <view class="probability-info">
+          <text class="probability">{{item.probability}}</text>
+          <text class="timeframe">{{item.timeframe}}</text>
+        </view>
+      </view>
+
+      <view class="card-content">
+        <view class="symptoms-section">
+          <text class="section-title">可能出现的症状</text>
+          <view class="symptoms-list">
+            <text wx:for="{{item.symptoms}}" wx:key="symptom" wx:for-item="symptom" class="symptom-item">
+              • {{symptom}}
+            </text>
+          </view>
+        </view>
+
+        <view class="interventions-section">
+          <text class="section-title">建议采取的措施</text>
+          <view class="interventions-list">
+            <text wx:for="{{item.interventions}}" wx:key="intervention" wx:for-item="intervention" class="intervention-item">
+              ✓ {{intervention}}
+            </text>
+          </view>
+        </view>
+
+        <view wx:if="{{item.statisticalBasis}}" class="statistical-section">
+          <text class="section-title">统计学依据</text>
+          <text class="statistical-text">{{item.statisticalBasis}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view wx:if="{{predictions.length > 0}}" class="bottom-actions">
+    <button class="action-btn primary full-width" bindtap="shareWithFamily">分享给家属</button>
+  </view>
+</view>

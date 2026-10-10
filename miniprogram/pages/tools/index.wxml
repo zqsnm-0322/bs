@@ -1,0 +1,30 @@
+<view class="tools-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">{{userType === 'RESIDENT' ? '健康服务' : '照护工具'}}</text>
+    <text class="page-subtitle">{{userType === 'RESIDENT' ? '您的养老健康助手' : '养老机构日常照护工作台'}}</text>
+  </view>
+
+  <!-- 工具列表 -->
+  <view class="tools-container">
+    <view wx:for="{{tools}}" 
+          wx:key="id" 
+          class="tool-card"
+          bindtap="navigateToTool"
+          data-id="{{item.id}}">
+      
+      <view class="tool-icon" style="background-color: {{item.color}};">
+        <text class="icon-text">{{item.icon}}</text>
+      </view>
+      
+      <view class="tool-content">
+        <text class="tool-name">{{item.name}}</text>
+        <text class="tool-desc">{{item.desc}}</text>
+      </view>
+      
+      <view class="tool-arrow">
+        <text class="arrow-icon">></text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,185 @@
+/* 老人查看评估报告页面样式 */
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+}
+
+.header {
+  padding: 30rpx 20rpx;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.3;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+}
+
+.empty-hint {
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+/* 报告列表 */
+.report-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.report-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 报告头部 */
+.report-header {
+  margin-bottom: 20rpx;
+}
+
+.report-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.scale-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.risk-badge {
+  padding: 8rpx 20rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.risk-high {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.risk-medium {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  color: #d35400;
+}
+
+.risk-low {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  color: #27ae60;
+}
+
+.report-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 报告内容 */
+.report-content {
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.score {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+/* 建议措施 */
+.suggestion-box {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 20%, #fff 20%);
+  border-left: 6rpx solid #f39c12;
+  border-radius: 10rpx;
+}
+
+.suggestion-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #d35400;
+}
+
+.icon {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
+
+.suggestion-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 报告底部 */
+.report-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.view-detail {
+  font-size: 28rpx;
+  color: #667eea;
+  font-weight: bold;
+}
+
+/* 加载状态 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50rpx 0;
+  font-size: 28rpx;
+  color: #999;
+}

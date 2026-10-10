@@ -1,0 +1,181 @@
+.container {
+  padding: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.logo-box {
+  margin-top: 80rpx;
+  margin-bottom: 60rpx;
+  text-align: center;
+}
+
+.logo {
+  width: 150rpx;
+  height: 150rpx;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+/* 用户类型切换 */
+.user-type-tabs {
+  display: flex;
+  width: 100%;
+  background: #fff;
+  border-radius: 50rpx;
+  padding: 8rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
+  border-radius: 40rpx;
+  transition: all 0.3s;
+}
+
+.tab-item.active {
+  background: #007bff;
+}
+
+.tab-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.tab-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.tab-item.active .tab-text {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 表单 */
+.form-box {
+  width: 100%;
+}
+
+.input-group {
+  margin-bottom: 40rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.input {
+  font-size: 32rpx;
+  height: 60rpx;
+  color: #333;
+}
+
+.btn-login {
+  background: #28a745;
+  color: #fff;
+  margin-top: 40rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 20rpx rgba(40, 167, 69, 0.3);
+}
+
+.btn-login[disabled] {
+  opacity: 0.6;
+}
+
+/* 快速登录 */
+.quick-login {
+  margin-top: 40rpx;
+  text-align: center;
+}
+
+.quick-login-title {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.quick-login-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rpx;
+}
+
+.btn-quick {
+  background: #f5f5f5;
+  color: #666;
+  border: 1rpx solid #e0e0e0;
+  font-size: 24rpx;
+  padding: 16rpx 24rpx;
+  border-radius: 40rpx;
+  width: 200rpx;
+  text-align: center;
+}
+
+/* 注册链接 */
+.register-link {
+  margin-top: 40rpx;
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.register-text {
+  font-size: 26rpx;
+  color: #999;
+  margin-right: 12rpx;
+}
+
+.register-btn {
+  font-size: 28rpx;
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* 提示信息 */
+.tips {
+  margin-top: 60rpx;
+  padding: 24rpx;
+  background: #fff9e6;
+  border-radius: 12rpx;
+  border-left: 4rpx solid #faad14;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #faad14;
+  font-weight: bold;
+  margin-right: 8rpx;
+}
+
+.tip-content {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+}

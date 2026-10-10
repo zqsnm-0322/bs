@@ -1,0 +1,181 @@
+<view class="symptom-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">症状上报</text>
+    <text class="page-subtitle">及时报告身体不适，获得专业护理指导</text>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'report' ? 'active' : ''}}" bindtap="switchTab" data-tab="report">
+      <text>症状上报</text>
+    </view>
+    <view class="tab-item {{activeTab === 'history' ? 'active' : ''}}" bindtap="switchTab" data-tab="history">
+      <text>上报记录</text>
+    </view>
+  </view>
+
+  <!-- 症状上报表单 -->
+  <view wx:if="{{activeTab === 'report'}}" class="report-form">
+    <scroll-view scroll-y class="form-content">
+      <!-- 需求5: 显示编辑提示 -->
+      <view wx:if="{{editingReportId}}" class="edit-tip">
+        <text>📝 正在修改症状上报</text>
+      </view>
+
+      <!-- 症状类型选择 -->
+      <view class="form-section">
+        <view class="section-title">症状类型 *</view>
+        <view class="symptom-grid">
+          <view class="symptom-item {{reportForm.symptomType === item.id ? 'selected' : ''}}" 
+                wx:for="{{symptomTypes}}" 
+                wx:key="id"
+                bindtap="selectSymptomType"
+                data-type="{{item.id}}">
+            <text class="symptom-icon">{{item.icon}}</text>
+            <text class="symptom-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 严重程度 -->
+      <view class="form-section">
+        <view class="section-title">严重程度 *</view>
+        <view class="severity-list">
+          <view class="severity-item {{reportForm.severity === item.id ? 'selected' : ''}}" 
+                wx:for="{{severityLevels}}" 
+                wx:key="id"
+                bindtap="selectSeverity"
+                data-severity="{{item.id}}">
+            <view class="severity-indicator" style="background-color: {{item.color}}"></view>
+            <view class="severity-info">
+              <text class="severity-name">{{item.name}}</text>
+              <text class="severity-desc">{{item.desc}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 症状描述 -->
+      <view class="form-section">
+        <view class="section-title">症状描述 *</view>
+        <textarea class="description-input" 
+                  placeholder="请详细描述您的症状，包括具体感受、持续时间等..."
+                  value="{{reportForm.description}}"
+                  bindinput="onDescriptionInput"
+                  maxlength="500"
+                  show-confirm-bar="{{false}}"></textarea>
+      </view>
+
+      <!-- 部位/位置 -->
+      <view class="form-section">
+        <view class="section-title">症状部位</view>
+        <input class="location-input" 
+               placeholder="如：头部、胸部、腰部等"
+               value="{{reportForm.location}}"
+               bindinput="onLocationInput" />
+      </view>
+
+      <!-- 开始时间 -->
+      <view class="form-section">
+        <view class="section-title">开始时间 *</view>
+        <picker mode="datetime" 
+                bindchange="onTimeChange">
+          <view class="time-picker">
+            <text class="time-text">{{reportForm.startTime || '请选择开始时间'}}</text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 诱发因素 -->
+      <view class="form-section">
+        <view class="section-title">可能的诱发因素</view>
+        
+        <!-- 调试信息 -->
+        <view style="font-size: 24rpx; color: #999; margin-bottom: 20rpx;">
+          已选择: {{reportForm.triggers.length}} 个
+        </view>
+        
+        <view class="trigger-list">
+          <view 
+                wx:for="{{commonTriggers}}" 
+                wx:key="index"
+                class="trigger-item {{reportForm.triggers && reportForm.triggers.includes(item) ? 'selected' : ''}}" 
+                bindtap="toggleTrigger"
+                data-trigger="{{item}}"
+                hover-class="trigger-item-hover"
+                hover-stay-time="100">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 其他信息 -->
+      <view class="form-section">
+        <view class="section-title">其他信息</view>
+        <textarea class="additional-input" 
+                  placeholder="其他需要说明的情况..."
+                  value="{{reportForm.additionalInfo}}"
+                  bindinput="onAdditionalInfoInput"
+                  maxlength="200"
+                  show-confirm-bar="{{false}}"></textarea>
+      </view>
+
+      <!-- 提交按钮 -->
+      <view class="submit-section">
+        <button class="submit-btn {{submitting ? 'loading' : ''}}" 
+                bindtap="submitReport"
+                loading="{{submitting}}"
+                disabled="{{submitting}}">
+          {{submitting ? (editingReportId ? '修改中...' : '上报中...') : (editingReportId ? '确认修改' : '提交症状报告')}}
+        </button>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 上报记录 -->
+  <view wx:if="{{activeTab === 'history'}}" class="report-history">
+    <scroll-view scroll-y class="history-content">
+      <view class="history-list">
+        <view class="history-item" 
+              wx:for="{{reportHistory}}" 
+              wx:key="id"
+              bindtap="viewReportDetail"
+              data-id="{{item.id}}">
+          <view class="history-header">
+            <view class="symptom-info">
+              <text class="symptom-icon">{{getSymptomIcon(item.symptomType)}}</text>
+              <text class="symptom-name">{{item.symptomName}}</text>
+            </view>
+            <view class="report-status {{item.status === '已处理' ? 'completed' : 'pending'}}">
+              {{item.status}}
+            </view>
+          </view>
+          
+          <view class="history-details">
+            <text class="severity-badge" style="color: {{getSeverityColor(item.severity)}}">
+              {{item.severityName}}
+            </text>
+            <text class="report-time">{{item.date}}</text>
+          </view>
+          
+          <view wx:if="{{item.location}}" class="location-info">
+            <text class="location-label">部位：</text>
+            <text class="location-value">{{item.location}}</text>
+          </view>
+          
+          <view wx:if="{{item.caregiverReply}}" class="caregiver-reply">
+            <text class="reply-label">护理员回复：</text>
+            <text class="reply-content">{{item.caregiverReply}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view wx:if="{{reportHistory.length === 0}}" class="empty-history">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无上报记录</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

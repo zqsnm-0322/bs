@@ -1,0 +1,72 @@
+<view class="symptom-list-page">
+  <view class="page-header">
+    <text class="page-title">症状上报管理</text>
+    <text class="page-subtitle">查看并处理老人健康状况上报</text>
+    <view class="pending-badge" wx:if="{{pendingCount > 0}}">
+      <text>{{pendingCount}} 条待处理</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" 
+           placeholder="搜索老人姓名、床位号..." 
+           value="{{keyword}}" 
+           bindinput="onSearchInput"
+           bindconfirm="doSearch" />
+    <button class="search-btn" bindtap="doSearch">搜索</button>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-item {{activeFilter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-filter="all">
+      全部
+    </view>
+    <view class="filter-item {{activeFilter === 'PENDING' ? 'active' : ''}}" bindtap="switchFilter" data-filter="PENDING">
+      待处理
+    </view>
+    <view class="filter-item {{activeFilter === 'HANDLED' ? 'active' : ''}}" bindtap="switchFilter" data-filter="HANDLED">
+      已处理
+    </view>
+  </view>
+
+  <!-- 上报列表 -->
+  <scroll-view scroll-y class="report-list">
+    <view class="report-card" wx:for="{{reports}}" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <view class="resident-info">
+          <text class="resident-name">{{item.residentName}}</text>
+          <text class="bed-info" wx:if="{{item.roomBedNo}}">{{item.careZone}} - {{item.roomBedNo}}</text>
+        </view>
+        <text class="status-tag status-{{item.status}}">{{item.statusText}}</text>
+      </view>
+
+      <view class="card-body">
+        <view class="symptom-row">
+          <text class="symptom-name">{{item.symptomName}}</text>
+          <text class="severity-badge severity-{{item.severity}}">{{item.severityName}}</text>
+        </view>
+        <text class="description">{{item.description}}</text>
+        <view class="meta-row">
+          <text class="report-time">上报时间：{{item.createTime}}</text>
+        </view>
+        <view wx:if="{{item.handleResult}}" class="handle-result">
+          <text class="result-label">处理回复：</text>
+          <text class="result-content">{{item.handleResult}}</text>
+          <text class="handler-name">—— {{item.handlerName}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{item.status === 'PENDING'}}" class="card-actions">
+        <button class="handle-btn" catchtap="handleReport" data-id="{{item.id}}">
+          处理
+        </button>
+      </view>
+    </view>
+
+    <view wx:if="{{reports.length === 0}}" class="empty-state">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无症状上报记录</text>
+    </view>
+  </scroll-view>
+</view>

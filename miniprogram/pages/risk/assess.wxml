@@ -1,0 +1,100 @@
+<view class="container">
+  <!-- 老人信息卡片 -->
+  <view class="resident-card" wx:if="{{residentId}}">
+    <view class="resident-avatar">{{residentName ? residentName[0] : '?'}}</view>
+    <view class="resident-details">
+      <text class="resident-name">{{residentName || '未知老人'}}</text>
+      <text class="resident-id">ID: {{residentId}}</text>
+    </view>
+  </view>
+
+  <!-- 未选择老人提示 -->
+  <view class="no-resident-tip" wx:if="{{!residentId}}">
+    <text class="tip-icon">⚠️</text>
+    <text class="tip-text">请从老人列表选择老人后进行评估</text>
+  </view>
+
+  <!-- 离线模式提示 -->
+  <view class="offline-tip" wx:if="{{offlineMode}}">
+    <text>⚠️ 当前为离线模式，数据将保存到本地</text>
+  </view>
+
+  <!-- 量表选择 -->
+  <view class="section" wx:if="{{residentId}}">
+    <view class="title">选择评估量表</view>
+    <radio-group class="radio-group" bindchange="onScaleChange">
+      <label class="radio" wx:for="{{scaleList}}" wx:key="scaleType">
+        <radio value="{{item.scaleType}}" checked="{{item.scaleType === scaleType}}"/> 
+        {{item.scaleName}}
+      </label>
+    </radio-group>
+  </view>
+
+  <!-- 题目列表 -->
+  <view class="question-list" wx:if="{{residentId}}">
+    <view class="q-item" wx:for="{{questions}}" wx:key="id">
+      <view class="q-title">
+        {{item.questionOrder}}. {{item.questionText}}
+        <text class="required" wx:if="{{item.required === 1}}">*</text>
+      </view>
+      
+      <!-- 单选题 -->
+      <radio-group wx:if="{{item.questionType === 'radio'}}" 
+                   bindchange="onAnswerChange" 
+                   data-question-id="{{item.id}}">
+        <view class="option-item" wx:for="{{item.options}}" wx:for-item="opt" wx:key="value">
+          <label>
+            <radio value="{{opt.value}}" checked="{{answers[item.id] == opt.value}}"/> 
+            {{opt.label}} <text class="score-text">({{opt.score}}分)</text>
+          </label>
+        </view>
+      </radio-group>
+
+      <!-- 多选题 -->
+      <checkbox-group wx:elif="{{item.questionType === 'checkbox'}}" 
+                      bindchange="onAnswerChange" 
+                      data-question-id="{{item.id}}">
+        <view class="option-item" wx:for="{{item.options}}" wx:for-item="opt" wx:key="value">
+          <label>
+            <checkbox value="{{opt.value}}"/> 
+            {{opt.label}} <text class="score-text">({{opt.score}}分)</text>
+          </label>
+        </view>
+      </checkbox-group>
+
+      <!-- 下拉选择 -->
+      <picker wx:elif="{{item.questionType === 'select'}}" 
+              mode="selector"
+              range="{{item.options}}"
+              range-key="label"
+              bindchange="onAnswerChange"
+              data-question-id="{{item.id}}">
+        <view class="picker">
+          {{answers[item.id] !== undefined ? item.options[answers[item.id]].label : '请选择'}}
+        </view>
+      </picker>
+
+      <!-- 输入框 -->
+      <input wx:elif="{{item.questionType === 'input'}}"
+             class="input-field"
+             placeholder="请输入"
+             bindinput="onAnswerChange"
+             data-question-id="{{item.id}}"
+             value="{{answers[item.id]}}" />
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <view class="total">
+      <text class="label">当前总分：</text>
+      <text class="score">{{totalScore}}</text>
+    </view>
+    <button class="btn-submit" 
+            bindtap="submit" 
+            loading="{{loading}}"
+            disabled="{{loading}}">
+      {{loading ? '提交中...' : '提交评估'}}
+    </button>
+  </view>
+</view>

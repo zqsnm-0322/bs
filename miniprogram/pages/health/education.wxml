@@ -1,0 +1,88 @@
+<view class="education-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">健康宣教</text>
+    <text class="page-subtitle">学习健康知识，提升自我护理能力</text>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-section">
+    <view class="search-box">
+      <input class="search-input" 
+             placeholder="搜索健康知识..." 
+             value="{{searchKeyword}}"
+             bindinput="onSearchInput" />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <view class="category-section">
+    <scroll-view scroll-x class="category-scroll">
+      <view class="category-list">
+        <view class="category-item {{selectedCategory === 'all' ? 'active' : ''}}" 
+              bindtap="selectCategory" 
+              data-category="all">
+          <text>全部</text>
+        </view>
+        <view class="category-item {{selectedCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{categories}}" 
+              wx:key="id"
+              bindtap="selectCategory" 
+              data-category="{{item.id}}">
+          <text class="category-icon">{{item.icon}}</text>
+          <text class="category-name">{{item.name}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 宣教内容列表 -->
+  <view class="content-section">
+    <scroll-view scroll-y class="education-list">
+      <view class="education-item" 
+            wx:for="{{educationList}}" 
+            wx:key="id"
+            bindtap="viewEducation"
+            data-id="{{item.id}}">
+        <view class="education-header">
+          <view class="category-badge" style="background-color: {{getCategoryColor(item.category)}}">
+            <text class="badge-icon">{{item.categoryIcon}}</text>
+          </view>
+          <view class="education-meta">
+            <view class="read-status">
+              <text class="status-dot {{item.isRead ? 'read' : 'unread'}}"></text>
+              <text class="status-text">{{item.isRead ? '已读' : '未读'}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="education-content">
+          <text class="education-title">{{item.title}}</text>
+          <text class="education-summary">{{item.summary}}</text>
+          
+          <view class="education-info">
+            <view class="info-item">
+              <text class="info-icon">⏱️</text>
+              <text class="info-text">{{item.readTime}}</text>
+            </view>
+            <view class="info-item">
+              <text class="info-icon">👁️</text>
+              <text class="info-text">{{item.views}}次阅读</text>
+            </view>
+            <view class="info-item">
+              <text class="info-icon">📅</text>
+              <text class="info-text">{{item.publishDate}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="education-arrow">></view>
+      </view>
+      
+      <view wx:if="{{educationList.length === 0}}" class="empty-state">
+        <text class="empty-icon">📚</text>
+        <text class="empty-text">暂无相关内容</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

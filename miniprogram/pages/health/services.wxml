@@ -1,0 +1,87 @@
+<view class="services-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <view class="header-bg">
+      <text class="page-title">{{isResident ? '健康服务' : '照护工具'}}</text>
+      <text class="page-subtitle">{{isResident ? '为您提供全方位的养老健康服务' : '养老机构日常照护工作台'}}</text>
+    </view>
+  </view>
+
+  <!-- 老人健康服务 -->
+  <view wx:if="{{isResident}}" class="services-container">
+    <view class="services-grid">
+      <view class="service-card" 
+            wx:for="{{residentServices}}" 
+            wx:key="id"
+            bindtap="onServiceTap"
+            data-id="{{item.id}}">
+        <view class="service-icon" style="background: linear-gradient(135deg, {{item.color}} 0%, {{item.color}}80 100%)">
+          <text>{{item.icon}}</text>
+        </view>
+        <view class="service-info">
+          <text class="service-title">{{item.title}}</text>
+          <text class="service-desc">{{item.desc}}</text>
+        </view>
+        <view class="service-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 老人快捷信息 -->
+    <view class="quick-info">
+      <view class="info-title">快捷信息</view>
+      <view class="info-cards">
+        <view class="info-card">
+          <text class="info-label">入住编号</text>
+          <text class="info-value">{{userInfo.residentNo || userInfo.residentId || '-'}}</text>
+        </view>
+        <view class="info-card">
+          <text class="info-label">床号</text>
+          <text class="info-value">{{userInfo.roomBedNo || userInfo.bedNo || '-'}}</text>
+        </view>
+        <view class="info-card">
+          <text class="info-label">护理区</text>
+          <text class="info-value">{{userInfo.careZone || '-'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 医护服务 -->
+  <view wx:else class="services-container">
+    <view class="services-grid">
+      <view class="service-card" 
+            wx:for="{{caregiverServices}}" 
+            wx:key="id"
+            bindtap="onServiceTap"
+            data-id="{{item.id}}">
+        <view class="service-icon" style="background: linear-gradient(135deg, {{item.color}} 0%, {{item.color}}80 100%)">
+          <text>{{item.icon}}</text>
+        </view>
+        <view class="service-info">
+          <text class="service-title">{{item.title}}</text>
+          <text class="service-desc">{{item.desc}}</text>
+        </view>
+        <view class="service-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 照护工作快捷统计 -->
+    <view class="quick-stats">
+      <view class="stats-title">今日概览</view>
+      <view class="stats-cards">
+        <view class="stat-card">
+          <text class="stat-number">18</text>
+          <text class="stat-label">在住老人</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-number warning">11</text>
+          <text class="stat-label">高危老人</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-number success">25</text>
+          <text class="stat-label">已评估</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

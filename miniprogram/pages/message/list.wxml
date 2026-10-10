@@ -1,0 +1,57 @@
+<view class="message-page">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="title">
+      消息中心
+      <text class="badge" wx:if="{{unreadCount > 0}}">{{unreadCount}}</text>
+    </view>
+    <view class="action" bindtap="markAllAsRead" wx:if="{{unreadCount > 0}}">
+      全部已读
+    </view>
+  </view>
+
+  <!-- 消息列表 -->
+  <view class="message-list">
+    <view class="message-item {{item.isRead === 0 ? 'unread' : ''}}" 
+          wx:for="{{messageList}}" 
+          wx:key="id"
+          bindtap="viewMessage"
+          data-id="{{item.id}}"
+          data-resident-id="{{item.residentId}}">
+      
+      <view class="message-icon {{item.riskType}}">
+        <text wx:if="{{item.riskType === 'FALL'}}">跌</text>
+        <text wx:elif="{{item.riskType === 'NUTRITION'}}">养</text>
+        <text wx:elif="{{item.riskType === 'COGNITIVE'}}">认</text>
+        <text wx:elif="{{item.riskType === 'WANDERING'}}">行</text>
+        <text wx:elif="{{item.riskType === 'PRESSURE'}}">疮</text>
+        <text wx:else>!</text>
+      </view>
+
+      <view class="message-content">
+        <view class="message-header">
+          <text class="resident-name">{{item.residentName}}</text>
+          <text class="message-time">{{item.createTime}}</text>
+        </view>
+        <view class="message-text">{{item.message}}</view>
+      </view>
+
+      <view class="message-actions" catchtap="">
+        <view class="delete-btn" catchtap="deleteMessage" data-id="{{item.id}}">
+          删除
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && messageList.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无消息</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

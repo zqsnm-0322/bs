@@ -1,0 +1,132 @@
+<view class="alert-center-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">预警中心</text>
+    <text class="page-subtitle">实时监控老人风险状态</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-section">
+    <view class="stats-grid">
+      <view class="stat-card">
+        <text class="stat-number">{{stats.total}}</text>
+        <text class="stat-label">总预警</text>
+      </view>
+      <view class="stat-card high">
+        <text class="stat-number">{{stats.high}}</text>
+        <text class="stat-label">高危</text>
+      </view>
+      <view class="stat-card medium">
+        <text class="stat-number">{{stats.medium}}</text>
+        <text class="stat-label">中危</text>
+      </view>
+      <view class="stat-card low">
+        <text class="stat-number">{{stats.low}}</text>
+        <text class="stat-label">低危</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-section">
+    <scroll-view class="filter-tabs" scroll-x="true">
+      <view class="filter-tab {{filterType === 'ALL' ? 'active' : ''}}" 
+            bindtap="filterAlerts" 
+            data-type="ALL">
+        全部
+      </view>
+      <view class="filter-tab {{filterType === 'HIGH' ? 'active' : ''}}" 
+            bindtap="filterAlerts" 
+            data-type="HIGH">
+        高危
+      </view>
+      <view class="filter-tab {{filterType === 'MEDIUM' ? 'active' : ''}}" 
+            bindtap="filterAlerts" 
+            data-type="MEDIUM">
+        中危
+      </view>
+      <view class="filter-tab {{filterType === 'LOW' ? 'active' : ''}}" 
+            bindtap="filterAlerts" 
+            data-type="LOW">
+        低危
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 预警列表 -->
+  <view class="alert-list">
+    <view wx:for="{{filteredAlerts}}" 
+          wx:key="id" 
+          class="alert-item {{item.riskLevel.toLowerCase()}}"
+          bindtap="handleAlert"
+          data-id="{{item.id}}">
+      
+      <!-- 预警头部 -->
+      <view class="alert-header">
+        <view class="resident-info">
+          <text class="resident-name">{{item.residentName}}</text>
+          <text class="bed-info">{{item.bedNo}} · {{item.careZone}}</text>
+        </view>
+        <view class="alert-status {{item.status.toLowerCase()}}">
+          <text wx:if="{{item.status === 'PENDING'}}">待处理</text>
+          <text wx:if="{{item.status === 'PROCESSING'}}">处理中</text>
+          <text wx:if="{{item.status === 'COMPLETED'}}">已完成</text>
+        </view>
+      </view>
+
+      <!-- 风险信息 -->
+      <view class="risk-info">
+        <view class="risk-badge {{item.riskLevel.toLowerCase()}}">
+          <text class="risk-type">
+            <text>{{item.riskTypeIcon}} · {{item.riskTypeText}}</text>
+          </text>
+          <text class="risk-score">{{item.riskScore}}分</text>
+        </view>
+        <view class="risk-level {{item.riskLevel.toLowerCase()}}">
+          {{item.riskLevel === 'HIGH' ? '高危' : item.riskLevel === 'MEDIUM' ? '中危' : '低危'}}
+        </view>
+      </view>
+
+      <!-- 预警描述 -->
+      <view class="alert-description">
+        <text>{{item.description}}</text>
+      </view>
+
+      <!-- 干预措施 -->
+      <view class="interventions" wx:if="{{item.interventions.length > 0}}">
+        <text class="interventions-title">建议措施：</text>
+        <view class="intervention-tags">
+          <text wx:for="{{item.interventions}}" 
+                wx:for-item="intervention" 
+                wx:key="*this" 
+                class="intervention-tag">
+            {{intervention}}
+          </text>
+        </view>
+      </view>
+
+      <!-- 预警时间 -->
+      <view class="alert-footer">
+        <text class="alert-time">{{item.alertTime}}</text>
+        <view class="alert-actions" catchtap="">
+          <text class="action-btn" 
+                catchtap="goToResidentDetail" 
+                data-id="{{item.id}}">
+            查看老人
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && filteredAlerts.length === 0}}">
+      <text class="empty-icon">🔔</text>
+      <text class="empty-text">暂无预警信息</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

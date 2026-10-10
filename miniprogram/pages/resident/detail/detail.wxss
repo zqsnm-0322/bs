@@ -1,0 +1,623 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 老人基本信息 */
+.resident-info {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #007AFF;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-right: 30rpx;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.details {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.info-details {
+  border-top: 1rpx solid #eee;
+  padding-top: 30rpx;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: #666;
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.value {
+  color: #333;
+  flex: 1;
+}
+
+/* 加载状态 */
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #666;
+}
+
+/* 快捷操作 */
+.action-section {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-actions {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.add-btn {
+  font-size: 26rpx;
+  color: #409EFF;
+  padding: 8rpx 16rpx;
+  background: #ecf5ff;
+  border-radius: 8rpx;
+  font-weight: normal;
+}
+
+.refresh-btn {
+  font-size: 26rpx;
+  color: #409EFF;
+  font-weight: normal;
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #999;
+  font-weight: normal;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  max-width: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 12rpx;
+  background: white;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.action-btn.primary {
+  background: #007AFF;
+  color: white;
+  border-color: #007AFF;
+}
+
+.btn-icon {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 风险状态 */
+.risk-section {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.risk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.risk-tag {
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: white;
+}
+
+.risk-tag.HIGH {
+  background: #ff4757;
+}
+
+.risk-tag.MEDIUM {
+  background: #ffa502;
+}
+
+.risk-tag.LOW {
+  background: #2ed573;
+}
+
+/* 评估历史 */
+.history-section {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.refresh-btn {
+  font-size: 28rpx;
+  color: #007AFF;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.history-list {
+  margin-top: 20rpx;
+}
+
+.history-item {
+  padding: 30rpx;
+  border: 1rpx solid #eee;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  background: #fafafa;
+}
+
+.history-item:last-child {
+  margin-bottom: 0;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.scale-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.score {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #007AFF;
+}
+
+.history-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.risk-level {
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  color: white;
+}
+
+.risk-level.HIGH {
+  background: #ff4757;
+}
+
+.risk-level.MEDIUM {
+  background: #ffa502;
+}
+
+.risk-level.LOW {
+  background: #2ed573;
+}
+
+.assessor {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.history-time {
+  font-size: 24rpx;
+  color: #999;
+  text-align: right;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+  display: block;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.add-first-btn {
+  margin: 20rpx auto 0;
+  width: 400rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+/* 用药信息 */
+.medication-section {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-top: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.medication-list {
+  margin-top: 20rpx;
+}
+
+.medication-item {
+  padding: 30rpx;
+  border: 1rpx solid #eee;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  background: #fafafa;
+}
+
+.medication-item:last-child {
+  margin-bottom: 0;
+}
+
+.medication-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.medication-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.medication-status {
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  color: white;
+}
+
+.medication-status.ACTIVE {
+  background: #2ed573;
+}
+
+.medication-status.COMPLETED {
+  background: #999;
+}
+
+.medication-status.PAUSED {
+  background: #ffa502;
+}
+
+.medication-status.STOPPED {
+  background: #ff4757;
+}
+
+.medication-info {
+  display: flex;
+  gap: 30rpx;
+  margin-bottom: 10rpx;
+}
+
+.info-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.medication-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15rpx;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.date-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.careManager-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.medication-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.action-btn {
+  flex: 1;
+  height: 60rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn {
+  background: #007AFF;
+  color: white;
+}
+
+.stop-btn {
+  background: #ff4757;
+  color: white;
+}
+
+.resume-btn {
+  background: #2ed573;
+  color: white;
+}
+
+.action-btn:active {
+  opacity: 0.8;
+}
+
+/* 健康预测样式 */
+.predictions-section {
+  background: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.predictions-content {
+  margin-top: 20rpx;
+}
+
+.prediction-summary {
+  background: #f6ffed;
+  border: 1rpx solid #b7eb8f;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.summary-text {
+  font-size: 26rpx;
+  color: #389e0d;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.assessment-time {
+  font-size: 22rpx;
+  color: #8c8c8c;
+}
+
+.predictions-list {
+  margin-bottom: 20rpx;
+}
+
+.prediction-item {
+  border: 1rpx solid #f0f0f0;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  background: #fafafa;
+  border-left: 6rpx solid #52c41a;
+}
+
+.prediction-item:last-child {
+  margin-bottom: 0;
+}
+
+.prediction-item.critical {
+  border-left-color: #f5222d;
+  background: #fff1f0;
+}
+
+.prediction-item.high {
+  border-left-color: #fa8c16;
+  background: #fff7e6;
+}
+
+.prediction-item.medium {
+  border-left-color: #faad14;
+  background: #fffbe6;
+}
+
+.prediction-item.low {
+  border-left-color: #52c41a;
+  background: #f6ffed;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.condition-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #262626;
+}
+
+.severity-badge {
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  color: white;
+}
+
+.severity-badge.critical {
+  background: #f5222d;
+}
+
+.severity-badge.high {
+  background: #fa8c16;
+}
+
+.severity-badge.medium {
+  background: #faad14;
+}
+
+.severity-badge.low {
+  background: #52c41a;
+}
+
+.prediction-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.probability {
+  font-size: 24rpx;
+  color: #fa8c16;
+  font-weight: 500;
+}
+
+.timeframe {
+  font-size: 24rpx;
+  color: #8c8c8c;
+  background: #f0f0f0;
+  padding: 2rpx 8rpx;
+  border-radius: 8rpx;
+}
+
+.prediction-symptoms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+}
+
+.symptoms-label {
+  font-size: 24rpx;
+  color: #595959;
+  font-weight: 500;
+}
+
+.symptoms-text {
+  font-size: 24rpx;
+  color: #8c8c8c;
+  flex: 1;
+}
+
+.predictions-actions {
+  display: flex;
+  justify-content: center;
+  padding: 0 20rpx;
+}
+
+.predictions-actions .action-btn {
+  min-width: 300rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.predictions-actions .action-btn.primary {
+  background: #1890ff;
+  color: white;
+}
+
+.predictions-actions .action-btn.full-width {
+  width: 100%;
+}
+
+.empty-state .empty-desc {
+  font-size: 24rpx;
+  color: #bfbfbf;
+  margin-top: 8rpx;
+  display: block;
+}

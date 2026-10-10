@@ -1,0 +1,241 @@
+/* 老人注册页面样式 */
+.register-page {
+  min-height: 100vh;
+  background: #495057;
+  position: relative;
+}
+
+/* 头部样式 */
+.header {
+  padding: 40rpx 60rpx 60rpx;
+  position: relative;
+}
+
+.back-btn {
+  position: absolute;
+  left: 40rpx;
+  top: 40rpx;
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  backdrop-filter: blur(10rpx);
+  transition: all 0.3s ease;
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.back-icon {
+  color: white;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.title-section {
+  text-align: center;
+  margin-top: 80rpx;
+}
+
+.main-title {
+  display: block;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 16rpx;
+  text-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.sub-title {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+/* 表单容器 */
+.form-container {
+  background: white;
+  border-radius: 40rpx 40rpx 0 0;
+  padding: 60rpx 40rpx 80rpx;
+  margin-top: 40rpx;
+  box-shadow: 0 -10rpx 40rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rpx;
+  height: 8rpx;
+  background: #e1e8ed;
+  border-radius: 4rpx;
+}
+
+/* 表单项样式 */
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 2rpx solid #e1e8ed;
+  border-radius: 16rpx;
+  padding: 0 20rpx;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper:focus-within {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 6rpx rgba(102, 126, 234, 0.1);
+  transform: translateY(-2rpx);
+}
+
+.input-icon {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  opacity: 0.6;
+}
+
+.form-input {
+  flex: 1;
+  height: 88rpx;
+  font-size: 28rpx;
+  background: transparent;
+  border: none;
+}
+
+/* 协议区域 */
+.agreement-section {
+  margin: 50rpx 0;
+  padding: 30rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(102, 126, 234, 0.1);
+}
+
+.agreement-label {
+  display: flex;
+  align-items: flex-start;
+}
+
+.agreement-checkbox {
+  margin-right: 20rpx;
+  margin-top: 4rpx;
+}
+
+.agreement-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* 注册按钮 */
+.register-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 40rpx 0;
+  box-shadow: 0 12rpx 40rpx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.register-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.4);
+}
+
+.register-btn:active::before {
+  left: 100%;
+}
+
+.register-btn.loading {
+  opacity: 0.8;
+  transform: none;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* 提示信息 */
+.tips-section {
+  margin-top: 60rpx;
+  padding-top: 40rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 24rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
+  border-radius: 16rpx;
+  border-left: 4rpx solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.tip-item:hover {
+  transform: translateX(8rpx);
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.1);
+}
+
+.tip-icon {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+
+/* 选择器样式 */
+.picker-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #333;
+}
+
+.picker-view:empty::before {
+  content: '请选择性别';
+  color: #999;
+}

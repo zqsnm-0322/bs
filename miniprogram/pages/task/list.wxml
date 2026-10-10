@@ -1,0 +1,81 @@
+<view class="task-page">
+  <!-- 统计卡片 -->
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-value">{{stats.pending}}</text>
+      <text class="stat-label">待办任务</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value danger">{{stats.highRisk}}</text>
+      <text class="stat-label">高危老人</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value success">{{stats.completed}}</text>
+      <text class="stat-label">已完成</text>
+    </view>
+  </view>
+
+  <!-- 标签页 -->
+  <view class="tabs">
+    <view class="tab-item {{activeTab === 'pending' ? 'active' : ''}}" 
+          bindtap="onTabChange" 
+          data-tab="pending">
+      待办任务
+    </view>
+    <view class="tab-item {{activeTab === 'completed' ? 'active' : ''}}" 
+          bindtap="onTabChange" 
+          data-tab="completed">
+      已完成
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="task-list">
+    <view class="task-item" 
+          wx:for="{{taskList}}" 
+          wx:key="id"
+          bindtap="viewTask"
+          data-id="{{item.id}}">
+      
+      <view class="task-header">
+        <view class="task-type {{item.priority === 'HIGH' ? 'high' : ''}}">
+          {{item.taskType}}
+        </view>
+        <view class="task-time">{{item.createTime}}</view>
+      </view>
+
+      <view class="task-content">
+        <view class="resident-info">
+          <text class="resident-name">{{item.residentName}}</text>
+          <text class="bed-no">{{item.bedNo}}</text>
+        </view>
+        <view class="task-desc">{{item.description}}</view>
+      </view>
+
+      <view class="task-footer" wx:if="{{activeTab === 'pending'}}">
+        <button class="btn-secondary" 
+                catchtap="goAssess" 
+                data-resident-id="{{item.residentId}}"
+                data-resident-name="{{item.residentName}}">
+          去评估
+        </button>
+        <button class="btn-primary" 
+                catchtap="completeTask" 
+                data-id="{{item.id}}">
+          完成
+        </button>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && taskList.length === 0}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无任务</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

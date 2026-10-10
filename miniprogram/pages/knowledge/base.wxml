@@ -1,0 +1,16 @@
+<view class="page">
+  <view class="hero"><view class="hero-orb one"></view><view class="hero-orb two"></view><text class="eyebrow">ELDERLY CARE LIBRARY</text><text class="hero-title">养老照护知识中心</text><text class="hero-subtitle">专业、实用、随时可查的照护指南</text><view class="search"><text class="search-symbol">⌕</text><input placeholder="搜索跌倒、营养、失智照护…" placeholder-class="placeholder" value="{{searchKeyword}}" bindinput="onSearchInput" /><text class="clear" wx:if="{{searchKeyword}}" bindtap="clearSearch">×</text></view></view>
+
+  <scroll-view class="categories" scroll-x enhanced show-scrollbar="{{false}}"><view class="category-row"><view class="category {{selectedCategory === item.id ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" bindtap="switchCategory" data-id="{{item.id}}"><text class="category-mark">{{item.short}}</text><text>{{item.name}}</text></view></view></scroll-view>
+
+  <view class="content">
+    <view class="featured" wx:if="{{showFeatured}}" bindtap="viewFeatured"><view class="featured-label">今日推荐</view><text class="featured-title">{{featured.title}}</text><text class="featured-summary">{{featured.summary}}</text><view class="featured-footer"><view><text class="mini-tag" wx:for="{{featured.tags}}" wx:key="*this">{{item}}</text></view><text class="read-now">阅读全文 ›</text></view></view>
+
+    <view class="list-head"><view><text class="list-title">{{selectedCategory === 'ALL' ? '全部指南' : '分类指南'}}</text><text class="list-subtitle">共 {{filteredArticles.length}} 篇实用内容</text></view></view>
+    <view class="article" wx:for="{{filteredArticles}}" wx:key="id" bindtap="viewArticle" data-id="{{item.id}}"><view class="article-top"><text class="category-name">{{item.categoryName}}</text><text class="read-time">约 {{item.readTime}}</text></view><text class="article-title">{{item.title}}</text><text class="article-summary">{{item.summary}}</text><view class="article-bottom"><view class="tags"><text class="tag" wx:for="{{item.tags}}" wx:key="*this"># {{item}}</text></view><text class="arrow">›</text></view></view>
+    <view class="empty" wx:if="{{filteredArticles.length === 0}}"><view class="empty-icon">知</view><text class="empty-title">没有找到相关内容</text><text class="empty-desc">换个关键词或分类试试看</text><button bindtap="clearSearch">清除搜索</button></view>
+  </view>
+
+  <view class="detail-mask" wx:if="{{showDetail}}" bindtap="closeDetail"><view class="detail-panel" catchtap="stopPropagation"><view class="detail-handle"></view><view class="detail-head"><view><text class="detail-category">{{selectedArticle.categoryName}}</text><text class="detail-title">{{selectedArticle.title}}</text></view><text class="detail-close" bindtap="closeDetail">×</text></view><scroll-view scroll-y class="detail-scroll"><text class="detail-summary">{{selectedArticle.summary}}</text><view class="detail-divider"></view><text class="detail-content" user-select>{{selectedArticle.content}}</text><view class="detail-tips">本内容用于养老照护知识学习，紧急情况请立即联系专业人员。</view></scroll-view></view></view>
+  <view class="loading" wx:if="{{loading}}">正在加载照护知识...</view>
+</view>

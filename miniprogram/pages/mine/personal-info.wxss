@@ -1,0 +1,107 @@
+page {
+  background: #f5f7fa;
+}
+
+.personal-info-page {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  padding: 60rpx 30rpx 40rpx;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.info-content {
+  padding: 30rpx;
+}
+
+.info-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-left: 20rpx;
+  position: relative;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 28rpx;
+  background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+  border-radius: 3rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background 0.3s ease;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-item:active {
+  background: #f8f9fa;
+}
+
+.info-item .label {
+  font-size: 28rpx;
+  color: #666;
+  flex-shrink: 0;
+  width: 180rpx;
+}
+
+.info-item .value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  text-align: right;
+  flex: 1;
+  word-break: break-all;
+}
+
+.tips {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #fff7e6 0%, #ffe7ba 100%);
+  border-radius: 16rpx;
+  padding: 24rpx 30rpx;
+  margin-top: 20rpx;
+}
+
+.tips-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.tips-text {
+  font-size: 24rpx;
+  color: #fa8c16;
+  line-height: 1.6;
+  flex: 1;
+}

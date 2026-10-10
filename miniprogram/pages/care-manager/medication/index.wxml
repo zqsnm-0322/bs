@@ -1,0 +1,156 @@
+<view class="medication-manage-page">
+  <view class="page-header">
+    <text class="page-title">添加用药记录</text>
+  </view>
+
+  <view class="form-container">
+    <!-- 选择老人 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text class="required">*</text>
+        <text>选择老人</text>
+      </view>
+      
+      <picker mode="selector" range="{{residentList}}" range-key="name" value="{{selectedResidentIndex}}" bindchange="onResidentPickerChange">
+        <view class="resident-selector">
+          <view class="selector-content">
+            <text class="selector-label">老人</text>
+            <view class="selector-value" wx:if="{{selectedResident}}">
+              <text class="resident-name">{{selectedResident.name}}</text>
+              <text class="resident-info">{{selectedResident.roomBedNo}} | {{selectedResident.careZone}}</text>
+            </view>
+            <text class="selector-placeholder" wx:else>请选择老人</text>
+          </view>
+          <text class="selector-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 药品信息 -->
+    <view class="form-section">
+      <view class="section-title">药品信息</view>
+      
+      <view class="form-item">
+        <view class="label">
+          <text class="required">*</text>
+          <text>药品名称</text>
+        </view>
+        <input 
+          class="input" 
+          placeholder="请输入药品名称" 
+          value="{{formData.medicationName}}" 
+          data-field="medicationName" 
+          bindinput="onInputChange" 
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="label">
+          <text class="required">*</text>
+          <text>剂量</text>
+        </view>
+        <view class="input-group">
+          <input 
+            class="input flex-1" 
+            placeholder="如：100" 
+            value="{{formData.dosage}}" 
+            data-field="dosage" 
+            bindinput="onInputChange" 
+          />
+          <picker mode="selector" range="{{unitOptions}}" value="{{unitIndex}}" bindchange="onUnitChange">
+            <view class="unit-picker">{{formData.unit}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <view class="label">
+          <text class="required">*</text>
+          <text>用药频次</text>
+        </view>
+        <picker mode="selector" range="{{frequencyOptions}}" value="{{frequencyIndex}}" bindchange="onFrequencyChange">
+          <view class="picker">{{formData.frequency || '请选择用药频次'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="label">
+          <text class="required">*</text>
+          <text>给药途径</text>
+        </view>
+        <picker mode="selector" range="{{routeOptions}}" value="{{routeIndex}}" bindchange="onRouteChange">
+          <view class="picker">{{formData.route || '请选择给药途径'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="label">
+          <text class="required">*</text>
+          <text>开始日期</text>
+        </view>
+        <picker mode="date" value="{{formData.startDate}}" bindchange="onStartDateChange">
+          <view class="picker">{{formData.startDate || '请选择开始日期'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="label">结束日期</view>
+        <picker mode="date" value="{{formData.endDate}}" bindchange="onEndDateChange">
+          <view class="picker">{{formData.endDate || '请选择结束日期（可选）'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="label">疗程天数</view>
+        <input 
+          class="input" 
+          type="number" 
+          placeholder="请输入疗程天数（可选）" 
+          value="{{formData.duration}}" 
+          bindinput="onDurationInput" 
+        />
+      </view>
+    </view>
+
+    <!-- 用药说明 -->
+    <view class="form-section">
+      <view class="section-title">用药说明</view>
+      
+      <view class="form-item">
+        <view class="label">用药目的</view>
+        <textarea 
+          class="textarea" 
+          placeholder="请输入用药目的" 
+          value="{{formData.purpose}}" 
+          data-field="purpose" 
+          bindinput="onInputChange" 
+          maxlength="200" 
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="label">备注</view>
+        <textarea 
+          class="textarea" 
+          placeholder="请输入备注信息" 
+          value="{{formData.notes}}" 
+          data-field="notes" 
+          bindinput="onInputChange" 
+          maxlength="500" 
+        />
+      </view>
+    </view>
+
+    <!-- 提示信息 -->
+    <view class="tips">
+      <text class="tips-icon">💡</text>
+      <text class="tips-text">您只能为自己负责的老人添加用药记录</text>
+    </view>
+
+    <!-- 按钮组 -->
+    <view class="button-group">
+      <button class="btn btn-cancel" bindtap="onCancel">取消</button>
+      <button class="btn btn-submit" bindtap="onSubmit">保存</button>
+    </view>
+  </view>
+</view>

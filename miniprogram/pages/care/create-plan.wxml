@@ -1,0 +1,135 @@
+<view class="create-plan-page">
+  <view class="page-header">
+    <text class="page-title">新建护理计划</text>
+  </view>
+
+  <scroll-view scroll-y class="form-content">
+    <!-- 老人信息 -->
+    <view class="form-section">
+      <view class="section-title">老人信息</view>
+      
+      <view class="form-item">
+        <text class="label">选择老人 *</text>
+        <picker mode="selector" range="{{residents}}" range-key="displayName" value="{{residentIndex}}" bindchange="onResidentChange">
+          <view class="picker">
+            {{formData.residentName ? formData.residentName + ' - ' + formData.bedNo + '床 - ' + formData.careZone : '请选择老人'}}
+          </view>
+        </picker>
+      </view>
+
+      <view wx:if="{{formData.residentName}}" class="resident-info">
+        <view class="info-row">
+          <text class="info-label">床号：</text>
+          <text class="info-value">{{formData.bedNo}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">护理区：</text>
+          <text class="info-value">{{formData.careZone}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 计划信息 -->
+    <view class="form-section">
+      <view class="section-title">计划信息</view>
+      
+      <view class="form-item">
+        <text class="label">计划标题 *</text>
+        <input class="input" placeholder="请输入计划标题" value="{{formData.planTitle}}" bindinput="onInputChange" data-field="planTitle" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">计划类型 *</text>
+        <picker mode="selector" range="{{planTypes}}" range-key="label" value="{{planTypeIndex}}" bindchange="onPlanTypeChange">
+          <view class="picker">
+            {{formData.planTypeLabel || '请选择计划类型'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">优先级 *</text>
+        <picker mode="selector" range="{{priorities}}" range-key="label" value="{{priorityIndex}}" bindchange="onPriorityChange">
+          <view class="picker">
+            {{formData.priorityLabel || '请选择优先级'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">开始日期 *</text>
+        <picker mode="date" value="{{formData.startDate}}" bindchange="onStartDateChange">
+          <view class="picker">
+            {{formData.startDate || '请选择开始日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">结束日期 *</text>
+        <picker mode="date" value="{{formData.endDate}}" bindchange="onEndDateChange">
+          <view class="picker">
+            {{formData.endDate || '请选择结束日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item" wx:if="{{isCareManager}}">
+        <text class="label">负责护理员 *</text>
+        <picker mode="selector" range="{{caregivers}}" range-key="displayName" value="{{caregiverIndex}}" bindchange="onCaregiverChange">
+          <view class="picker">
+            {{formData.assignedCaregiver || '请选择负责护理员'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item" wx:if="{{!isCareManager}}">
+        <text class="label">负责护理员</text>
+        <view class="info-text">{{userInfo.realName || userInfo.username}}（我）</view>
+      </view>
+    </view>
+
+    <!-- 护理任务 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text>护理任务</text>
+        <button class="add-task-btn" bindtap="addTask">+ 添加任务</button>
+      </view>
+
+      <view class="tasks-list">
+        <view class="task-item" wx:for="{{formData.tasks}}" wx:key="index">
+          <view class="task-header">
+            <text class="task-number">任务{{index + 1}}</text>
+            <text class="remove-task" bindtap="removeTask" data-index="{{index}}">删除</text>
+          </view>
+          <view class="task-input-group">
+            <input class="task-input" placeholder="任务内容" value="{{item.title}}" bindinput="onTaskTitleChange" data-index="{{index}}" />
+            <picker mode="time" value="{{item.time}}" bindchange="onTaskTimeChange" data-index="{{index}}">
+              <view class="time-picker">{{item.time || '时间'}}</view>
+            </picker>
+          </view>
+        </view>
+
+        <view wx:if="{{formData.tasks.length === 0}}" class="empty-tasks">
+          <text class="empty-text">暂无任务，点击上方按钮添加</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 备注说明 -->
+    <view class="form-section">
+      <view class="section-title">备注说明</view>
+      
+      <view class="form-item">
+        <textarea class="textarea" placeholder="请输入备注说明" value="{{formData.notes}}" bindinput="onInputChange" data-field="notes" maxlength="500" />
+        <text class="char-count">{{formData.notes.length}}/500</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="form-actions">
+      <button class="cancel-btn" bindtap="onCancel">取消</button>
+      <button class="submit-btn" bindtap="onSubmit">创建计划</button>
+    </view>
+  </scroll-view>
+</view>

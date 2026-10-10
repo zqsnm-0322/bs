@@ -1,0 +1,74 @@
+<view class="container">
+  <view class="logo-box">
+    <image class="logo" src="/images/logo.svg" mode="aspectFit"></image>
+    <text class="title">颐康云·智慧养老服务平台</text>
+  </view>
+
+  <!-- 用户类型切换 -->
+  <view class="user-type-tabs">
+    <view class="tab-item {{userType === 'CAREGIVER' ? 'active' : ''}}" 
+          bindtap="switchUserType" 
+          data-type="CAREGIVER">
+      <text class="tab-icon">👨‍⚕️</text>
+      <text class="tab-text">颐康园员工</text>
+    </view>
+    <view class="tab-item {{userType === 'RESIDENT' ? 'active' : ''}}" 
+          bindtap="switchUserType" 
+          data-type="RESIDENT">
+      <text class="tab-icon">👤</text>
+      <text class="tab-text">入住老人</text>
+    </view>
+  </view>
+
+  <view class="form-box">
+    <view class="input-group">
+      <text class="label">账号</text>
+      <input class="input" 
+             placeholder="{{userType === 'CAREGIVER' ? '请输入工号' : '请输入用户名'}}" 
+             value="{{username}}"
+             bindinput="onInputUser" />
+    </view>
+    <view class="input-group">
+      <text class="label">密码</text>
+      <input class="input" 
+             password 
+             placeholder="请输入密码" 
+             value="{{password}}"
+             bindinput="onInputPwd" />
+    </view>
+
+    <button class="btn-login" 
+            bindtap="handleLogin" 
+            loading="{{loading}}"
+            disabled="{{loading}}">
+      {{loading ? '登录中...' : '登 录'}}
+    </button>
+
+    <!-- 入住老人注册入口 -->
+    <view class="register-link" wx:if="{{userType === 'RESIDENT'}}">
+      <text class="register-text">还没有账号？</text>
+      <text class="register-btn" bindtap="goToRegister">立即注册</text>
+    </view>
+  </view>
+
+  <!-- 快速登录 -->
+  <view class="quick-login">
+    <text class="quick-login-title">—— 快速登录（演示用） ——</text>
+    <view class="quick-login-btns">
+      <button class="btn-quick" bindtap="quickLogin" data-type="caregiver">护理员登录</button>
+      <button class="btn-quick" bindtap="quickLogin" data-type="careManager">照护主管登录</button>
+      <button class="btn-quick" bindtap="quickLogin" data-type="resident">老人登录</button>
+    </view>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tips">
+    <text class="tip-text">💡 提示：</text>
+    <text class="tip-content" wx:if="{{userType === 'CAREGIVER'}}">
+      员工可进行老人评估、护理任务和探访管理
+    </text>
+    <text class="tip-content" wx:else>
+      入住老人可查看健康状态、护理信息并上报身体状况
+    </text>
+  </view>
+</view>

@@ -1,0 +1,89 @@
+<view class="assessment-detail-page">
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <view wx:else class="detail-content">
+    <!-- 老人信息卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">老人信息</text>
+      </view>
+      <view class="info-row">
+        <text class="label">姓名：</text>
+        <text class="value">{{detail.residentName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">床号：</text>
+        <text class="value">{{detail.bedNo}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">护理区：</text>
+        <text class="value">{{detail.careZone}}</text>
+      </view>
+    </view>
+
+    <!-- 评估信息卡片 -->
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">评估信息</text>
+      </view>
+      <view class="info-row">
+        <text class="label">评估量表：</text>
+        <text class="value">{{detail.scaleName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">评估时间：</text>
+        <text class="value">{{detail.evaluateTime}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">评估人员：</text>
+        <text class="value">{{detail.evaluatorName}}</text>
+      </view>
+    </view>
+
+    <!-- 评估结果卡片 -->
+    <view class="result-card">
+      <view class="card-header">
+        <text class="card-title">评估结果</text>
+      </view>
+      <view class="result-content">
+        <view class="score-display">
+          <text class="score-number">{{detail.totalScore}}</text>
+          <text class="score-label">总分</text>
+        </view>
+        <view class="risk-badge {{detail.riskLevel === 'HIGH' ? 'high' : detail.riskLevel === 'MEDIUM' ? 'medium' : 'low'}}">
+          <text>{{detail.riskLevelText}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 干预措施卡片 -->
+    <view class="info-card" wx:if="{{detail.interventions && detail.interventions.length > 0}}">
+      <view class="card-header">
+        <text class="card-title">建议干预措施</text>
+      </view>
+      <view class="interventions-list">
+        <view wx:for="{{detail.interventions}}" wx:key="*this" class="intervention-item">
+          <text class="intervention-icon">•</text>
+          <text class="intervention-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 评估详情卡片 -->
+    <view class="info-card" wx:if="{{detail.answers}}">
+      <view class="card-header">
+        <text class="card-title">评估详情</text>
+      </view>
+      <view class="answers-list">
+        <block wx:for="{{detail.answers}}" wx:for-item="value" wx:for-index="key" wx:key="key">
+          <view class="answer-item">
+            <text class="answer-label">{{key}}：</text>
+            <text class="answer-value">{{value}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

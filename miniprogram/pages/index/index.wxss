@@ -1,0 +1,504 @@
+/* 首页样式 */
+.page {
+  padding: 40rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 医护人员界面样式 */
+.header {
+  margin-bottom: 40rpx;
+}
+
+.welcome {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.role {
+  font-size: 28rpx;
+  color: #666;
+  background: #e8f4fd;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+}
+
+.card-container {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.card {
+  flex: 1;
+  padding: 40rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  color: white;
+}
+
+.bg-blue {
+  background: #4a90e2;
+}
+
+.bg-red {
+  background: #e74c3c;
+}
+
+.num {
+  display: block;
+  font-size: 60rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin: 40rpx 0 20rpx;
+}
+
+.grid-nav {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.grid-item {
+  flex: 1;
+  background: white;
+  padding: 40rpx 20rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.grid-item:active {
+  transform: scale(0.95);
+}
+
+.grid-icon {
+  display: block;
+  font-size: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.grid-item text:last-child {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.alert-list {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.alert-item {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.alert-item:last-child {
+  border-bottom: none;
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.p-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.p-type {
+  font-size: 24rpx;
+  color: #ff4757;
+  background: #ffe8e8;
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.p-type.PRESSURE {
+  color: #f5222d;
+  background: #fff1f0;
+}
+
+.p-type.FALL {
+  color: #fa8c16;
+  background: #fff7e6;
+}
+
+.alert-msg {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+}
+
+.alert-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 老人界面样式 */
+.resident-header {
+  background: #2c3e50;
+  padding: 40rpx;
+  border-radius: 20rpx;
+  margin-bottom: 40rpx;
+  color: white;
+}
+
+.resident-header .welcome {
+  color: white;
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.resident-info {
+  font-size: 28rpx;
+  opacity: 0.8;
+}
+
+.risk-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.risk-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.risk-content {
+  display: flex;
+  align-items: center;
+  gap: 40rpx;
+}
+
+.risk-circle {
+  width: 120rpx;
+  height: 120rpx;
+  border: 6rpx solid #52c41a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.risk-level {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #52c41a;
+}
+
+.risk-desc {
+  flex: 1;
+}
+
+.risk-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.resident-stats {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.stat-item {
+  flex: 1;
+  background: white;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.stat-num {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.stat-num.warning {
+  color: #faad14;
+}
+
+.stat-num.success {
+  color: #52c41a;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.resident-services {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.service-item:last-child {
+  border-bottom: none;
+}
+
+.service-item:active {
+  background: #f8f9fa;
+}
+
+.service-icon {
+  font-size: 48rpx;
+  margin-right: 30rpx;
+}
+
+.service-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.service-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 健康预测样式 */
+.predictions-section {
+  margin-bottom: 40rpx;
+}
+
+.prediction-alert {
+  background: #fff7e6;
+  border: 1rpx solid #ffd591;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.alert-icon {
+  font-size: 32rpx;
+}
+
+.alert-text {
+  font-size: 26rpx;
+  color: #d46b08;
+  line-height: 1.4;
+}
+
+.prediction-list {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.prediction-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  border-left: 6rpx solid #fa8c16;
+}
+
+.prediction-item:last-child {
+  border-bottom: none;
+}
+
+.prediction-item.critical {
+  border-left-color: #f5222d;
+  background: #fff1f0;
+}
+
+.prediction-item.high {
+  border-left-color: #fa8c16;
+  background: #fff7e6;
+}
+
+.prediction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.prediction-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #262626;
+}
+
+.prediction-probability {
+  font-size: 24rpx;
+  color: #fa8c16;
+  background: white;
+  padding: 4rpx 8rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+.prediction-timeframe {
+  font-size: 24rpx;
+  color: #8c8c8c;
+  margin-bottom: 8rpx;
+}
+
+.prediction-symptoms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+}
+
+.symptoms-title {
+  font-size: 24rpx;
+  color: #595959;
+  font-weight: 500;
+}
+
+.symptoms-text {
+  font-size: 24rpx;
+  color: #8c8c8c;
+  flex: 1;
+}
+
+.prediction-action {
+  text-align: center;
+}
+
+.prediction-btn {
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 40rpx;
+  padding: 16rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.prediction-btn:active {
+  background: #096dd9;
+}
+
+/* 通知样式 */
+.notification-count {
+  font-size: 24rpx;
+  color: #fa8c16;
+  font-weight: normal;
+}
+
+.notifications-list {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.notification-item {
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:active {
+  background: #f8f9fa;
+}
+
+.notification-item.unread {
+  background: #f6ffed;
+  border-left: 6rpx solid #52c41a;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  position: relative;
+}
+
+.notification-type {
+  font-size: 20rpx;
+  color: #1890ff;
+  background: #e6f7ff;
+  padding: 4rpx 8rpx;
+  border-radius: 8rpx;
+}
+
+.notification-time {
+  font-size: 20rpx;
+  color: #8c8c8c;
+}
+
+.unread-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #f5222d;
+  border-radius: 50%;
+  position: absolute;
+  right: -6rpx;
+  top: -6rpx;
+}
+
+.notification-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 8rpx;
+}
+
+.notification-content {
+  font-size: 24rpx;
+  color: #595959;
+  line-height: 1.4;
+  margin-bottom: 8rpx;
+}
+
+.notification-resident {
+  font-size: 22rpx;
+  color: #8c8c8c;
+}

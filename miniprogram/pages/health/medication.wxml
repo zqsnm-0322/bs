@@ -1,0 +1,183 @@
+<view class="medication-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">用药提醒</text>
+    <text class="page-subtitle">科学用药，按时服药，保障治疗效果</text>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'medications' ? 'active' : ''}}" bindtap="switchTab" data-tab="medications">
+      <text>我的用药</text>
+    </view>
+    <view class="tab-item {{activeTab === 'reminders' ? 'active' : ''}}" bindtap="switchTab" data-tab="reminders">
+      <text>今日提醒</text>
+    </view>
+  </view>
+
+  <!-- 我的用药列表 -->
+  <view wx:if="{{activeTab === 'medications'}}" class="medications-tab">
+    <scroll-view scroll-y class="medications-content">
+      <view class="medications-list">
+        <view class="medication-card" 
+              wx:for="{{medications}}" 
+              wx:key="id"
+              bindtap="viewMedicationDetail"
+              data-id="{{item.id}}">
+          <view class="medication-header">
+            <view class="medication-info">
+              <text class="medication-name">{{item.name}}</text>
+              <text class="medication-dosage">{{item.dosage}} | {{item.frequency}}</text>
+            </view>
+            <view class="medication-status" style="color: {{getMedicationStatusColor(item.status)}}">
+              {{getMedicationStatusText(item.status)}}
+            </view>
+          </view>
+
+          <view class="medication-progress">
+            <view class="progress-info">
+              <text class="progress-text">服药进度：{{item.takenDoses}}/{{item.totalDoses}}</text>
+              <text class="missed-text">漏服：{{item.missedDoses}}次</text>
+            </view>
+            <view class="progress-bar">
+              <view class="progress-fill" style="width: {{(item.takenDoses / item.totalDoses) * 100}}%"></view>
+            </view>
+          </view>
+
+          <view class="medication-times">
+            <text class="times-label">服药时间：</text>
+            <view class="times-list">
+              <text class="time-item" wx:for="{{item.times}}" wx:key="*this">{{item}}</text>
+            </view>
+          </view>
+
+          <view class="medication-dates">
+            <view class="date-item">
+              <text class="date-label">开始日期：</text>
+              <text class="date-value">{{item.startDate || '-'}}</text>
+            </view>
+            <view wx:if="{{item.endDate}}" class="date-item">
+              <text class="date-label">结束日期：</text>
+              <text class="date-value">{{item.endDate}}</text>
+            </view>
+          </view>
+
+          <view wx:if="{{item.nextTime}}" class="next-dose">
+            <text class="next-label">下次服药：</text>
+            <text class="next-time">{{item.nextTime}}</text>
+          </view>
+
+          <view wx:if="{{item.prescribedBy}}" class="medication-careManager">
+            <text class="careManager-label">用药负责人：</text>
+            <text class="careManager-name">{{item.prescribedBy}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{medications.length === 0}}" class="empty-medications">
+        <text class="empty-icon">💊</text>
+        <text class="empty-text">暂无用药记录</text>
+        <text class="empty-tip">用药由照护主管或护理员添加</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 今日提醒 -->
+  <view wx:if="{{activeTab === 'reminders'}}" class="reminders-tab">
+    <scroll-view scroll-y class="reminders-content">
+      <view class="reminders-list">
+        <view class="reminder-card" 
+              wx:for="{{reminders}}" 
+              wx:key="id">
+          <view class="reminder-header">
+            <view class="reminder-time">
+              <text class="time-text">{{item.time}}</text>
+              <text class="date-text">{{item.date}}</text>
+            </view>
+            <view class="reminder-status" style="color: {{getReminderStatusColor(item.status)}}">
+              {{getReminderStatusText(item.status)}}
+            </view>
+          </view>
+
+          <view class="reminder-medication">
+            <text class="medication-name">{{item.medicationName}}</text>
+            <text class="medication-dosage">剂量：{{item.dosage}}</text>
+          </view>
+
+          <view wx:if="{{item.status === 'pending'}}" class="reminder-actions">
+            <button class="action-btn take-btn" 
+                    bindtap="takeMedication" 
+                    data-id="{{item.id}}">
+              已服用
+            </button>
+            <button class="action-btn skip-btn" 
+                    bindtap="skipMedication" 
+                    data-id="{{item.id}}">
+              跳过
+            </button>
+          </view>
+
+          <view wx:if="{{item.status === 'taken'}}" class="taken-info">
+            <text class="taken-text">✓ 已于 {{item.takenTime}} 服用</text>
+          </view>
+
+          <view wx:if="{{item.status === 'skipped'}}" class="skipped-info">
+            <text class="skipped-text">⚠️ 已于 {{item.skipTime}} 跳过</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{reminders.length === 0}}" class="empty-reminders">
+        <text class="empty-icon">💊</text>
+        <text class="empty-text">今日暂无用药提醒</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 药物详情弹窗 -->
+  <view wx:if="{{showDetail}}" class="medication-detail-modal" bindtap="closeMedicationDetail">
+    <view class="detail-content" catchtap="true">
+      <view class="detail-header">
+        <text class="detail-title">{{selectedMedication.name}}</text>
+        <text class="close-btn" bindtap="closeMedicationDetail">×</text>
+      </view>
+
+      <view class="detail-body">
+        <view class="detail-section">
+          <text class="section-title">基本信息</text>
+          <view class="info-row">
+            <text class="info-label">剂量：</text>
+            <text class="info-value">{{selectedMedication.dosage}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">频次：</text>
+            <text class="info-value">{{selectedMedication.frequency}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">疗程：</text>
+            <text class="info-value">{{selectedMedication.duration}}</text>
+          </view>
+          <view class="info-row">
+            <text class="info-label">开始日期：</text>
+            <text class="info-value">{{selectedMedication.startDate}}</text>
+          </view>
+          <!-- 需求8: 添加结束日期显示 -->
+          <view wx:if="{{selectedMedication.endDate}}" class="info-row">
+            <text class="info-label">结束日期：</text>
+            <text class="info-value">{{selectedMedication.endDate}}</text>
+          </view>
+        </view>
+
+        <view class="detail-section">
+          <text class="section-title">用药说明</text>
+          <text class="instructions-text">{{selectedMedication.instructions}}</text>
+        </view>
+
+        <view class="detail-section">
+          <text class="section-title">注意事项</text>
+          <text class="side-effects-text">{{selectedMedication.sideEffects}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

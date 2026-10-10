@@ -1,0 +1,39 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-orb orb-one"></view><view class="hero-orb orb-two"></view>
+    <view class="hero-top"><view><text class="hero-title">养老运营看板</text><text class="hero-subtitle">入住、床位与照护风险概览</text></view><view class="update-chip"><text class="pulse"></text>{{updatedAt || '数据加载中'}}</view></view>
+    <view class="occupancy-card">
+      <view><text class="occupancy-label">当前床位入住率</text><view class="occupancy-value"><text>{{stats.bedOccupancyRate}}</text><text class="unit">%</text></view></view>
+      <view class="ring" style="background: conic-gradient(#ffffff {{stats.bedOccupancyRate}}%, rgba(255,255,255,.22) 0);"><view class="ring-inner">床位</view></view>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="overview-grid">
+      <view class="metric-card" bindtap="goResidents"><view class="metric-icon green">住</view><view><text class="metric-value">{{stats.residentCount}}</text><text class="metric-label">在住老人</text></view><text class="metric-arrow">›</text></view>
+      <view class="metric-card"><view class="metric-icon blue">入</view><view><text class="metric-value">{{stats.newAdmissions}}</text><text class="metric-label">本月入住</text></view></view>
+      <view class="metric-card"><view class="metric-icon gray">离</view><view><text class="metric-value">{{stats.leavingCount}}</text><text class="metric-label">本月离院</text></view></view>
+      <view class="metric-card" bindtap="goVisits"><view class="metric-icon amber">访</view><view><text class="metric-value">{{stats.pendingVisits}}</text><text class="metric-label">待审探访</text></view><text class="metric-arrow">›</text></view>
+    </view>
+
+    <view class="risk-banner" bindtap="goAlerts"><view class="risk-icon">!</view><view class="risk-copy"><text class="risk-title">重点风险关注</text><text class="risk-desc">当前共有 {{stats.highRiskCount}} 条高风险记录需要跟进</text></view><view class="risk-action">查看预警 ›</view></view>
+
+    <view class="section">
+      <view class="section-head"><view><text class="section-title">护理区分布</text><text class="section-subtitle">在住老人所在区域</text></view><text class="section-total">共 {{stats.residentCount}} 人</text></view>
+      <view class="distribution-list"><view class="distribution-row" wx:for="{{zoneDistribution}}" wx:key="name"><view class="distribution-meta"><view><text class="dot" style="background: {{item.color}}"></text><text class="distribution-name">{{item.name}}</text></view><text class="distribution-value">{{item.value}}人 · {{item.percent}}%</text></view><view class="bar"><view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}}"></view></view></view></view>
+    </view>
+
+    <view class="section">
+      <view class="section-head"><view><text class="section-title">自理能力构成</text><text class="section-subtitle">老人健康照护等级</text></view></view>
+      <view class="level-grid"><view class="level-item" wx:for="{{healthLevelDistribution}}" wx:key="name"><view class="level-ring" style="border-color: {{item.color}}"><text class="level-percent">{{item.percent}}%</text></view><text class="level-name">{{item.name}}</text><text class="level-count">{{item.value}}人</text></view></view>
+    </view>
+
+    <view class="section">
+      <view class="section-head"><view><text class="section-title">本月风险等级</text><text class="section-subtitle">基于本月养老风险评估</text></view></view>
+      <view class="risk-list"><view class="risk-row" wx:for="{{riskDistribution}}" wx:key="name"><text class="risk-level-name"><text class="dot" style="background: {{item.color}}"></text>{{item.name}}</text><view class="risk-bar"><view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}}"></view></view><text class="risk-number">{{item.value}}</text></view></view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{stats.residentCount === 0}}">暂无运营数据，请先登记入住老人和床位信息</view>
+    <view class="loading-mask" wx:if="{{loading}}"><view class="spinner"></view><text>正在汇总运营数据...</text></view>
+  </view>
+</view>

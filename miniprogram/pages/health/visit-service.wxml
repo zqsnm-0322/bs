@@ -1,0 +1,53 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-orb orb-one"></view><view class="hero-orb orb-two"></view>
+    <view class="hero-content">
+      <view class="hero-icon">访</view>
+      <view class="hero-copy"><text class="hero-title">家属探访预约</text><text class="hero-subtitle">为 {{userInfo.name || '入住老人'}} 安排温馨相聚</text></view>
+    </view>
+    <view class="resident-chip"><text class="resident-dot"></text><text>{{userInfo.careZone || '养老院'}} · {{userInfo.roomBedNo || '床位待分配'}}</text></view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{activeTab === 'book' ? 'active' : ''}}" bindtap="switchTab" data-tab="book"><text>提交预约</text><text class="tab-line"></text></view>
+    <view class="tab {{activeTab === 'history' ? 'active' : ''}}" bindtap="switchTab" data-tab="history"><text>预约记录</text><text class="tab-badge" wx:if="{{appointments.length}}">{{appointments.length}}</text><text class="tab-line"></text></view>
+  </view>
+
+  <view wx:if="{{activeTab === 'book'}}" class="content">
+    <view class="notice"><text class="notice-icon">i</text><text>建议至少提前一天预约，提交后请等待工作人员确认。</text></view>
+
+    <view class="card">
+      <view class="card-title"><text class="title-icon mint">人</text><view><text class="title-main">探访人信息</text><text class="title-sub">请填写实际到访人员资料</text></view></view>
+      <view class="field"><text class="field-label">姓名 <text class="required">*</text></text><input class="field-input" placeholder="请输入探访人姓名" placeholder-class="placeholder" value="{{visitorName}}" data-field="visitorName" bindinput="onInput" maxlength="20" /></view>
+      <view class="field"><text class="field-label">联系电话 <text class="required">*</text></text><input class="field-input" type="number" placeholder="请输入手机号码" placeholder-class="placeholder" value="{{visitorPhone}}" data-field="visitorPhone" bindinput="onInput" maxlength="11" /></view>
+      <view class="field last"><text class="field-label">与老人关系</text><view class="relation-list"><view wx:for="{{relationOptions}}" wx:key="*this" class="relation-item {{visitorRelation === item ? 'selected' : ''}}" bindtap="selectRelation" data-value="{{item}}">{{item}}</view></view></view>
+    </view>
+
+    <view class="card">
+      <view class="card-title"><text class="title-icon blue">时</text><view><text class="title-main">探访安排</text><text class="title-sub">请选择到访日期与时间</text></view></view>
+      <picker mode="date" start="{{minDate}}" value="{{selectedDate}}" bindchange="onDateChange"><view class="picker-row"><text class="picker-label">探访日期</text><view class="picker-value"><text>{{selectedDate}}</text><text class="chevron">›</text></view></view></picker>
+      <view class="time-row">
+        <picker class="time-picker" mode="time" value="{{startTime}}" bindchange="onStartTimeChange"><view class="time-box"><text class="time-label">开始时间</text><text class="time-value">{{startTime}}</text></view></picker>
+        <text class="time-separator">至</text>
+        <picker class="time-picker" mode="time" value="{{endTime}}" bindchange="onEndTimeChange"><view class="time-box"><text class="time-label">结束时间</text><text class="time-value">{{endTime}}</text></view></picker>
+      </view>
+      <view class="count-row"><view><text class="picker-label">探访人数</text><text class="count-tip">最多 10 人</text></view><view class="stepper"><button class="step-btn" bindtap="changeCount" data-delta="-1">−</button><text class="step-value">{{visitorCount}}</text><button class="step-btn plus" bindtap="changeCount" data-delta="1">＋</button></view></view>
+    </view>
+
+    <view class="card"><view class="card-title compact"><text class="title-icon amber">注</text><text class="title-main">备注信息</text></view><textarea class="notes" placeholder="如行动不便、需要轮椅或携带特殊物品，请提前说明（选填）" placeholder-class="placeholder" value="{{specialNotes}}" data-field="specialNotes" bindinput="onInput" maxlength="200"></textarea><text class="word-count">{{specialNotes.length}} / 200</text></view>
+    <button class="submit-btn" bindtap="submitAppointment" loading="{{submitting}}" disabled="{{submitting}}">{{submitting ? '正在提交...' : '提交探访预约'}}</button>
+    <text class="submit-tip">提交即表示您同意遵守养老院探访管理规定</text>
+  </view>
+
+  <view wx:if="{{activeTab === 'history'}}" class="content history">
+    <view class="loading" wx:if="{{loading}}">正在加载预约记录...</view>
+    <view class="visit-card status-border-{{item.status}}" wx:for="{{appointments}}" wx:key="id">
+      <view class="visit-head"><view class="visitor-avatar">{{item.visitorName ? item.visitorName[0] : '访'}}</view><view class="visitor-info"><text class="visitor-name">{{item.visitorName}}</text><text class="visitor-relation">{{item.visitorRelation || '家属'}} · {{item.visitorCount || 1}}人</text></view><text class="status status-{{item.status}}">{{item.statusText}}</text></view>
+      <view class="visit-time"><text class="calendar-icon">日</text><view><text class="visit-date">{{item.visitDate}}</text><text class="visit-hours">{{item.visitStartTime || '待定'}} - {{item.visitEndTime || '待定'}}</text></view></view>
+      <view class="visit-note" wx:if="{{item.specialNotes}}"><text>备注：</text>{{item.specialNotes}}</view>
+      <view class="reject-note" wx:if="{{item.rejectReason}}"><text>未通过原因：</text>{{item.rejectReason}}</view>
+      <button class="cancel-btn" wx:if="{{item.status === 'PENDING'}}" bindtap="cancelAppointment" data-id="{{item.id}}">取消预约</button>
+    </view>
+    <view wx:if="{{appointments.length === 0}}" class="empty"><view class="empty-icon">访</view><text class="empty-title">暂无探访预约</text><text class="empty-subtitle">提交预约后，可在这里查看处理进度</text><button class="empty-btn" bindtap="switchTab" data-tab="book">立即预约</button></view>
+  </view>
+</view>

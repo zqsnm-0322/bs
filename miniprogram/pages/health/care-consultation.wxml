@@ -1,0 +1,131 @@
+<view class="consultation-page">
+  <!-- 对话列表 -->
+  <view wx:if="{{activeTab === 'conversations'}}" class="conversations-tab">
+    <!-- 页面头部 -->
+    <view class="page-header">
+      <text class="page-title">在线咨询</text>
+      <text class="page-subtitle">与医护人员实时沟通，获得专业指导</text>
+    </view>
+
+    <view class="conversations-content">
+      <!-- 快捷操作 -->
+      <view class="quick-actions">
+        <view class="action-item" bindtap="startNewConsultation">
+          <text class="action-icon">💬</text>
+          <text class="action-text">发起咨询</text>
+        </view>
+        <view class="action-item" bindtap="makePhoneCall">
+          <text class="action-icon">📞</text>
+          <text class="action-text">电话咨询</text>
+        </view>
+      </view>
+
+      <!-- 对话列表 -->
+      <view class="conversations-list">
+        <view class="conversation-item" 
+              wx:for="{{conversations}}" 
+              wx:key="id"
+              bindtap="openConversation"
+              data-id="{{item.id}}">
+          <view class="conversation-avatar">
+            <text>{{item.staffName[0]}}</text>
+          </view>
+          
+          <view class="conversation-info">
+            <view class="conversation-header">
+              <text class="careManager-name">{{item.staffName}}</text>
+              <text class="last-time">{{getMessageTime(item.lastTime)}}</text>
+            </view>
+            <text class="careManager-title">{{item.staffTitle}}</text>
+            <text class="last-message">{{item.lastMessage}}</text>
+          </view>
+          
+          <view wx:if="{{item.unreadCount > 0}}" class="unread-badge">
+            <text>{{item.unreadCount}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{conversations.length === 0}}" class="empty-conversations">
+        <text class="empty-icon">💬</text>
+        <text class="empty-text">暂无咨询记录</text>
+        <button class="start-btn" bindtap="startNewConsultation">发起咨询</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 聊天界面 -->
+  <view wx:if="{{activeTab === 'chat'}}" class="chat-tab">
+    <!-- 聊天头部 -->
+    <view class="chat-header">
+      <view class="back-btn" bindtap="backToConversations">
+        <text>←</text>
+      </view>
+      <view class="chat-info">
+        <text class="chat-careManager-name">{{currentConversation.staffName}}</text>
+        <text class="chat-careManager-title">{{currentConversation.staffTitle}}</text>
+      </view>
+      <view class="chat-actions">
+        <text class="action-icon" bindtap="makePhoneCall">📞</text>
+      </view>
+    </view>
+
+    <!-- 消息列表 -->
+    <scroll-view scroll-y class="messages-container" scroll-into-view="msg-{{messages.length - 1}}">
+      <view class="messages-list">
+        <view class="message-item {{item.senderType === 'resident' ? 'sent' : 'received'}}" 
+              wx:for="{{messages}}" 
+              wx:key="id"
+              id="msg-{{index}}">
+          
+          <view wx:if="{{item.senderType === 'careManager'}}" class="message-avatar">
+            <text>{{item.senderName[0]}}</text>
+          </view>
+          
+          <view class="message-content">
+            <view class="message-bubble">
+              <text class="message-text">{{item.content}}</text>
+            </view>
+            <text class="message-time">{{item.timestamp}}</text>
+          </view>
+          
+          <view wx:if="{{item.senderType === 'resident'}}" class="message-avatar sent">
+            <text>我</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 快捷回复 -->
+    <view class="quick-replies">
+      <scroll-view scroll-x class="replies-scroll">
+        <view class="replies-list">
+          <view class="reply-item" 
+                wx:for="{{quickReplies}}" 
+                wx:key="*this"
+                bindtap="sendQuickReply"
+                data-reply="{{item}}">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 输入框 -->
+    <view class="input-section">
+      <view class="input-container">
+        <input class="message-input" 
+               placeholder="输入消息..." 
+               value="{{inputMessage}}"
+               bindinput="onInputMessage"
+               confirm-type="send"
+               bindconfirm="sendMessage" />
+        <button class="send-btn {{sending ? 'sending' : ''}}" 
+                bindtap="sendMessage"
+                disabled="{{sending || !inputMessage.trim()}}">
+          {{sending ? '发送中' : '发送'}}
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

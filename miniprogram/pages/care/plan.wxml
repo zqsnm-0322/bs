@@ -1,0 +1,192 @@
+<view class="care-plan-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">护理计划</text>
+    <text class="page-subtitle">制定和执行护理计划</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-section">
+    <view class="stats-grid">
+      <view class="stat-card">
+        <text class="stat-number">{{stats.total}}</text>
+        <text class="stat-label">总计划</text>
+      </view>
+      <view class="stat-card active">
+        <text class="stat-number">{{stats.active}}</text>
+        <text class="stat-label">进行中</text>
+      </view>
+      <view class="stat-card completed">
+        <text class="stat-number">{{stats.completed}}</text>
+        <text class="stat-label">已完成</text>
+      </view>
+      <view class="stat-card overdue">
+        <text class="stat-number">{{stats.overdue}}</text>
+        <text class="stat-label">已逾期</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-section">
+    <scroll-view class="filter-tabs" scroll-x="true">
+      <view class="filter-tab {{filterStatus === 'ALL' ? 'active' : ''}}" 
+            bindtap="filterPlans" 
+            data-status="ALL">
+        全部
+      </view>
+      <view class="filter-tab {{filterStatus === 'ACTIVE' ? 'active' : ''}}" 
+            bindtap="filterPlans" 
+            data-status="ACTIVE">
+        进行中
+      </view>
+      <view class="filter-tab {{filterStatus === 'COMPLETED' ? 'active' : ''}}" 
+            bindtap="filterPlans" 
+            data-status="COMPLETED">
+        已完成
+      </view>
+      <view class="filter-tab {{filterStatus === 'OVERDUE' ? 'active' : ''}}" 
+            bindtap="filterPlans" 
+            data-status="OVERDUE">
+        已逾期
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 护理计划列表 -->
+  <view class="plan-list">
+    <view wx:for="{{filteredPlans}}" 
+          wx:key="id" 
+          class="plan-item {{item.status.toLowerCase()}}"
+          bindtap="viewPlanDetail"
+          data-id="{{item.id}}">
+      
+      <!-- 计划头部 -->
+      <view class="plan-header">
+        <view class="resident-info">
+          <text class="resident-name">{{item.residentName}}</text>
+          <text class="bed-info">{{item.bedNo}}床 · {{item.careZone}}</text>
+        </view>
+        <view class="plan-priority" style="color: {{getPriorityColor(item.priority)}}">
+          <text wx:if="{{item.priority === 'HIGH'}}">🔴</text>
+          <text wx:if="{{item.priority === 'MEDIUM'}}">🟡</text>
+          <text wx:if="{{item.priority === 'LOW'}}">🟢</text>
+          <text>{{item.priority === 'HIGH' ? '高' : item.priority === 'MEDIUM' ? '中' : '低'}}优先级</text>
+        </view>
+      </view>
+
+      <!-- 计划标题 -->
+      <view class="plan-title">
+        <text>{{item.planTitle}}</text>
+        <text class="plan-type">{{getPlanTypeText(item.planType)}}</text>
+      </view>
+
+      <!-- 进度条 -->
+      <view class="progress-section">
+        <view class="progress-info">
+          <text class="progress-label">完成进度</text>
+          <text class="progress-percent">{{item.progress}}%</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.progress}}%"></view>
+        </view>
+      </view>
+
+      <!-- 任务概览 -->
+      <view class="task-overview">
+        <view class="task-summary">
+          <text class="completed-tasks">
+            {{item.completedTaskCount}}/{{item.totalTaskCount}} 任务完成
+          </text>
+          <text class="assigned-caregiver">负责人：{{item.assignedCaregiver}}</text>
+        </view>
+      </view>
+
+      <!-- 计划时间 -->
+      <view class="plan-footer">
+        <text class="plan-date">{{item.startDate}} 至 {{item.endDate}}</text>
+        <view class="plan-status {{item.status.toLowerCase()}}">
+          <text wx:if="{{item.status === 'ACTIVE'}}">进行中</text>
+          <text wx:if="{{item.status === 'COMPLETED'}}">已完成</text>
+          <text wx:if="{{item.status === 'OVERDUE'}}">已逾期</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!loading && getFilteredPlans().length === 0}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无护理计划</text>
+    </view>
+  </view>
+
+  <!-- 计划详情弹窗 -->
+  <view class="plan-detail-modal" wx:if="{{showPlanDetail}}" bindtap="closePlanDetail">
+    <view class="modal-content" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">{{selectedPlan.planTitle}}</text>
+        <text class="close-btn" bindtap="closePlanDetail">✕</text>
+      </view>
+      
+      <view class="modal-body">
+        <!-- 老人信息 -->
+        <view class="detail-section">
+          <text class="section-title">老人信息</text>
+          <view class="resident-detail">
+            <text>{{selectedPlan.residentName}} - {{selectedPlan.bedNo}}床</text>
+            <text>{{selectedPlan.careZone}}</text>
+          </view>
+        </view>
+
+        <!-- 任务列表 -->
+        <view class="detail-section">
+          <text class="section-title">护理任务</text>
+          <view class="task-list">
+            <view wx:for="{{selectedPlan.tasks}}" 
+                  wx:for-item="task" 
+                  wx:key="id" 
+                  class="task-item {{task.completed ? 'completed' : ''}}"
+                  bindtap="completeTask"
+                  data-plan-id="{{selectedPlan.id}}"
+                  data-task-id="{{task.id}}">
+              <view class="task-checkbox {{task.completed ? 'checked' : ''}}">
+                <text wx:if="{{task.completed}}">✓</text>
+              </view>
+              <view class="task-content">
+                <text class="task-title">{{task.title}}</text>
+                <text class="task-time">{{task.time}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 护理记录 -->
+        <view class="detail-section">
+          <text class="section-title">护理记录</text>
+          <view class="nursing-notes">
+            <text>{{selectedPlan.notes || '暂无记录'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="modal-footer">
+        <button class="btn-secondary" bindtap="addNursingRecord" data-id="{{selectedPlan.id}}">
+          添加记录
+        </button>
+        <button class="btn-primary" bindtap="goToResidentDetail" data-id="{{selectedPlan.id}}">
+          查看老人
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 创建计划按钮 -->
+  <view class="fab" bindtap="createNewPlan">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

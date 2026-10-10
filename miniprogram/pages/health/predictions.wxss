@@ -1,0 +1,292 @@
+.predictions-page {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 头部信息 */
+.header-info {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.resident-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.resident-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #262626;
+}
+
+.resident-id {
+  font-size: 24rpx;
+  color: #8c8c8c;
+}
+
+.assessment-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assessment-time {
+  font-size: 26rpx;
+  color: #595959;
+}
+
+.risk-badge {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.risk-badge.low {
+  background: #f6ffed;
+  color: #52c41a;
+  border: 1rpx solid #b7eb8f;
+}
+
+.risk-badge.medium {
+  background: #fffbe6;
+  color: #faad14;
+  border: 1rpx solid #ffe58f;
+}
+
+.risk-badge.high {
+  background: #fff2e8;
+  color: #fa8c16;
+  border: 1rpx solid #ffbb96;
+}
+
+.risk-badge.critical {
+  background: #fff1f0;
+  color: #f5222d;
+  border: 1rpx solid #ffa39e;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  background: white;
+  border-radius: 16rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #262626;
+  margin-bottom: 12rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #8c8c8c;
+}
+
+/* 预测卡片 */
+.prediction-card {
+  background: white;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.prediction-card.critical {
+  border-left: 8rpx solid #f5222d;
+}
+
+.prediction-card.high {
+  border-left: 8rpx solid #fa8c16;
+}
+
+.prediction-card.medium {
+  border-left: 8rpx solid #faad14;
+}
+
+.prediction-card.low {
+  border-left: 8rpx solid #52c41a;
+}
+
+.card-header {
+  padding: 24rpx;
+  background: #fafafa;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.condition-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.condition-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #262626;
+}
+
+.severity-badge {
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+
+.severity-badge.critical {
+  background: #f5222d;
+  color: white;
+}
+
+.severity-badge.high {
+  background: #fa8c16;
+  color: white;
+}
+
+.severity-badge.medium {
+  background: #faad14;
+  color: white;
+}
+
+.severity-badge.low {
+  background: #52c41a;
+  color: white;
+}
+
+.probability-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.probability {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fa8c16;
+}
+
+.timeframe {
+  font-size: 24rpx;
+  color: #8c8c8c;
+  background: #f0f0f0;
+  padding: 4rpx 8rpx;
+  border-radius: 8rpx;
+}
+
+.card-content {
+  padding: 24rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 16rpx;
+  padding-bottom: 8rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.symptoms-section,
+.interventions-section,
+.statistical-section {
+  margin-bottom: 24rpx;
+}
+
+.symptoms-list,
+.interventions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.symptom-item,
+.intervention-item {
+  font-size: 26rpx;
+  color: #595959;
+  line-height: 1.5;
+  padding-left: 20rpx;
+  position: relative;
+}
+
+.symptom-item::before {
+  content: "•";
+  color: #fa8c16;
+  position: absolute;
+  left: 0;
+}
+
+.intervention-item::before {
+  content: "✓";
+  color: #52c41a;
+  position: absolute;
+  left: 0;
+}
+
+.statistical-text {
+  font-size: 26rpx;
+  color: #595959;
+  line-height: 1.6;
+  background: #f6ffed;
+  padding: 16rpx;
+  border-radius: 8rpx;
+  border-left: 4rpx solid #52c41a;
+}
+
+/* 底部操作 */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+}
+
+.action-btn {
+  min-width: 300rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.action-btn.secondary {
+  background: #f0f0f0;
+  color: #595959;
+}
+
+.action-btn.primary {
+  background: #1890ff;
+  color: white;
+}
+
+.action-btn.primary:active {
+  background: #096dd9;
+}
+
+.action-btn.full-width {
+  width: 100%;
+}

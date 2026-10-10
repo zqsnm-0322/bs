@@ -1,0 +1,102 @@
+<view class="plan-detail-page">
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <view wx:else class="content">
+    <!-- 计划基本信息 -->
+    <view class="info-card">
+      <view class="card-header">
+        <text class="title">{{plan.planTitle}}</text>
+        <view class="status status-{{plan.status}}">{{getStatusLabel(plan.status)}}</view>
+      </view>
+
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="label">老人姓名</text>
+          <text class="value">{{plan.residentName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">床号</text>
+          <text class="value">{{plan.bedNo}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">护理区</text>
+          <text class="value">{{plan.careZone}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">计划类型</text>
+          <text class="value">{{plan.planTypeLabel}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">优先级</text>
+          <text class="value">{{plan.priorityLabel}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">负责护理员</text>
+          <text class="value">{{plan.assignedCaregiver}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">开始日期</text>
+          <text class="value">{{formatDate(plan.startDate)}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">结束日期</text>
+          <text class="value">{{formatDate(plan.endDate)}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{plan.notes}}" class="notes">
+        <text class="notes-label">备注说明：</text>
+        <text class="notes-text">{{plan.notes}}</text>
+      </view>
+
+      <view class="progress-section">
+        <view class="progress-header">
+          <text class="progress-label">完成进度</text>
+          <text class="progress-value">{{plan.progress}}%</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{plan.progress}}%"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 护理任务列表 -->
+    <view class="tasks-card">
+      <view class="card-title">护理任务</view>
+      
+      <view class="task-list">
+        <view class="task-item" wx:for="{{tasks}}" wx:key="id">
+          <view class="task-header">
+            <view class="task-time">{{item.time}}</view>
+            <view class="task-status {{item.completed ? 'completed' : 'pending'}}">
+              {{item.completed ? '已完成' : '待完成'}}
+            </view>
+          </view>
+          
+          <view class="task-content">
+            <text class="task-title">{{item.title}}</text>
+          </view>
+
+          <view wx:if="{{item.completed}}" class="task-complete-info">
+            <text class="complete-user">完成人：{{item.completeUserName}}</text>
+            <text class="complete-time">{{formatDate(item.completeTime)}}</text>
+          </view>
+
+          <view wx:if="{{!item.completed && plan.status === 'ACTIVE'}}" class="task-actions">
+            <button class="complete-btn" bindtap="completeTask" data-id="{{item.id}}">
+              完成任务
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 创建信息 -->
+    <view class="creator-info">
+      <text class="creator-text">创建人：{{plan.creatorName}}（{{plan.creatorRole === 'CARE_MANAGER' ? '照护主管' : '护理员'}}）</text>
+      <text class="create-time">创建时间：{{formatDate(plan.createTime)}}</text>
+    </view>
+  </view>
+</view>

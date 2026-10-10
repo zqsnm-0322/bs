@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的评估报告",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f5f5f5",
+  "navigationBarBackgroundColor": "#667eea",
+  "navigationBarTextStyle": "white"
+}

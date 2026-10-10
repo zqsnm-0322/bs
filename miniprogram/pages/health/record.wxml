@@ -1,0 +1,247 @@
+<view class="record-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <view class="resident-card">
+      <view class="resident-avatar">{{residentInfo.name[0]}}</view>
+      <view class="resident-info">
+        <text class="resident-name">{{residentInfo.name}}</text>
+        <text class="resident-meta">{{residentInfo.residentNo}} | {{residentInfo.bedNo}} | {{residentInfo.careZone}}</text>
+      </view>
+      <button class="export-btn" bindtap="exportRecord">导出</button>
+    </view>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'basic' ? 'active' : ''}}" bindtap="switchTab" data-tab="basic">
+      <text>基本信息</text>
+    </view>
+    <view class="tab-item {{activeTab === 'prediction' ? 'active' : ''}}" bindtap="switchTab" data-tab="prediction">
+      <text>健康预测</text>
+    </view>
+    <view class="tab-item {{activeTab === 'risk' ? 'active' : ''}}" bindtap="switchTab" data-tab="risk">
+      <text>风险评估</text>
+    </view>
+    <view class="tab-item {{activeTab === 'vital' ? 'active' : ''}}" bindtap="switchTab" data-tab="vital">
+      <text>生命体征</text>
+    </view>
+    <view class="tab-item {{activeTab === 'medication' ? 'active' : ''}}" bindtap="switchTab" data-tab="medication">
+      <text>用药记录</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <scroll-view scroll-y class="content-area">
+    <!-- 基本信息 -->
+    <view wx:if="{{activeTab === 'basic'}}" class="tab-content">
+      <view class="info-section">
+        <view class="section-title">老人信息</view>
+        <view class="info-grid">
+          <view class="info-item">
+            <text class="label">姓名</text>
+            <text class="value">{{residentInfo.name}}</text>
+          </view>
+          <view class="info-item">
+            <text class="label">入住编号</text>
+            <text class="value">{{residentInfo.residentNo}}</text>
+          </view>
+          <view class="info-item">
+            <text class="label">床号</text>
+            <text class="value">{{residentInfo.bedNo}}</text>
+          </view>
+          <view class="info-item">
+            <text class="label">年龄</text>
+            <text class="value">{{residentInfo.age}}岁</text>
+          </view>
+          <view class="info-item">
+            <text class="label">性别</text>
+            <text class="value">{{residentInfo.gender}}</text>
+          </view>
+          <view class="info-item">
+            <text class="label">护理区</text>
+            <text class="value">{{residentInfo.careZone}}</text>
+          </view>
+          <view class="info-item full-width">
+            <text class="label">入住日期</text>
+            <text class="value">{{residentInfo.admitDate}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 健康预测 -->
+    <view wx:if="{{activeTab === 'prediction'}}" class="tab-content">
+      <view class="prediction-section">
+        <view class="section-title">健康状况预测</view>
+        
+        <view class="prediction-info" wx:if="{{assessmentTime}}">
+          <text class="info-text">基于最新风险评估，预测可能出现的健康问题</text>
+          <text class="assessment-time">评估时间：{{assessmentTime}}</text>
+        </view>
+        
+        <view class="prediction-list" wx:if="{{healthPredictions.length > 0}}">
+          <view 
+            class="prediction-item {{item.severity.toLowerCase()}}" 
+            wx:for="{{healthPredictions}}" 
+            wx:key="index"
+            bindtap="viewPredictionDetail"
+            data-prediction="{{item}}"
+          >
+            <view class="prediction-header">
+              <text class="condition-name">{{item.condition}}</text>
+              <view class="severity-badge {{item.severity.toLowerCase()}}">
+                <text wx:if="{{item.severity === 'CRITICAL'}}">极高风险</text>
+                <text wx:elif="{{item.severity === 'HIGH'}}">高风险</text>
+                <text wx:elif="{{item.severity === 'MEDIUM'}}">中风险</text>
+                <text wx:else>低风险</text>
+              </view>
+            </view>
+            
+            <view class="prediction-meta">
+              <text class="probability">发生概率：{{item.probability}}</text>
+              <text class="timeframe">时间窗口：{{item.timeframe}}</text>
+            </view>
+            
+            <view class="prediction-symptoms">
+              <text class="symptoms-label">主要症状：</text>
+              <text class="symptoms-text">{{item.symptoms[0]}}{{item.symptoms.length > 1 ? '等' : ''}}</text>
+            </view>
+            
+            <view class="prediction-interventions" wx:if="{{item.interventions && item.interventions.length > 0}}">
+              <text class="interventions-label">建议措施：</text>
+              <text class="interventions-text">{{item.interventions[0]}}{{item.interventions.length > 1 ? '等' : ''}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{!predictionsLoading && healthPredictions.length === 0}}">
+          <text class="empty-icon">🔮</text>
+          <text class="empty-text">暂无健康预测数据</text>
+          <text class="empty-tip">照护主管分享预测结果后可在此查看</text>
+        </view>
+        
+        <view class="loading-state" wx:if="{{predictionsLoading}}">
+          <text class="loading-text">加载中...</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 风险评估 -->
+    <view wx:if="{{activeTab === 'risk'}}" class="tab-content">
+      <view class="risk-section">
+        <view class="section-title">风险评估记录</view>
+        <view class="risk-list">
+          <view class="risk-item" wx:for="{{riskRecords}}" wx:key="id" bindtap="viewRiskDetail" data-id="{{item.id}}">
+            <view class="risk-header">
+              <view class="risk-info">
+                <text class="risk-type">{{item.scaleTypeName}}</text>
+                <text class="risk-date">{{item.date}}</text>
+              </view>
+              <view class="risk-level" style="color: {{getRiskColor(item.riskLevel)}}">
+                {{item.riskLevelText}}
+              </view>
+            </view>
+            <view class="risk-details">
+              <text class="risk-score">评分：{{item.totalScore}}分</text>
+              <text class="risk-evaluator">评估人：{{item.evaluatorName}}</text>
+            </view>
+            <view class="risk-interventions">
+              <text class="interventions-title">护理措施：</text>
+              <text class="interventions-text">{{item.interventions.join('、')}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 生命体征 -->
+    <view wx:if="{{activeTab === 'vital'}}" class="tab-content">
+      <view class="vital-section">
+        <view class="section-title">生命体征记录</view>
+        <view class="vital-list" wx:if="{{vitalSigns.length > 0}}">
+          <view class="vital-item" wx:for="{{vitalSigns}}" wx:key="id">
+            <view class="vital-date">{{item.date}} {{item.time}}</view>
+            <view class="vital-data">
+              <view class="vital-row" wx:if="{{item.temperature}}">
+                <text class="vital-label">体温</text>
+                <text class="vital-value">{{item.temperature}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.bloodPressure}}">
+                <text class="vital-label">血压</text>
+                <text class="vital-value">{{item.bloodPressure}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.heartRate}}">
+                <text class="vital-label">心率</text>
+                <text class="vital-value">{{item.heartRate}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.respiratoryRate}}">
+                <text class="vital-label">呼吸</text>
+                <text class="vital-value">{{item.respiratoryRate}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.bloodOxygen}}">
+                <text class="vital-label">血氧</text>
+                <text class="vital-value">{{item.bloodOxygen}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.weight}}">
+                <text class="vital-label">体重</text>
+                <text class="vital-value">{{item.weight}}</text>
+              </view>
+              <view class="vital-row" wx:if="{{item.bloodGlucose}}">
+                <text class="vital-label">血糖</text>
+                <text class="vital-value">{{item.bloodGlucose}}</text>
+              </view>
+            </view>
+            <view class="vital-remark" wx:if="{{item.remark}}">
+              <text class="remark-label">备注：</text>
+              <text class="remark-text">{{item.remark}}</text>
+            </view>
+            <view class="vital-recorder" wx:if="{{item.recorderName}}">
+              <text class="recorder-text">记录人：{{item.recorderName}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="empty-state" wx:else>
+          <text class="empty-text">暂无生命体征记录</text>
+          <text class="empty-tip">生命体征由护理员或照护主管记录</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 用药记录 -->
+    <view wx:if="{{activeTab === 'medication'}}" class="tab-content">
+      <view class="medication-section">
+        <view class="section-title">
+          <text>用药记录</text>
+          <button wx:if="{{userInfo.role !== 'RESIDENT'}}" class="add-medication-btn" bindtap="addMedication">添加用药</button>
+        </view>
+        <view class="medication-list" wx:if="{{medications.length > 0}}">
+          <view class="medication-item" wx:for="{{medications}}" wx:key="id">
+            <view class="medication-header">
+              <text class="medication-name">{{item.name}}</text>
+              <text class="medication-status" style="color: {{item.statusColor}}">{{item.status}}</text>
+            </view>
+            <view class="medication-details">
+              <text class="medication-dosage">剂量：{{item.dosage}}</text>
+              <text class="medication-frequency">频次：{{item.frequency}}</text>
+              <text class="medication-start">开始日期：{{item.startDate}}</text>
+              <!-- 需求8: 添加结束日期显示 -->
+              <text wx:if="{{item.endDate}}" class="medication-end">结束日期：{{item.endDate}}</text>
+            </view>
+            <view class="medication-actions" wx:if="{{userInfo.role !== 'RESIDENT'}}">
+              <button class="action-btn edit-btn" bindtap="editMedication" data-id="{{item.id}}">编辑</button>
+              <button wx:if="{{item.status === '进行中'}}" class="action-btn stop-btn" bindtap="stopMedication" data-id="{{item.id}}" data-name="{{item.name}}">停用</button>
+              <button wx:if="{{item.status === '已停用' || item.status === '已暂停'}}" class="action-btn resume-btn" bindtap="resumeMedication" data-id="{{item.id}}" data-name="{{item.name}}">恢复</button>
+            </view>
+          </view>
+        </view>
+        <view class="empty-state" wx:else>
+          <text class="empty-text">暂无用药记录</text>
+          <button wx:if="{{userInfo.role !== 'RESIDENT'}}" class="add-medication-btn primary" bindtap="addMedication">添加用药</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 隐藏的Canvas用于生成图片 -->
+  <canvas canvas-id="healthRecordCanvas" style="width: 750px; height: 1200px; position: fixed; left: -9999px; top: -9999px;"></canvas>
+</view>

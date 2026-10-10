@@ -1,0 +1,82 @@
+<view class="add-medication-page">
+  <view class="page-header">
+    <text class="page-title">{{isEdit ? '编辑用药' : '添加用药'}}</text>
+  </view>
+
+  <scroll-view scroll-y class="form-content">
+    <view class="form-section">
+      <view class="form-item">
+        <text class="label">药物名称 *</text>
+        <input class="input" placeholder="请输入药物名称" value="{{formData.name}}" bindinput="onInputChange" data-field="name" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">剂量 *</text>
+        <input class="input" placeholder="如: 100mg" value="{{formData.dosage}}" bindinput="onInputChange" data-field="dosage" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">服药频次 *</text>
+        <picker mode="selector" range="{{frequencyOptions}}" value="{{frequencyIndex}}" bindchange="onFrequencyChange">
+          <view class="picker">
+            {{formData.frequency || '请选择服药频次'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">服药时间 *</text>
+        <view class="time-list">
+          <view class="time-item" wx:for="{{formData.times}}" wx:key="index">
+            <picker mode="time" value="{{item}}" bindchange="onTimeChange" data-index="{{index}}">
+              <view class="time-picker">{{item}}</view>
+            </picker>
+            <text class="remove-time" bindtap="removeTime" data-index="{{index}}">×</text>
+          </view>
+          <view class="add-time-btn" bindtap="addTime">
+            <text>+ 添加时间</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">疗程</text>
+        <input class="input" placeholder="如: 30天 或 长期" value="{{formData.duration}}" bindinput="onInputChange" data-field="duration" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">开始日期 *</text>
+        <picker mode="date" value="{{formData.startDate}}" bindchange="onStartDateChange">
+          <view class="picker">
+            {{formData.startDate || '请选择开始日期'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">结束日期</text>
+        <picker mode="date" value="{{formData.endDate}}" bindchange="onEndDateChange">
+          <view class="picker">
+            {{formData.endDate || '请选择结束日期(可选)'}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">用药说明</text>
+        <textarea class="textarea" placeholder="如: 饭后服用，整片吞服" value="{{formData.instructions}}" bindinput="onInputChange" data-field="instructions" maxlength="200" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">注意事项</text>
+        <textarea class="textarea" placeholder="如: 可能出现胃部不适" value="{{formData.sideEffects}}" bindinput="onInputChange" data-field="sideEffects" maxlength="200" />
+      </view>
+    </view>
+
+    <view class="form-actions">
+      <button class="cancel-btn" bindtap="onCancel">取消</button>
+      <button wx:if="{{isEdit}}" class="stop-btn" bindtap="onStopMedication">停用</button>
+      <button class="submit-btn" bindtap="onSubmit">保存</button>
+    </view>
+  </scroll-view>
+</view>

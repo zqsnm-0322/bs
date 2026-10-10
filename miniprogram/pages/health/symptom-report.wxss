@@ -1,0 +1,444 @@
+/* 症状上报页面样式 */
+.symptom-page {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  background: #dc3545;
+  padding: 60rpx 40rpx 80rpx;
+  text-align: center;
+  position: relative;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30rpx;
+  left: 0;
+  right: 0;
+  height: 60rpx;
+  background: #f5f5f5;
+  border-radius: 60rpx 60rpx 0 0;
+}
+
+.page-title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 16rpx;
+  text-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+}
+
+/* 标签页 */
+.tab-bar {
+  display: flex;
+  background: white;
+  margin: 0 40rpx;
+  border-radius: 16rpx 16rpx 0 0;
+  margin-top: -20rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 30rpx 20rpx;
+  font-size: 28rpx;
+  color: #666;
+  border-bottom: 3rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  font-weight: bold;
+}
+
+/* 上报表单 */
+.report-form {
+  background: white;
+  margin: 0 40rpx;
+  border-radius: 0 0 16rpx 16rpx;
+  min-height: calc(100vh - 300rpx);
+}
+
+.form-content {
+  height: calc(100vh - 300rpx);
+  padding: 40rpx;
+}
+
+.form-section {
+  margin-bottom: 50rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+/* 症状类型网格 */
+.symptom-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.symptom-item {
+  width: calc(25% - 15rpx);
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  text-align: center;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.symptom-item.selected {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-color: #667eea;
+}
+
+.symptom-icon {
+  display: block;
+  font-size: 40rpx;
+  margin-bottom: 12rpx;
+}
+
+.symptom-name {
+  font-size: 24rpx;
+  color: #333;
+  line-height: 1.3;
+}
+
+/* 严重程度列表 */
+.severity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.severity-item {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.severity-item.selected {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-color: #667eea;
+}
+
+.severity-indicator {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+
+.severity-info {
+  flex: 1;
+}
+
+.severity-name {
+  display: block;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.severity-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 输入框样式 */
+.description-input,
+.additional-input {
+  width: 100%;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid #e1e8ed;
+  min-height: 200rpx;
+  line-height: 1.5;
+}
+
+.location-input {
+  width: 100%;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid #e1e8ed;
+}
+
+/* 时间选择器 */
+.time-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  border: 2rpx solid #e1e8ed;
+}
+
+.time-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  color: #ccc;
+  font-size: 28rpx;
+}
+
+/* 诱发因素 */
+.trigger-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-top: 10rpx;
+}
+
+.trigger-item {
+  background: #f0f0f0;
+  border-radius: 40rpx;
+  padding: 24rpx 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 3rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.trigger-item.selected {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  font-weight: bold;
+}
+
+.trigger-item:active {
+  opacity: 0.7;
+}
+
+.trigger-item-hover {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+/* 提交按钮 */
+.submit-section {
+  margin-top: 60rpx;
+  padding-bottom: 40rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 12rpx 40rpx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.submit-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn.loading {
+  opacity: 0.8;
+  transform: none;
+}
+
+/* 历史记录 */
+.report-history {
+  background: white;
+  margin: 0 40rpx;
+  border-radius: 0 0 16rpx 16rpx;
+  min-height: calc(100vh - 300rpx);
+}
+
+.history-content {
+  height: calc(100vh - 300rpx);
+  padding: 40rpx;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-item {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  border-left: 6rpx solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.history-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.symptom-info {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+}
+
+.symptom-icon {
+  font-size: 32rpx;
+}
+
+.symptom-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.report-status {
+  font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+.report-status.completed {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.report-status.pending {
+  background: #fff7e6;
+  color: #faad14;
+}
+
+.history-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.severity-badge {
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.report-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.location-info {
+  margin-bottom: 15rpx;
+}
+
+.location-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.location-value {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.caregiver-reply {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.reply-label {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.reply-content {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 空状态 */
+.empty-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 需求5: 编辑提示样式 */
+.edit-tip {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  padding: 20rpx 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #d63031;
+  font-weight: bold;
+  box-shadow: 0 4rpx 12rpx rgba(253, 203, 110, 0.3);
+}

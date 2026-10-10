@@ -1,0 +1,178 @@
+/* 添加用药页面样式 */
+.add-medication-page {
+  background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%);
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+  padding: 60rpx 40rpx 40rpx;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: white;
+}
+
+/* 表单内容 */
+.form-content {
+  height: calc(100vh - 140rpx);
+  padding: 40rpx;
+}
+
+.form-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+/* 表单项 */
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.input,
+.picker {
+  width: 100%;
+  height: 80rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  background: white;
+  border-color: #42a5f5;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 150rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  transition: all 0.3s ease;
+}
+
+.textarea:focus {
+  background: white;
+  border-color: #42a5f5;
+}
+
+/* 时间列表 */
+.time-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.time-item {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.time-picker {
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.remove-time {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: #f5222d;
+  background: rgba(245, 34, 45, 0.1);
+  border-left: 1rpx solid #f0f0f0;
+}
+
+.add-time-btn {
+  padding: 20rpx 30rpx;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2rpx dashed #667eea;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: #667eea;
+  text-align: center;
+}
+
+/* 表单操作 */
+.form-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 40rpx 40rpx;
+}
+
+.cancel-btn,
+.stop-btn,
+.submit-btn {
+  flex: 1;
+  height: 90rpx;
+  border-radius: 45rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.stop-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.cancel-btn:active {
+  opacity: 0.8;
+}
+
+.stop-btn:active {
+  opacity: 0.9;
+}
+
+.submit-btn:active {
+  opacity: 0.9;
+}

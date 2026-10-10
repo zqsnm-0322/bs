@@ -1,0 +1,48 @@
+<view class="container">
+  <!-- 入住老人账号看到的界面 -->
+  <view wx:if="{{isResident}}" class="resident-view">
+    <view class="tip-card">
+      <view class="tip-icon">ℹ️</view>
+      <view class="tip-content">
+        <text class="tip-title">功能说明</text>
+        <text class="tip-desc">此页面为颐康园员工专用功能。入住老人可在“首页”查看个人健康信息和风险状态。</text>
+      </view>
+    </view>
+    
+    <view class="resident-actions">
+      <view class="action-card" bindtap="goHome">
+        <view class="action-icon">🏠</view>
+        <text class="action-title">返回首页</text>
+        <text class="action-desc">查看个人健康信息</text>
+      </view>
+      
+      <view class="action-card" bindtap="viewHealth">
+        <view class="action-icon">📋</view>
+        <text class="action-title">健康档案</text>
+        <text class="action-desc">查看健康记录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 员工看到的界面 -->
+  <view wx:else>
+    <view class="search-bar">
+      <input class="search-input" placeholder="搜索老人姓名/入住编号" confirm-type="search" bindconfirm="onSearch" />
+    </view>
+
+    <scroll-view scroll-y class="list-content">
+      <view class="resident-item" wx:for="{{list}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+        <view class="p-avatar">{{item.name[0]}}</view>
+        <view class="p-info">
+          <view class="p-row">
+            <text class="name">{{item.name}}</text>
+            <text class="bed">{{item.roomBedNo || '未分配'}}</text>
+          </view>
+          <view class="p-desc">{{item.gender || '-'}} | {{item.age || '-'}}岁 | {{item.careZone || '待分区'}}</view>
+        </view>
+        <button class="btn-action" catchtap="goAssess" data-id="{{item.id}}">评估</button>
+      </view>
+      <view wx:if="{{list.length === 0}}" class="empty">暂无数据</view>
+    </scroll-view>
+  </view>
+</view>

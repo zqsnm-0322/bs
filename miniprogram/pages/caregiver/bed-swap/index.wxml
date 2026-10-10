@@ -1,0 +1,128 @@
+<view class="bed-swap-page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">床位调换</text>
+    <text class="page-subtitle">调整老人床位安排</text>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <input 
+      class="search-input" 
+      placeholder="搜索老人姓名或床位号"
+      value="{{searchKeyword}}"
+      bindinput="onSearchInput"
+    />
+  </view>
+
+  <!-- 已选择的老人 -->
+  <view wx:if="{{selectedResident}}" class="selected-resident">
+    <view class="section-title">当前选择</view>
+    <view class="resident-card selected">
+      <view class="resident-info">
+        <text class="resident-name">{{selectedResident.name}}</text>
+        <text class="resident-detail">床位：{{selectedResident.roomBedNo}} | {{selectedResident.careZone}}</text>
+      </view>
+      <view class="cancel-btn" bindtap="cancelSelection">
+        <text>✕</text>
+      </view>
+    </view>
+
+    <!-- 调换表单 -->
+    <view class="swap-form">
+      <view class="form-item">
+        <text class="form-label">护理区</text>
+        <picker 
+          mode="selector" 
+          range="{{careZones}}"
+          value="{{careZones.indexOf(selectedCareZone)}}"
+          bindchange="onCareZoneChange"
+        >
+          <view class="picker-view">
+            <text class="{{selectedCareZone ? '' : 'placeholder'}}">
+              {{selectedCareZone || '请选择护理区'}}
+            </text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item" wx:if="{{selectedCareZone}}">
+        <text class="form-label">目标床位号</text>
+        <picker 
+          mode="selector" 
+          range="{{availableBeds}}"
+          range-key="bedNo"
+          bindchange="onBedChange"
+        >
+          <view class="picker-view">
+            <text class="{{targetBedNo ? '' : 'placeholder'}}">
+              {{targetBedNo || '请选择目标床位'}}
+            </text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+        
+        <!-- 显示选中床位的详细信息 -->
+        <view wx:if="{{targetBedNo}}" class="bed-info">
+          <view wx:for="{{availableBeds}}" wx:key="id" wx:if="{{item.bedNo === targetBedNo}}">
+            <text class="bed-info-text">
+              病区：{{item.ward}} | 
+              类型：{{item.bedType === 'NORMAL' ? '普通' : item.bedType === 'ICU' ? '重症' : 'VIP'}} | 
+              状态：{{item.status === 'AVAILABLE' ? '空闲' : item.status === 'OCCUPIED' ? '已占用(' + item.residentName + ')' : '维护中'}}
+            </text>
+          </view>
+        </view>
+        
+        <view wx:if="{{availableBeds.length === 0}}" class="form-tip" style="margin-top: 16rpx;">
+          <text class="tip-icon">ℹ️</text>
+          <text class="tip-text">该护理区暂无床位数据</text>
+        </view>
+      </view>
+
+      <view class="form-tip">
+        <text class="tip-icon">💡</text>
+        <text class="tip-text">如果目标床位已被占用，将与该床位老人互换；如果空闲，则直接调换</text>
+      </view>
+
+      <button 
+        class="swap-btn" 
+        bindtap="swapBed"
+        disabled="{{loading}}"
+      >
+        {{loading ? '调换中...' : '确认调换'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 老人列表 -->
+  <view class="resident-list">
+    <view class="section-title">选择老人</view>
+    
+    <view wx:if="{{residents.length === 0}}" class="empty-state">
+      <text class="empty-icon">🛏️</text>
+      <text class="empty-text">暂无已分配床位的老人</text>
+    </view>
+
+    <view 
+      wx:for="{{residents}}" 
+      wx:key="id"
+      wx:if="{{!searchKeyword || item.name.indexOf(searchKeyword) > -1 || item.bedNo.indexOf(searchKeyword) > -1}}"
+      class="resident-card {{selectedResident && selectedResident.id === item.id ? 'active' : ''}}"
+      bindtap="selectResident"
+      data-index="{{index}}"
+    >
+      <view class="resident-avatar">
+        <text class="avatar-text">{{item.name.substr(0, 1)}}</text>
+      </view>
+      <view class="resident-info">
+        <text class="resident-name">{{item.name}}</text>
+        <text class="resident-detail">床位：{{item.roomBedNo}} | {{item.careZone}}</text>
+        <text class="resident-detail">入住编号：{{item.residentNo || item.residentId}}</text>
+      </view>
+      <view class="resident-arrow">
+        <text>></text>
+      </view>
+    </view>
+  </view>
+</view>
