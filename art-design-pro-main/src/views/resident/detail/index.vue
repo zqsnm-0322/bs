@@ -85,6 +85,10 @@
         <ElTabPane label="护理任务" name="care">
           <CareTaskTab :resident-id="residentId" />
         </ElTabPane>
+
+        <ElTabPane label="养老风险记录" name="elderlyRiskRecords">
+          <ElderlyRiskRecordTab :resident-id="residentId" />
+        </ElTabPane>
       </ElTabs>
     </ElCard>
 
@@ -147,6 +151,7 @@
   import HealthCheckupTab from './modules/health-checkup-tab.vue'
   import RiskAssessmentTab from './modules/risk-assessment-tab.vue'
   import CareTaskTab from './modules/care-task-tab.vue'
+  import ElderlyRiskRecordTab from './modules/elderly-risk-record-tab.vue'
 
   const router = useRouter()
   const route = useRoute()

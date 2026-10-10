@@ -19,6 +19,7 @@ com\graduation\medical\service\ScaleEvaluationService.class
 com\graduation\medical\controller\SystemTestController.class
 com\graduation\medical\controller\RiskRecordController.class
 com\graduation\medical\MedicalApplication.class
+com\graduation\medical\service\EnhancedRiskPredictionService$ModuleScore.class
 com\graduation\medical\controller\DashboardController.class
 com\graduation\medical\mapper\BedMapper.class
 com\graduation\medical\service\SymptomReportService.class

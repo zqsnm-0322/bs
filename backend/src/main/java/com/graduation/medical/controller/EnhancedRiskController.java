@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/enhanced-risk")
@@ -327,7 +328,7 @@ public class EnhancedRiskController {
     }
 
     /**
-     * 获取老人健康状况预测
+     * 获取老人养老照护风险提示
      */
     @GetMapping("/predictions/{residentId}")
     public Result<?> getHealthPredictions(@PathVariable("residentId") Long residentId) {
@@ -350,7 +351,7 @@ public class EnhancedRiskController {
             result.put("totalScore", latestAssessment.getTotalScore());
             result.put("confidenceLevel", latestAssessment.getConfidenceLevel());
             
-            // 解析健康预测JSON
+            // 解析养老照护风险提示JSON
             if (latestAssessment.getHealthPredictions() != null) {
                 com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
                 try {
@@ -358,6 +359,19 @@ public class EnhancedRiskController {
                         latestAssessment.getHealthPredictions(), 
                         mapper.getTypeFactory().constructCollectionType(List.class, Map.class)
                     );
+                    for (Map<String, Object> prediction : predictions) {
+                        Object riskName = prediction.getOrDefault("riskName", "养老照护");
+                        Object score = prediction.getOrDefault("score", 0);
+                        prediction.putIfAbsent("condition", riskName + "照护风险");
+                        prediction.putIfAbsent("severity", prediction.getOrDefault("riskLevel", "LOW"));
+                        prediction.putIfAbsent("probability", score + "分");
+                        prediction.putIfAbsent("timeframe", "持续观察");
+                        prediction.putIfAbsent("symptoms", java.util.List.of("关注老人日常状态变化"));
+                        prediction.putIfAbsent("interventions", java.util.List.of(
+                                Objects.toString(prediction.get("recommendation"), "持续观察并完善照护记录")));
+                        prediction.putIfAbsent("statisticalBasis",
+                                "依据老人当前档案、风险评估和照护记录综合评估，不作为医疗诊断");
+                    }
                     result.put("predictions", predictions);
                 } catch (Exception e) {
                     result.put("predictions", new java.util.ArrayList<>());
@@ -369,7 +383,7 @@ public class EnhancedRiskController {
             return Result.success(result);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("获取健康预测失败: " + e.getMessage());
+            return Result.error("获取照护风险提示失败: " + e.getMessage());
         }
     }
 
@@ -381,7 +395,7 @@ public class EnhancedRiskController {
                                            @RequestParam(required = false) String careManagerId,
                                            @RequestParam(required = false) String message) {
         try {
-            // 获取最新的健康预测
+            // 获取最新的养老照护风险提示
             LambdaQueryWrapper<RiskAssessment> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(RiskAssessment::getResidentId, residentId);
             wrapper.orderByDesc(RiskAssessment::getAssessmentTime);
@@ -719,7 +733,7 @@ public class EnhancedRiskController {
     }
 
     /**
-     * 分享健康预测结果给老人
+     * 分享养老照护风险提示给老人
      * 老人可以在小程序中查看预测结果
      */
     @PostMapping("/share-predictions/{residentId}")
@@ -797,7 +811,7 @@ public class EnhancedRiskController {
             // 注：当前NotificationService主要用于照护主管通知，老人通知可以通过小程序推送实现
             
             // 记录分享操作
-            System.out.println("健康预测结果已分享给老人: " + residentId + ", 预测数量: " + predictions.size());
+            System.out.println("养老照护风险提示已分享给老人: " + residentId + ", 提示数量: " + predictions.size());
             
             return Result.success(residentReport);
         } catch (Exception e) {

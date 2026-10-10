@@ -31,8 +31,8 @@
       </ElTableColumn>
     </ElTable>
 
-    <ElDialog v-model="dialogVisible" :title="editingId ? '编辑健康检查记录' : '添加健康检查记录'" width="720px">
-      <ElForm :model="form" label-width="120px">
+    <ElDialog v-model="dialogVisible" :title="editingId ? '编辑健康检查记录' : '添加健康检查记录'" width="960px">
+      <ElForm :model="form" label-width="135px" class="checkup-form">
         <ElRow :gutter="20">
           <ElCol :span="12">
             <ElFormItem label="检查日期" required>
@@ -53,51 +53,51 @@
         <ElRow :gutter="20">
           <ElCol :span="8">
             <ElFormItem label="体温(℃)">
-              <ElInputNumber v-model="form.temperature" :min="30" :max="45" :precision="1" />
+              <ElInputNumber v-model="form.temperature" :min="34" :max="42" :step="0.1" :precision="1" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
             <ElFormItem label="血氧(%)">
-              <ElInputNumber v-model="form.bloodOxygen" :min="0" :max="100" :precision="1" />
+              <ElInputNumber v-model="form.bloodOxygen" :min="50" :max="100" :step="0.1" :precision="1" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
             <ElFormItem label="体重(kg)">
-              <ElInputNumber v-model="form.weight" :min="0" :max="300" :precision="1" />
+              <ElInputNumber v-model="form.weight" :min="20" :max="250" :step="0.1" :precision="1" controls-position="right" />
             </ElFormItem>
           </ElCol>
         </ElRow>
         <ElRow :gutter="20">
           <ElCol :span="8">
             <ElFormItem label="身高(cm)">
-              <ElInputNumber v-model="form.height" :min="0" :max="250" :precision="1" />
+              <ElInputNumber v-model="form.height" :min="100" :max="220" :step="0.1" :precision="1" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
-            <ElFormItem label="空腹血糖">
-              <ElInputNumber v-model="form.bloodSugarFasting" :min="0" :precision="2" />
+            <ElFormItem label="空腹血糖(mmol/L)">
+              <ElInputNumber v-model="form.bloodSugarFasting" :min="1" :max="30" :step="0.1" :precision="2" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
-            <ElFormItem label="餐后血糖">
-              <ElInputNumber v-model="form.bloodSugarPostprandial" :min="0" :precision="2" />
+            <ElFormItem label="餐后血糖(mmol/L)">
+              <ElInputNumber v-model="form.bloodSugarPostprandial" :min="1" :max="40" :step="0.1" :precision="2" controls-position="right" />
             </ElFormItem>
           </ElCol>
         </ElRow>
         <ElRow :gutter="20">
           <ElCol :span="8">
-            <ElFormItem label="收缩压">
-              <ElInputNumber v-model="form.bloodPressureSystolic" :min="0" :max="300" />
+            <ElFormItem label="收缩压(mmHg)">
+              <ElInputNumber v-model="form.bloodPressureSystolic" :min="60" :max="260" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
-            <ElFormItem label="舒张压">
-              <ElInputNumber v-model="form.bloodPressureDiastolic" :min="0" :max="200" />
+            <ElFormItem label="舒张压(mmHg)">
+              <ElInputNumber v-model="form.bloodPressureDiastolic" :min="30" :max="160" controls-position="right" />
             </ElFormItem>
           </ElCol>
           <ElCol :span="8">
-            <ElFormItem label="心率">
-              <ElInputNumber v-model="form.heartRate" :min="0" :max="200" />
+            <ElFormItem label="心率(次/分)">
+              <ElInputNumber v-model="form.heartRate" :min="30" :max="220" controls-position="right" />
             </ElFormItem>
           </ElCol>
         </ElRow>
@@ -267,5 +267,16 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+  }
+  .checkup-form :deep(.el-input-number),
+  .checkup-form :deep(.el-date-editor.el-input),
+  .checkup-form :deep(.el-input) {
+    width: 100%;
+  }
+
+  @media (max-width: 1000px) {
+    .checkup-form :deep(.el-form-item__label) {
+      font-size: 13px;
+    }
   }
 </style>

@@ -64,6 +64,16 @@ export function fetchRiskRecordList() {
   })
 }
 
+/** 获取单条养老风险评估记录详情 */
+export function fetchRiskRecordDetail(id: number | string) {
+  return request.get<any>({ url: `/api/risk/detail/${id}` })
+}
+
+/** 获取指定老人的养老风险量表评估历史 */
+export function fetchResidentRiskHistory(residentId: number | string) {
+  return request.get<any>({ url: `/api/risk/history/${residentId}` })
+}
+
 /**
  * 获取待评估老人列表
  */

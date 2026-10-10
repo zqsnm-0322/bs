@@ -17,7 +17,7 @@
       <text>基本信息</text>
     </view>
     <view class="tab-item {{activeTab === 'prediction' ? 'active' : ''}}" bindtap="switchTab" data-tab="prediction">
-      <text>健康预测</text>
+      <text>照护风险提示</text>
     </view>
     <view class="tab-item {{activeTab === 'risk' ? 'active' : ''}}" bindtap="switchTab" data-tab="risk">
       <text>风险评估</text>
@@ -69,13 +69,13 @@
       </view>
     </view>
 
-    <!-- 健康预测 -->
+    <!-- 养老照护风险提示 -->
     <view wx:if="{{activeTab === 'prediction'}}" class="tab-content">
       <view class="prediction-section">
-        <view class="section-title">健康状况预测</view>
+        <view class="section-title">养老照护风险提示</view>
         
         <view class="prediction-info" wx:if="{{assessmentTime}}">
-          <text class="info-text">基于最新风险评估，预测可能出现的健康问题</text>
+          <text class="info-text">根据老人当前档案、风险评估和照护记录，提示需要重点关注的养老照护风险</text>
           <text class="assessment-time">评估时间：{{assessmentTime}}</text>
         </view>
         
@@ -98,12 +98,12 @@
             </view>
             
             <view class="prediction-meta">
-              <text class="probability">发生概率：{{item.probability}}</text>
-              <text class="timeframe">时间窗口：{{item.timeframe}}</text>
+            <text class="probability">风险评分：{{item.probability || item.score}}</text>
+            <text class="timeframe">关注周期：{{item.timeframe || '持续观察'}}</text>
             </view>
             
             <view class="prediction-symptoms">
-              <text class="symptoms-label">主要症状：</text>
+            <text class="symptoms-label">重点观察：</text>
               <text class="symptoms-text">{{item.symptoms[0]}}{{item.symptoms.length > 1 ? '等' : ''}}</text>
             </view>
             
@@ -116,8 +116,8 @@
         
         <view class="empty-state" wx:if="{{!predictionsLoading && healthPredictions.length === 0}}">
           <text class="empty-icon">🔮</text>
-          <text class="empty-text">暂无健康预测数据</text>
-          <text class="empty-tip">照护主管分享预测结果后可在此查看</text>
+          <text class="empty-text">暂无照护风险提示</text>
+          <text class="empty-tip">照护主管分享风险提示后可在此查看</text>
         </view>
         
         <view class="loading-state" wx:if="{{predictionsLoading}}">

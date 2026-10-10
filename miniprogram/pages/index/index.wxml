@@ -54,9 +54,9 @@
       </view>
     </view>
 
-    <!-- 健康预测通知 -->
+    <!-- 养老照护风险提示通知 -->
     <view wx:if="{{notifications.length > 0}}" class="section-title">
-      健康预测通知
+      照护风险提示通知
       <text class="notification-count" wx:if="{{unreadNotifications > 0}}">({{unreadNotifications}}条未读)</text>
     </view>
     <view wx:if="{{notifications.length > 0}}" class="notifications-list">
@@ -68,7 +68,7 @@
         data-notification="{{item}}"
       >
         <view class="notification-header">
-          <text class="notification-type">{{item.notificationType === 'HEALTH_PREDICTION' ? '健康预测' : '系统通知'}}</text>
+          <text class="notification-type">{{item.notificationType === 'HEALTH_PREDICTION' ? '照护风险提示' : '系统通知'}}</text>
           <text class="notification-time">{{item.createTime}}</text>
           <view wx:if="{{!item.isRead}}" class="unread-dot"></view>
         </view>
@@ -136,8 +136,8 @@
       </view>
     </view>
 
-    <!-- 健康预测 -->
-    <view wx:if="{{residentData.hasPredictions}}" class="section-title">健康预测</view>
+    <!-- 养老照护风险提示 -->
+    <view wx:if="{{residentData.hasPredictions}}" class="section-title">照护风险提示</view>
     <view wx:if="{{residentData.hasPredictions}}" class="predictions-section">
       <view class="prediction-alert">
         <text class="alert-icon">⚠️</text>

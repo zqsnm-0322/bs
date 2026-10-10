@@ -72,7 +72,7 @@
           <p>{{ selectedNotification.content }}</p>
         </div>
 
-        <el-divider content-position="left" v-if="selectedNotification.extraData">健康预测详情</el-divider>
+        <el-divider content-position="left" v-if="selectedNotification.extraData">养老照护风险提示详情</el-divider>
         <div v-if="selectedNotification.extraData" class="prediction-details">
           <div 
             v-for="(prediction, index) in parsePredictions(selectedNotification.extraData)" 
@@ -80,8 +80,8 @@
             class="prediction-card"
           >
             <h4>{{ prediction.condition }}</h4>
-            <p><strong>发生概率：</strong>{{ prediction.probability }}</p>
-            <p><strong>时间窗口：</strong>{{ prediction.timeframe }}</p>
+            <p><strong>风险评分：</strong>{{ prediction.probability || prediction.score }}</p>
+            <p><strong>关注周期：</strong>{{ prediction.timeframe || '持续观察' }}</p>
             <div v-if="prediction.symptoms">
               <strong>可能症状：</strong>
               <ul>
@@ -121,6 +121,7 @@ const router = useRouter()
 interface PredictionItem {
   condition: string
   probability?: string
+  score?: string | number
   timeframe?: string
   symptoms?: string[]
   interventions?: string[]
@@ -217,7 +218,7 @@ const goToResident = () => {
 
 const getNotificationTypeText = (type: string) => {
   const types: Record<string, string> = {
-    'HEALTH_PREDICTION': '健康预测',
+    'HEALTH_PREDICTION': '照护风险提示',
     'RISK_ALERT': '风险预警',
     'SYSTEM': '系统通知'
   }

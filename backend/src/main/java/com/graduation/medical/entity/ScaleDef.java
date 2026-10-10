@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -58,6 +59,9 @@ public class ScaleDef {
      * 版本号，用于量表更新管理
      */
     private String version;
+
+    /** 在养老标准量表模块内部所占权重（百分比） */
+    private BigDecimal assessmentWeight;
     
     /**
      * 创建人ID

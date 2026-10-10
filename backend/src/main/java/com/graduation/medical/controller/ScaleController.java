@@ -47,6 +47,7 @@ public class ScaleController {
             item.put("scaleName", scale.getScaleName());
             item.put("description", scale.getDescription());
             item.put("version", scale.getVersion());
+            item.put("assessmentWeight", scale.getAssessmentWeight());
             return item;
         }).collect(java.util.stream.Collectors.toList());
         
@@ -153,6 +154,7 @@ public class ScaleController {
             if (scaleDef == null || !isElderlyCareScale(scaleDef.getScaleType())) {
                 return Result.error("不能创建已停用的急性医疗风险量表");
             }
+            if (!validWeight(scaleDef)) return Result.error("量表权重必须在0到100之间");
             scaleDef.setCreateTime(LocalDateTime.now());
             scaleDef.setUpdateTime(LocalDateTime.now());
             scaleDefMapper.insert(scaleDef);
@@ -189,6 +191,7 @@ public class ScaleController {
             if (scaleDef == null || !isElderlyCareScale(scaleDef.getScaleType())) {
                 return Result.error("不能启用已停用的急性医疗风险量表");
             }
+            if (!validWeight(scaleDef)) return Result.error("量表权重必须在0到100之间");
             
             // 确保ID存在
             if (scaleDef.getId() == null) {
@@ -295,6 +298,12 @@ public class ScaleController {
 
     private boolean isElderlyCareScale(String scaleType) {
         return scaleType != null && ELDERLY_CARE_SCALES.contains(scaleType.toUpperCase());
+    }
+
+    private boolean validWeight(ScaleDef scaleDef) {
+        return scaleDef.getAssessmentWeight() != null
+                && scaleDef.getAssessmentWeight().compareTo(java.math.BigDecimal.ZERO) >= 0
+                && scaleDef.getAssessmentWeight().compareTo(java.math.BigDecimal.valueOf(100)) <= 0;
     }
 
     public static class UpdateScaleRequest {

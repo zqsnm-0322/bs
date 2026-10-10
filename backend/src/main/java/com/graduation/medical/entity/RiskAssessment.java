@@ -55,7 +55,8 @@ public class RiskAssessment {
     private String riskFactors; // 主要风险因素JSON
     private String protectiveFactors; // 保护性因素JSON
     private String recommendations; // 护理建议JSON
-    private String healthPredictions; // 健康状况预测JSON
+    private String healthPredictions; // 养老照护风险提示JSON（保留字段名兼容历史数据）
+    private String assessmentBreakdown; // 六模块得分、权重、加权分及数据依据JSON
     
     private String assessedBy; // 评估人员
     private Date createTime;

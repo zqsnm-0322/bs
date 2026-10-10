@@ -15,7 +15,7 @@
   <view class="predictions-container">
     <view wx:if="{{predictions.length === 0}}" class="empty-state">
       <text class="empty-icon">📊</text>
-      <text class="empty-text">暂无健康预测数据</text>
+      <text class="empty-text">暂无照护风险提示</text>
       <text class="empty-desc">请先进行风险评估</text>
     </view>
 
@@ -28,14 +28,14 @@
           </view>
         </view>
         <view class="probability-info">
-          <text class="probability">{{item.probability}}</text>
-          <text class="timeframe">{{item.timeframe}}</text>
+          <text class="probability">风险评分：{{item.probability || item.score}}</text>
+          <text class="timeframe">关注周期：{{item.timeframe || '持续观察'}}</text>
         </view>
       </view>
 
       <view class="card-content">
         <view class="symptoms-section">
-          <text class="section-title">可能出现的症状</text>
+          <text class="section-title">重点观察</text>
           <view class="symptoms-list">
             <text wx:for="{{item.symptoms}}" wx:key="symptom" wx:for-item="symptom" class="symptom-item">
               • {{symptom}}
@@ -53,7 +53,7 @@
         </view>
 
         <view wx:if="{{item.statisticalBasis}}" class="statistical-section">
-          <text class="section-title">统计学依据</text>
+          <text class="section-title">评估依据</text>
           <text class="statistical-text">{{item.statisticalBasis}}</text>
         </view>
       </view>

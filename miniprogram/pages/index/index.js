@@ -6,7 +6,7 @@ Page({
     userType: 'CAREGIVER', // 员工或入住老人
     stats: {},
     alerts: [],
-    notifications: [], // 健康预测通知
+    notifications: [], // 照护风险提示通知
     unreadNotifications: 0, // 未读通知数量
     residentData: {
       riskLevel: 'LOW',
@@ -75,7 +75,7 @@ Page({
       })
     })
     
-    // 加载健康预测通知
+    // 加载照护风险提示通知
     this.loadNotifications()
   },
   // 加载老人数据
@@ -106,11 +106,11 @@ Page({
         // 静默处理
       })
 
-      // 加载健康预测
+      // 加载照护风险提示
       this.loadHealthPredictions(residentId)
     }
   },
-  // 加载健康预测
+  // 加载照护风险提示
   loadHealthPredictions(residentId) {
     app.request(`/enhanced-risk/predictions/${residentId}`).then(res => {
       if (res && res.predictions && res.predictions.length > 0) {
@@ -143,7 +143,7 @@ Page({
       })
     })
   },
-  // 加载健康预测通知
+  // 加载照护风险提示通知
   loadNotifications() {
     // 获取所有通知（包括已读和未读）
     app.request('/notifications/all', 'GET', { limit: 10 }).then(res => {
@@ -205,7 +205,7 @@ Page({
       })
     }
   },
-  // 查看健康预测详情
+  // 查看照护风险提示详情
   viewPredictionDetail() {
     const residentId = this.data.userInfo?.residentId || this.data.userInfo?.id
     if (residentId) {

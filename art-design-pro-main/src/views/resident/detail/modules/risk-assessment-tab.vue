@@ -8,7 +8,7 @@
       </el-button>
       <el-button type="success" @click="viewPredictions" :disabled="!hasAssessment">
         <el-icon><View /></el-icon>
-        健康预测
+        照护风险提示
       </el-button>
       <el-button type="warning" @click="shareReport" :disabled="!hasAssessment" :loading="sharing">
         <el-icon><Share /></el-icon>
@@ -71,10 +71,10 @@
       <el-table-column label="置信度" width="120">
         <template #default="{ row }">
           <el-progress 
-            :percentage="row.confidenceLevel" 
+            :percentage="confidencePercent(row.confidenceLevel)" 
             color="#67c23a"
           />
-          <span style="margin-left: 8px">{{ row.confidenceLevel }}%</span>
+          <span style="margin-left: 8px">{{ confidencePercent(row.confidenceLevel) }}%</span>
         </template>
       </el-table-column>
       <el-table-column prop="healthHistoryScore" label="健康史" width="100" />
@@ -113,11 +113,28 @@
             </el-tag>
           </el-descriptions-item>
           <el-descriptions-item label="总评分">{{ selectedRecord.totalScore }}</el-descriptions-item>
-          <el-descriptions-item label="置信度">{{ selectedRecord.confidenceLevel }}%</el-descriptions-item>
+          <el-descriptions-item label="置信度">{{ confidencePercent(selectedRecord.confidenceLevel) }}%</el-descriptions-item>
         </el-descriptions>
 
         <el-divider content-position="left">维度评分</el-divider>
-        <el-row :gutter="16">
+        <el-table v-if="getAssessmentModules(selectedRecord).length" :data="getAssessmentModules(selectedRecord)" border>
+          <el-table-column prop="module" label="综合模块" min-width="190" />
+          <el-table-column prop="score" label="模块得分" width="100" />
+          <el-table-column prop="weight" label="权重" width="90" />
+          <el-table-column prop="weightedScore" label="计入总分" width="100" />
+          <el-table-column prop="evidence" label="数据依据" min-width="240" />
+          <el-table-column label="数据状态" width="100">
+            <template #default="scope">
+              <el-tag :type="scope.row.hasData ? 'success' : 'info'">
+                {{ scope.row.hasData ? '已采集' : '暂无数据' }}
+              </el-tag>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div v-if="getAssessmentFormula(selectedRecord)" class="assessment-formula">
+          总分公式：{{ getAssessmentFormula(selectedRecord) }}
+        </div>
+        <el-row v-if="!getAssessmentModules(selectedRecord).length" :gutter="16">
           <el-col :span="12">
             <el-card shadow="never">
               <template #header>
@@ -220,16 +237,16 @@
       <el-empty v-if="trendRecords.length === 0" description="暂无同类评估记录" />
     </el-dialog>
 
-    <!-- 健康预测对话框 -->
+    <!-- 养老照护风险提示对话框 -->
     <el-dialog
       v-model="predictionsVisible"
-      title="健康状况预测"
+      title="养老照护风险提示"
       width="900px"
     >
       <div v-if="predictions.length > 0">
         <el-alert
-          title="预测说明"
-          description="以下预测基于老人当前的风险评估结果和健康数据生成，仅供照护人员参考"
+          title="照护提示说明"
+          description="根据老人当前档案、风险评估和照护记录，提示跌倒、压疮、营养、认知、走失等可能需要关注的照护风险。结果仅用于制定照护计划，不作为医疗诊断。"
           type="info"
           show-icon
           :closable="false"
@@ -262,8 +279,8 @@
                   <el-tag :type="getSeverityType(prediction.severity)" size="small">
                     {{ getSeverityText(prediction.severity) }}
                   </el-tag>
-                  <span class="prediction-probability">发生概率: {{ prediction.probability }}</span>
-                  <span class="prediction-timeframe">时间窗口: {{ prediction.timeframe }}</span>
+                  <span class="prediction-probability">风险评分: {{ prediction.probability || prediction.score }}</span>
+                  <span class="prediction-timeframe">关注周期: {{ prediction.timeframe || '持续观察' }}</span>
                 </div>
               </div>
             </template>
@@ -271,7 +288,7 @@
             <el-row :gutter="16">
               <el-col :span="8">
                 <div class="prediction-section">
-                  <h4>可能症状</h4>
+                  <h4>重点观察</h4>
                   <ul class="symptom-list">
                     <li v-for="symptom in prediction.symptoms" :key="symptom">{{ symptom }}</li>
                   </ul>
@@ -287,7 +304,7 @@
               </el-col>
               <el-col :span="8" v-if="prediction.statisticalBasis">
                 <div class="prediction-section">
-                  <h4>统计学依据</h4>
+                  <h4>评估依据</h4>
                   <p class="statistical-basis">{{ prediction.statisticalBasis }}</p>
                 </div>
               </el-col>
@@ -417,6 +434,51 @@ const viewDetail = (record) => {
   detailVisible.value = true
 }
 
+const parseAssessmentBreakdown = (record) => {
+  if (!record?.assessmentBreakdown) return null
+  if (typeof record.assessmentBreakdown === 'object') return record.assessmentBreakdown
+  try {
+    return JSON.parse(record.assessmentBreakdown)
+  } catch {
+    return null
+  }
+}
+
+const getAssessmentModules = (record) => parseAssessmentBreakdown(record)?.modules || []
+const getAssessmentFormula = (record) => parseAssessmentBreakdown(record)?.formula || ''
+
+const predictionCatalog = {
+  FALL: { name: '跌倒', observations: ['步态和平衡变化', '起身、行走及夜间活动安全'], advice: '加强陪同与环境防滑' },
+  PRESSURE: { name: '压疮', observations: ['受压部位皮肤状态', '翻身与活动频率'], advice: '定时翻身并检查皮肤' },
+  MALNUTRITION: { name: '营养', observations: ['进食量和体重变化', '吞咽及食欲情况'], advice: '记录饮食并开展营养干预' },
+  COGNITIVE: { name: '认知', observations: ['记忆与定向能力变化', '日常指令执行情况'], advice: '加强认知训练和定向提示' },
+  WANDERING: { name: '走失', observations: ['异常外出倾向', '活动路线和定位情况'], advice: '完善出入管理和定位关怀' },
+  DEPRESSION: { name: '抑郁', observations: ['情绪、睡眠和食欲变化', '社交参与情况'], advice: '增加陪伴和心理关怀' },
+  SELF_HARM: { name: '自伤', observations: ['异常言语和情绪波动', '独处时的安全状态'], advice: '加强观察并及时启动心理支持' },
+  NEGLECT: { name: '照护忽视', observations: ['照护计划执行情况', '基本生活需求是否得到满足'], advice: '核查照护计划与执行记录' }
+}
+
+const normalizePrediction = (item) => {
+  const catalog = predictionCatalog[item?.riskType] || {
+    name: item?.riskName || '养老照护',
+    observations: ['关注老人日常状态变化'],
+    advice: '持续观察并完善照护记录'
+  }
+  const name = item?.riskName || catalog.name
+  return {
+    ...item,
+    condition: item?.condition || `${name}照护风险`,
+    severity: item?.severity || item?.riskLevel || 'LOW',
+    probability: item?.probability || `${item?.score ?? 0}分`,
+    timeframe: item?.timeframe || '持续观察',
+    symptoms: Array.isArray(item?.symptoms) && item.symptoms.length ? item.symptoms : catalog.observations,
+    interventions: Array.isArray(item?.interventions) && item.interventions.length
+      ? item.interventions
+      : [item?.recommendation || catalog.advice],
+    statisticalBasis: item?.statisticalBasis || '依据老人当前档案、风险评估和照护记录综合评估，仅用于制定照护计划，不作为医疗诊断'
+  }
+}
+
 const viewPredictions = async () => {
   loadingPredictions.value = true
   predictionsVisible.value = true
@@ -426,7 +488,7 @@ const viewPredictions = async () => {
       url: `/api/enhanced-risk/predictions/${props.residentId}`
     })
     
-    predictions.value = response.predictions || []
+    predictions.value = (response.predictions || []).map(normalizePrediction)
     predictionsData.value = {
       assessmentTime: response.assessmentTime,
       riskLevel: response.riskLevel,
@@ -434,7 +496,7 @@ const viewPredictions = async () => {
       confidenceLevel: response.confidenceLevel
     }
   } catch (error) {
-    ElMessage.error('加载健康预测失败：' + (error.response?.data?.message || error.message))
+    ElMessage.error('加载照护风险提示失败：' + (error.response?.data?.message || error.message))
     predictions.value = []
   } finally {
     loadingPredictions.value = false
@@ -448,11 +510,11 @@ const notifyCareManager = async () => {
     await api.post({
       url: `/api/enhanced-risk/predictions/notify/${props.residentId}`,
       params: {
-        message: '系统基于老人当前状况预测了可能出现的健康问题，请及时关注并采取相应措施'
+        message: '系统已结合量表、健康检查、健康历史、异常事件、护理执行和入住信息生成养老照护风险提示，请及时关注'
       }
     })
     
-    ElMessage.success('预测结果已发送给照护主管')
+    ElMessage.success('照护风险提示已发送给照护主管')
   } catch (error) {
     ElMessage.error('发送失败：' + (error.response?.data?.message || error.message))
   } finally {
@@ -475,7 +537,7 @@ const exportPredictions = () => {
   const url = URL.createObjectURL(dataBlob)
   const link = document.createElement('a')
   link.href = url
-  link.download = `健康预测报告_${props.residentId}_${dayjs().format('YYYYMMDD_HHmmss')}.json`
+  link.download = `养老照护风险提示_${props.residentId}_${dayjs().format('YYYYMMDD_HHmmss')}.json`
   link.click()
   URL.revokeObjectURL(url)
   
@@ -520,7 +582,7 @@ const sharePredictionsToResident = async () => {
       }
     })
     
-    ElMessage.success('健康预测结果已分享给老人及家属，可在小程序中查看')
+    ElMessage.success('照护风险提示已分享给老人及家属，可在小程序中查看')
     
     // 显示分享详情
     if (response.validUntil) {
@@ -545,6 +607,11 @@ const getSeverityType = (severity) => {
     'CRITICAL': 'danger'
   }
   return types[severity] || 'info'
+}
+
+const confidencePercent = (value) => {
+  const number = Number(value || 0)
+  return number <= 1 ? Math.round(number * 100) : Math.round(number)
 }
 
 const getSeverityText = (severity) => {
@@ -769,5 +836,13 @@ const getPredictionCardClass = (severity) => {
   padding: 16px;
   background: #fafafa;
   border-radius: 8px;
+}
+
+.assessment-formula {
+  margin-top: 12px;
+  padding: 10px 14px;
+  color: #606266;
+  background: #f5f7fa;
+  border-radius: 4px;
 }
 </style>

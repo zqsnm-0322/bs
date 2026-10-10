@@ -74,4 +74,18 @@ class ElderlyCareApiIntegrationTest {
                 .content("{\"residentId\":" + resident.getId() + ",\"visitorName\":\"测试访客\",\"visitDate\":\"2026-10-11\"}"))
             .andExpect(status().isOk()).andExpect(jsonPath("$.code").value(200));
     }
+
+    @Test
+    void comprehensiveAssessmentPersistsSixModuleWeightedBreakdown() throws Exception {
+        Resident resident = residentMapper.selectList(null).stream()
+            .filter(item -> "RESIDENT".equals(item.getStatus()))
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("测试数据库至少需要一位在住老人"));
+
+        mockMvc.perform(post("/api/enhanced-risk/assess/" + resident.getId()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.code").value(200))
+            .andExpect(jsonPath("$.data.totalScore").isNumber())
+            .andExpect(jsonPath("$.data.assessmentBreakdown").isNotEmpty());
+    }
 }

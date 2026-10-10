@@ -33,7 +33,7 @@ public class NotificationService {
         
         notificationMapper.insert(notification);
         
-        System.out.println("=== 健康预测通知已发送 ===");
+        System.out.println("=== 养老照护风险提示通知已发送 ===");
         System.out.println("老人: " + residentName + " (ID: " + residentId + ")");
         System.out.println("通知内容: " + notification.getContent());
         System.out.println("========================");

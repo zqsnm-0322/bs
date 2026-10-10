@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import com.graduation.medical.entity.AlertMsg;
 import com.graduation.medical.mapper.AlertMsgMapper;
@@ -30,6 +31,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/risk")
 @CrossOrigin
 public class RiskRecordController {
+    private static final Set<String> ELDERLY_CARE_SCALES = Set.of(
+            "FALL", "PRESSURE", "MALNUTRITION", "COGNITIVE",
+            "WANDERING", "DEPRESSION", "SELF_HARM", "NEGLECT");
 
     @Autowired
     private RiskRecordMapper riskRecordMapper;
@@ -47,6 +51,8 @@ public class RiskRecordController {
     public Result<?> list() {
         // 实际应分页，这里简化查全部
         List<RiskRecord> list = riskRecordMapper.selectListWithResident();
+        list = list.stream().filter(record -> record.getScaleType() != null
+                && ELDERLY_CARE_SCALES.contains(record.getScaleType().toUpperCase())).collect(Collectors.toList());
         if ("CAREGIVER".equals(AuthUtil.getCurrentRole())) {
             Long caregiverId = AuthUtil.getCurrentUserId();
             list = list.stream().filter(record -> {
@@ -138,6 +144,9 @@ public class RiskRecordController {
         if (record == null) {
             return Result.error("评估记录不存在");
         }
+        if (record.getScaleType() == null || !ELDERLY_CARE_SCALES.contains(record.getScaleType().toUpperCase())) {
+            return Result.error("该记录不属于养老风险评估");
+        }
         
         // 获取老人信息
         Resident resident = residentMapper.selectById(record.getResidentId());
@@ -186,6 +195,8 @@ public class RiskRecordController {
                .orderByDesc(RiskRecord::getEvaluateTime);
         
         List<RiskRecord> records = riskRecordMapper.selectList(wrapper);
+        records = records.stream().filter(record -> record.getScaleType() != null
+                && ELDERLY_CARE_SCALES.contains(record.getScaleType().toUpperCase())).collect(Collectors.toList());
         
         // 转换为前端需要的格式
         List<Map<String, Object>> result = records.stream().map(record -> {

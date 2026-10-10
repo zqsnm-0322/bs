@@ -583,13 +583,13 @@ Page({
     }, 1000)
   },
 
-  // 加载健康预测
+  // 加载照护风险提示
   loadHealthPredictions() {
     const userInfo = app.globalData.userInfo || {}
     const residentId = userInfo.residentId || userInfo.id
     
     if (!residentId) {
-      console.log('没有老人ID，无法加载健康预测')
+      console.log('没有老人ID，无法加载照护风险提示')
       return
     }
 
@@ -610,7 +610,7 @@ Page({
         })
       }
     }).catch(err => {
-      console.error('加载健康预测失败:', err)
+      console.error('加载照护风险提示失败:', err)
       this.setData({
         healthPredictions: [],
         assessmentTime: '',
@@ -639,8 +639,8 @@ Page({
   viewPredictionDetail(e) {
     const prediction = e.currentTarget.dataset.prediction
     if (prediction) {
-      let content = `发生概率：${prediction.probability}\n`
-      content += `时间窗口：${prediction.timeframe}\n\n`
+      let content = `风险评分：${prediction.probability || prediction.score || '-'}\n`
+      content += `关注周期：${prediction.timeframe || '持续观察'}\n\n`
       
       if (prediction.symptoms && prediction.symptoms.length > 0) {
         content += `可能症状：\n${prediction.symptoms.map(s => `• ${s}`).join('\n')}\n\n`

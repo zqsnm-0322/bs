@@ -42,7 +42,7 @@ Page({
     })
   },
 
-  // 加载健康预测
+  // 加载照护风险提示
   loadPredictions(residentId) {
     wx.showLoading({ title: '加载中...' })
     
@@ -63,7 +63,7 @@ Page({
         })
       }
     }).catch(err => {
-      console.error('加载健康预测失败:', err)
+      console.error('加载照护风险提示失败:', err)
       wx.showToast({
         title: '加载失败',
         icon: 'error'
@@ -103,7 +103,7 @@ Page({
   // 分享给家属
   shareWithFamily() {
     const shareData = {
-      title: '健康预测报告',
+      title: '养老照护风险提示',
       desc: `${this.data.residentInfo.name}的养老照护风险报告，当前风险等级：${this.data.riskLevelText}`,
       path: `/pages/health/predictions?residentId=${this.data.residentId}`
     }
@@ -122,15 +122,15 @@ Page({
   // 分享配置
   onShareAppMessage() {
     return {
-      title: `${this.data.residentInfo.name}的健康预测报告`,
-      desc: `当前风险等级：${this.data.riskLevelText}，共${this.data.predictions.length}项预测`,
+      title: `${this.data.residentInfo.name}的养老照护风险提示`,
+      desc: `当前风险等级：${this.data.riskLevelText}，共${this.data.predictions.length}项照护风险提示`,
       path: `/pages/health/predictions?residentId=${this.data.residentId}`
     }
   },
 
   onShareTimeline() {
     return {
-      title: `健康预测报告 - ${this.data.riskLevelText}`,
+      title: `养老照护风险提示 - ${this.data.riskLevelText}`,
       query: `residentId=${this.data.residentId}`
     }
   }

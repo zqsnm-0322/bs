@@ -10,7 +10,11 @@
           <ElButton type="primary" :icon="Search" @click="search">查询</ElButton>
           <ElButton :icon="Refresh" @click="reset">重置</ElButton>
         </ElSpace>
-        <ElButton type="primary" :icon="Plus" @click="openEditor()">新增养老风险量表</ElButton>
+        <ElSpace>
+          <ElTag :type="enabledWeightTotal === 100 ? 'success' : 'warning'">启用权重合计：{{ enabledWeightTotal }}%</ElTag>
+          <ElButton :icon="Document" @click="openRecords">养老风险记录</ElButton>
+          <ElButton type="primary" :icon="Plus" @click="openEditor()">新增养老风险量表</ElButton>
+        </ElSpace>
       </div>
 
       <ElTable v-loading="loading" :data="rows" border stripe>
@@ -19,6 +23,9 @@
           <template #default="{ row }">{{ typeLabel(row.scaleType) }}</template>
         </ElTableColumn>
         <ElTableColumn prop="version" label="版本" width="90" />
+        <ElTableColumn label="权重" width="100">
+          <template #default="{ row }"><ElTag type="primary">{{ scaleWeight(row) }}%</ElTag></template>
+        </ElTableColumn>
         <ElTableColumn prop="description" label="说明" min-width="240" show-overflow-tooltip />
         <ElTableColumn label="状态" width="90">
           <template #default="{ row }"><ElTag :type="row.status === 1 ? 'success' : 'info'">{{ row.status === 1 ? '已启用' : '已停用' }}</ElTag></template>
@@ -38,9 +45,10 @@
     <ElDialog v-model="editorVisible" :title="form.id ? '编辑养老风险量表' : '新增养老风险量表'" width="min(1100px, 94vw)" destroy-on-close>
       <ElForm label-width="95px">
         <ElRow :gutter="16">
-          <ElCol :span="12"><ElFormItem label="量表名称" required><ElInput v-model="form.scaleName" /></ElFormItem></ElCol>
-          <ElCol :span="8"><ElFormItem label="风险类型" required><ElSelect v-model="form.scaleType" style="width:100%" :disabled="Boolean(form.id)"><ElOption v-for="item in scaleTypes" :key="item.value" :label="item.label" :value="item.value" /></ElSelect></ElFormItem></ElCol>
+          <ElCol :span="10"><ElFormItem label="量表名称" required><ElInput v-model="form.scaleName" /></ElFormItem></ElCol>
+          <ElCol :span="6"><ElFormItem label="风险类型" required><ElSelect v-model="form.scaleType" style="width:100%" :disabled="Boolean(form.id)"><ElOption v-for="item in scaleTypes" :key="item.value" :label="item.label" :value="item.value" /></ElSelect></ElFormItem></ElCol>
           <ElCol :span="4"><ElFormItem label="版本"><ElInput v-model="form.version" /></ElFormItem></ElCol>
+          <ElCol :span="4"><ElFormItem label="权重"><ElInputNumber v-model="form.assessmentWeight" :min="0" :max="100" :precision="1" controls-position="right" style="width:100%" /><span class="weight-hint">量表模块内部占比</span></ElFormItem></ElCol>
         </ElRow>
         <ElFormItem label="量表说明"><ElInput v-model="form.description" type="textarea" :rows="2" /></ElFormItem>
 
@@ -78,14 +86,45 @@
       </ElForm>
       <template #footer><ElButton @click="editorVisible=false">取消</ElButton><ElButton type="primary" :loading="saving" @click="save">保存量表</ElButton></template>
     </ElDialog>
+
+    <ElDialog v-model="recordsVisible" title="养老风险评估记录" width="min(1100px, 94vw)">
+      <ElTable v-loading="recordsLoading" :data="riskRecords" border stripe max-height="560">
+        <ElTableColumn prop="residentName" label="老人姓名" width="110" />
+        <ElTableColumn label="量表" min-width="180"><template #default="{ row }">{{ typeLabel(row.scaleType) }}</template></ElTableColumn>
+        <ElTableColumn prop="totalScore" label="总分" width="80" />
+        <ElTableColumn label="风险等级" width="100"><template #default="{ row }"><ElTag :type="riskTagType(row.riskLevel)">{{ riskLevelText(row.riskLevel) }}</ElTag></template></ElTableColumn>
+        <ElTableColumn prop="evaluatorName" label="评估人" width="110"><template #default="{ row }">{{ row.evaluatorName || '-' }}</template></ElTableColumn>
+        <ElTableColumn prop="evaluateTime" label="评估时间" width="180" />
+        <ElTableColumn label="操作" width="90" fixed="right"><template #default="{ row }"><ElButton type="primary" link @click="viewRecord(row)">详情</ElButton></template></ElTableColumn>
+      </ElTable>
+      <ElEmpty v-if="!recordsLoading && riskRecords.length === 0" description="暂无养老风险评估记录" />
+    </ElDialog>
+
+    <ElDialog v-model="recordDetailVisible" title="养老风险评估详情" width="680px">
+      <ElDescriptions v-if="recordDetail" :column="2" border>
+        <ElDescriptionsItem label="老人姓名">{{ recordDetail.residentName }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="房间床位">{{ recordDetail.bedNo }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="护理区">{{ recordDetail.careZone }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="量表名称">{{ recordDetail.scaleName }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="评估总分">{{ recordDetail.totalScore }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="风险等级"><ElTag :type="riskTagType(recordDetail.riskLevel)">{{ recordDetail.riskLevelText }}</ElTag></ElDescriptionsItem>
+        <ElDescriptionsItem label="评估人员">{{ recordDetail.evaluatorName || '-' }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="评估时间">{{ recordDetail.evaluateTime }}</ElDescriptionsItem>
+        <ElDescriptionsItem label="干预建议" :span="2">
+          <div v-if="recordDetail.interventions?.length"><div v-for="item in recordDetail.interventions" :key="item">• {{ item }}</div></div>
+          <span v-else>暂无干预建议</span>
+        </ElDescriptionsItem>
+      </ElDescriptions>
+    </ElDialog>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
-  import { Plus, Refresh, Search } from '@element-plus/icons-vue'
+  import { Document, Plus, Refresh, Search } from '@element-plus/icons-vue'
   import { createScale, deleteScale, fetchScaleDetail, fetchScaleList, toggleScaleStatus, updateScale } from '@/api/scale'
+  import { fetchRiskRecordDetail, fetchRiskRecordList } from '@/api/risk'
 
   defineOptions({ name: 'ElderlyRiskScaleManagement' })
   const scaleTypes = [
@@ -94,11 +133,16 @@
     { value: 'WANDERING', label: '走失风险' }, { value: 'DEPRESSION', label: '抑郁风险' },
     { value: 'SELF_HARM', label: '自伤风险' }, { value: 'NEGLECT', label: '照护忽视' }
   ]
+  const defaultWeights:Record<string, number> = { FALL:25, PRESSURE:20, COGNITIVE:20, MALNUTRITION:15, DEPRESSION:10, SELF_HARM:10, WANDERING:0, NEGLECT:0 }
   const loading = ref(false), saving = ref(false), editorVisible = ref(false)
+  const recordsVisible = ref(false), recordsLoading = ref(false), recordDetailVisible = ref(false)
+  const riskRecords = ref<any[]>([]), recordDetail = ref<any>(null)
   const rows = ref<any[]>([])
   const filters = ref({ scaleName: '', scaleType: '' })
   const pagination = ref({ current: 1, size: 10, total: 0 })
-  const form = ref<any>({ id: null, scaleName: '', scaleType: '', version: '1.0', description: '', status: 1 })
+  const scaleWeight = (item:any) => item.assessmentWeight == null ? (defaultWeights[item.scaleType] || 0) : Number(item.assessmentWeight)
+  const enabledWeightTotal = computed(() => rows.value.filter(item => item.status === 1).reduce((sum, item) => sum + scaleWeight(item), 0))
+  const form = ref<any>({ id: null, scaleName: '', scaleType: '', version: '1.0', assessmentWeight: 0, description: '', status: 1 })
   const questions = ref<any[]>([])
   const levels = ref(defaultLevels())
 
@@ -108,6 +152,8 @@
     { level: 'HIGH', label: '高风险', min: 8, max: 100, intervention: '立即制定重点照护方案' }
   ] }
   function typeLabel(value: string) { return scaleTypes.find(item => item.value === value)?.label || value }
+  function riskLevelText(value:string) { return ({ LOW:'低风险', MEDIUM:'中风险', HIGH:'高风险', CRITICAL:'极高风险' } as any)[value] || value || '-' }
+  function riskTagType(value:string) { return ({ LOW:'success', MEDIUM:'warning', HIGH:'danger', CRITICAL:'danger' } as any)[value] || 'info' }
   function parse(value: string | undefined, fallback: any) { try { return value ? JSON.parse(value) : fallback } catch { return fallback } }
   async function loadData() { loading.value = true; try { const page:any = await fetchScaleList({ current: pagination.value.current, size: pagination.value.size, ...filters.value }); rows.value = page?.records || []; pagination.value.total = page?.total || 0 } finally { loading.value = false } }
   function search() { pagination.value.current = 1; loadData() }
@@ -115,10 +161,10 @@
   function addQuestion() { questions.value.push({ questionText: '', questionType: 'radio', required: 1, weight: 1, options: [{ label: '无', score: 0 }, { label: '有', score: 1 }] }) }
   function addOption(question:any) { question.options.push({ label: '', score: 0 }) }
   async function openEditor(row?:any) {
-    form.value = { id: null, scaleName: '', scaleType: '', version: '1.0', description: '', status: 1 }; questions.value = []; levels.value = defaultLevels()
+    form.value = { id: null, scaleName: '', scaleType: '', version: '1.0', assessmentWeight: 0, description: '', status: 1 }; questions.value = []; levels.value = defaultLevels()
     if (row) {
       const detail:any = await fetchScaleDetail(row.id); const def = detail.scaleDef || row
-      form.value = { id: def.id, scaleName: def.scaleName, scaleType: def.scaleType, version: def.version || '1.0', description: def.description || '', status: def.status }
+      form.value = { id: def.id, scaleName: def.scaleName, scaleType: def.scaleType, version: def.version || '1.0', assessmentWeight: def.assessmentWeight == null ? (defaultWeights[def.scaleType] || 0) : Number(def.assessmentWeight), description: def.description || '', status: def.status }
       questions.value = (detail.questions || []).map((q:any) => ({ ...q, options: parse(q.optionsJson, []) }))
       const rules = parse(def.scoringRulesJson, { levels: [] }).levels || []
       const configs = parse(def.riskLevelsJson, [])
@@ -140,6 +186,8 @@
   }
   async function toggle(row:any) { await toggleScaleStatus(row.id, row.status !== 1); ElMessage.success(row.status === 1 ? '量表已停用' : '量表已启用'); loadData() }
   async function remove(row:any) { try { await ElMessageBox.confirm(`确定删除“${row.scaleName}”及其全部题目吗？`, '删除量表', { type:'warning' }); await deleteScale(row.id); ElMessage.success('删除成功'); loadData() } catch (error) { if (error !== 'cancel' && error !== 'close') ElMessage.error('删除失败') } }
+  async function openRecords() { recordsVisible.value = true; recordsLoading.value = true; try { const data:any = await fetchRiskRecordList(); riskRecords.value = Array.isArray(data) ? data : data?.records || [] } catch { ElMessage.error('获取养老风险记录失败') } finally { recordsLoading.value = false } }
+  async function viewRecord(row:any) { try { recordDetail.value = await fetchRiskRecordDetail(row.id); recordDetailVisible.value = true } catch { ElMessage.error('获取评估详情失败') } }
   loadData()
 </script>
 
@@ -155,5 +203,6 @@
   .range-row { display:grid; grid-template-columns:minmax(90px, 1fr) 24px minmax(90px, 1fr); align-items:center; gap:8px; }
   .range-row :deep(.el-input-number) { width:100%; }
   .range-row > span { text-align:center; }
+  .weight-hint { display:block; margin-top:4px; color:var(--el-text-color-secondary); font-size:12px; }
   @media(max-width:900px){ .toolbar{align-items:flex-start;flex-direction:column}.option-row{grid-template-columns:1fr 120px 20px 50px} }
 </style>

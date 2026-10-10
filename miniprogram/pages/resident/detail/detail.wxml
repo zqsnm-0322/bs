@@ -55,17 +55,17 @@
     </view>
   </view>
 
-  <!-- 健康预测 -->
+  <!-- 养老照护风险提示 -->
   <view class="predictions-section" wx:if="{{!loading}}">
     <view class="section-title">
-      <text>健康预测</text>
+      <text>照护风险提示</text>
       <text class="refresh-btn" bindtap="loadHealthPredictions" wx:if="{{!predictionsLoading}}">刷新</text>
       <text class="loading-text" wx:if="{{predictionsLoading}}">加载中...</text>
     </view>
     
     <view class="predictions-content" wx:if="{{healthPredictions.length > 0}}">
       <view class="prediction-summary">
-        <text class="summary-text">基于最新风险评估，预测可能出现的健康问题</text>
+        <text class="summary-text">根据老人当前档案、风险评估和照护记录，提示需要重点关注的养老照护风险</text>
         <text class="assessment-time">评估时间：{{assessmentTime}}</text>
       </view>
       
@@ -88,12 +88,12 @@
           </view>
           
           <view class="prediction-meta">
-            <text class="probability">发生概率：{{item.probability}}</text>
-            <text class="timeframe">时间窗口：{{item.timeframe}}</text>
+            <text class="probability">风险评分：{{item.probability || item.score}}</text>
+            <text class="timeframe">关注周期：{{item.timeframe || '持续观察'}}</text>
           </view>
           
           <view class="prediction-symptoms">
-            <text class="symptoms-label">主要症状：</text>
+            <text class="symptoms-label">重点观察：</text>
             <text class="symptoms-text">{{item.symptoms[0]}}{{item.symptoms.length > 1 ? '等' : ''}}</text>
           </view>
         </view>
@@ -106,7 +106,7 @@
 
     <view class="empty-state" wx:if="{{!predictionsLoading && healthPredictions.length === 0}}">
       <text class="empty-icon">🔮</text>
-      <text class="empty-text">暂无健康预测数据</text>
+      <text class="empty-text">暂无照护风险提示</text>
       <text class="empty-desc">请先进行风险评估</text>
     </view>
   </view>
