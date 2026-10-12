@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.graduation.medical.controller.ElderlyCareApiIntegrationTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.308 s - in com.graduation.medical.controller.ElderlyCareApiIntegrationTest

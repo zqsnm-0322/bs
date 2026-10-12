@@ -1,5 +1,5 @@
 .assessment-detail-page {
-  background: #f5f5f5;
+  background: #eef6ff;
   min-height: 100vh;
   padding: 20rpx;
 }

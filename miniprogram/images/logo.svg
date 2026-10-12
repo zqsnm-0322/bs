@@ -5,11 +5,12 @@
       <stop offset="100%" style="stop-color:#2E6DB4;stop-opacity:1" />
     </linearGradient>
     <linearGradient id="yc-heart" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#E8567F;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#C44060;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#FF738F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E94F70;stop-opacity:1" />
     </linearGradient>
   </defs>
   <rect x="8" y="8" width="84" height="84" rx="20" fill="url(#yc-grad)"/>
-  <path d="M50 70 C32 54, 22 42, 22 34 C22 25, 29 19, 36 19 C41 19, 46 23, 50 29 C54 23, 59 19, 64 19 C71 19, 78 25, 78 34 C78 42, 68 54, 50 70Z" fill="url(#yc-heart)"/>
-  <path d="M28 48 Q28 38, 38 38 Q40 30, 48 30 Q56 30, 58 38 Q68 38, 68 48 Q68 56, 60 57 L34 57 Q26 56, 26 48 Z" fill="white" opacity="0.88"/>
+  <path d="M22 49 L50 25 L78 49" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M29 45 V73 Q29 78 34 78 H66 Q71 78 71 73 V45 Z" fill="white"/>
+  <path d="M50 69 C39 61 36 56 36 51 C36 46 40 43 44 43 C47 43 49 45 50 48 C51 45 53 43 56 43 C60 43 64 46 64 51 C64 56 61 61 50 69Z" fill="url(#yc-heart)"/>
 </svg>

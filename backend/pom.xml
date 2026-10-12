@@ -11,7 +11,7 @@
     </parent>
     
     <groupId>com.graduation</groupId>
-    <artifactId>medical-risk-system</artifactId>
+    <artifactId>elderly-care-management-system</artifactId>
     <version>1.0.0</version>
     <name>elderly-care-management-system</name>
     <description>基于Spring Boot的颐康云·智慧养老服务平台</description>

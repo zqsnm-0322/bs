@@ -1,6 +1,6 @@
 /* 健康档案页面样式 */
 page {
-  background: #f5f7fa;
+  background: #eef6ff;
 }
 
 .record-page {

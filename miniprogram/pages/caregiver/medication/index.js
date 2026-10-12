@@ -73,7 +73,7 @@ Page({
     console.log('当前用户信息:', userInfo)
     console.log('用户角色:', userInfo.role)
     console.log('用户姓名:', userInfo.realName)
-    console.log('用户护理区:', userInfo.workZone || userInfo.careZone)
+    console.log('用户护理区:', userInfo.careZone)
     console.log('Token:', token)
     console.log('====================================')
     
@@ -105,7 +105,7 @@ Page({
       if (residentList.length === 0) {
         wx.showModal({
           title: '提示',
-          content: '当前没有可用的在住老人。\n\n照护主管只能管理自己负责的老人，护理员只能管理本护理区老人。\n\n您的护理区：' + (userInfo.workZone || userInfo.careZone || '未设置'),
+          content: '当前没有可用的在住老人。\n\n照护主管只能管理自己负责的老人，护理员只能管理本护理区老人。\n\n您的护理区：' + (userInfo.careZone || '未设置'),
           showCancel: false
         })
       }
@@ -120,7 +120,7 @@ Page({
       const errorMsg = err.msg || err.message || '加载失败'
       wx.showModal({
         title: '加载老人列表失败',
-        content: errorMsg + '\n\n请检查网络连接或联系管理员。\n\n您的护理区：' + (userInfo.workZone || userInfo.careZone || '未设置'),
+        content: errorMsg + '\n\n请检查网络连接或联系管理员。\n\n您的护理区：' + (userInfo.careZone || '未设置'),
         showCancel: false
       })
       
@@ -304,3 +304,4 @@ Page({
     wx.navigateBack()
   }
 })
+

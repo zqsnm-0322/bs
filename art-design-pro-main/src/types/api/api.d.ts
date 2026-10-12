@@ -85,7 +85,7 @@ declare namespace Api {
       email: string
       avatar?: string
       role?: string
-      department?: string
+      careZone?: string
       realName?: string
     }
   }

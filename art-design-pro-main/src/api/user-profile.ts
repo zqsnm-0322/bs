@@ -9,8 +9,7 @@ export interface UserProfile {
   username: string
   realName: string
   role: string
-  careZone: string
-  workZone?: string
+  careZone?: string
   avatar?: string
   phone?: string
   email?: string
@@ -72,3 +71,4 @@ export function uploadProfileAvatar(file: File) {
     data: formData
   })
 }
+

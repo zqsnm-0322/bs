@@ -9,7 +9,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/medical_risk?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: ${ELDERLY_CARE_DB_URL:jdbc:mysql://localhost:3306/elderly_care?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
     username: root
     password: 123456
   
@@ -29,7 +29,7 @@ mybatis-plus:
 logging:
   level:
     root: INFO
-    com.graduation.medical: DEBUG
+    com.graduation.elderlycare: DEBUG
     com.baomidou.mybatisplus: WARN
     # 抑制反射警告
     com.baomidou.mybatisplus.core.toolkit.support.ReflectLambdaMeta: ERROR

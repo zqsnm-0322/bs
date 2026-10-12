@@ -11,7 +11,7 @@
               <ElOption label="已拒绝" value="REJECTED" />
               <ElOption label="已取消" value="CANCELLED" />
             </ElSelect>
-            <ElButton type="primary" icon="Plus" @click="showSubmitDialog">提交预约</ElButton>
+            <ElButton type="primary" :icon="Plus" @click="showSubmitDialog">提交预约</ElButton>
           </ElSpace>
         </div>
       </template>
@@ -182,6 +182,7 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { ElMessage, ElMessageBox } from 'element-plus'
+  import { Plus } from '@element-plus/icons-vue'
   import {
     fetchVisitList,
     submitVisitAppointment,

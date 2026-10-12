@@ -1,6 +1,6 @@
 /* 健康服务页面样式 */
 .services-page {
-  background: #f5f5f5;
+  background: #eef6ff;
   min-height: 100vh;
 }
 

@@ -12,7 +12,7 @@ Page({
         id: 'resident-manage',
         name: '老人管理',
         desc: '查看和管理老人档案',
-        icon: '👥',
+        icon: '/images/tool-resident.svg',
         color: '#007bff',
         url: '/pages/resident/list/list'
       },
@@ -20,7 +20,7 @@ Page({
         id: 'appointments',
         name: '探访管理',
         desc: '管理家属探访预约',
-        icon: '📅',
+        icon: '/images/tool-visit.svg',
         color: '#17a2b8',
         url: '/pages/health/visit-service'
       },
@@ -28,7 +28,7 @@ Page({
         id: 'alert-center',
         name: '预警中心',
         desc: '查看高风险老人预警',
-        icon: '🔔',
+        icon: '/images/tool-alert.svg',
         color: '#dc3545',
         url: '/pages/alert/center'
       },
@@ -36,7 +36,7 @@ Page({
         id: 'statistics',
         name: '统计报表',
         desc: '查看各类统计数据',
-        icon: '📊',
+        icon: '/images/tool-statistics.svg',
         color: '#ffc107',
         url: '/pages/statistics/report'
       },
@@ -44,7 +44,7 @@ Page({
         id: 'knowledge',
         name: '知识库',
         desc: '查看养老照护知识和指南',
-        icon: '📚',
+        icon: '/images/tool-knowledge.svg',
         color: '#fd7e14',
         url: '/pages/knowledge/base'
       }
@@ -55,7 +55,7 @@ Page({
         id: 'resident-manage',
         name: '老人管理',
         desc: '查看和管理老人档案',
-        icon: '👥',
+        icon: '/images/tool-resident.svg',
         color: '#007bff',
         url: '/pages/resident/list/list'
       },
@@ -63,7 +63,7 @@ Page({
         id: 'vital-signs',
         name: '生命体征',
         desc: '记录老人生命体征',
-        icon: '🩺',
+        icon: '/images/tool-vitals.svg',
         color: '#20c997',
         url: '/pages/caregiver/vital-signs/index'
       },
@@ -71,7 +71,7 @@ Page({
         id: 'medication-manage',
         name: '用药管理',
         desc: '管理老人用药计划',
-        icon: '💊',
+        icon: '/images/tool-medication.svg',
         color: '#6f42c1',
         url: '/pages/caregiver/medication/index'
       },
@@ -79,7 +79,7 @@ Page({
         id: 'alert-center',
         name: '预警中心',
         desc: '查看高风险老人预警',
-        icon: '🔔',
+        icon: '/images/tool-alert.svg',
         color: '#dc3545',
         url: '/pages/alert/center'
       },
@@ -87,7 +87,7 @@ Page({
         id: 'bed-swap',
         name: '床位调换',
         desc: '调换老人房间床位',
-        icon: '🛏️',
+        icon: '/images/tool-bed.svg',
         color: '#17a2b8',
         url: '/pages/caregiver/bed-swap/index'
       },
@@ -95,7 +95,7 @@ Page({
         id: 'care-plan',
         name: '护理计划',
         desc: '制定和执行护理计划',
-        icon: '📋',
+        icon: '/images/tool-care-plan.svg',
         color: '#28a745',
         url: '/pages/care/plan'
       },
@@ -103,7 +103,7 @@ Page({
         id: 'statistics',
         name: '统计报表',
         desc: '查看各类统计数据',
-        icon: '📊',
+        icon: '/images/tool-statistics.svg',
         color: '#ffc107',
         url: '/pages/statistics/report'
       },
@@ -111,7 +111,7 @@ Page({
         id: 'knowledge',
         name: '知识库',
         desc: '查看护理知识和指南',
-        icon: '📚',
+        icon: '/images/tool-knowledge.svg',
         color: '#fd7e14',
         url: '/pages/knowledge/base'
       }
@@ -121,7 +121,7 @@ Page({
         id: 'health-record',
         name: '健康档案',
         desc: '查看我的健康档案',
-        icon: '📋',
+        icon: '/images/tool-health-record.svg',
         color: '#007bff',
         url: '/pages/health/record'
       },
@@ -129,7 +129,7 @@ Page({
         id: 'risk-history',
         name: '评估记录',
         desc: '查看风险评估历史',
-        icon: '📊',
+        icon: '/images/tool-statistics.svg',
         color: '#28a745',
         url: '/pages/health/record'
       },
@@ -137,7 +137,7 @@ Page({
         id: 'symptom-report',
         name: '症状上报',
         desc: '上报身体不适症状',
-        icon: '🩺',
+        icon: '/images/tool-symptom.svg',
         color: '#ffc107',
         url: '/pages/health/symptom-report'
       },
@@ -145,7 +145,7 @@ Page({
         id: 'medication',
         name: '用药提醒',
         desc: '查看用药计划',
-        icon: '💊',
+        icon: '/images/tool-medication.svg',
         color: '#6f42c1',
         url: '/pages/health/medication'
       },
@@ -153,7 +153,7 @@ Page({
         id: 'appointment',
         name: '探访预约',
         desc: '提交家属探访申请',
-        icon: '📅',
+        icon: '/images/tool-visit.svg',
         color: '#fd7e14',
         url: '/pages/health/visit-service'
       }

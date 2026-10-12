@@ -14,7 +14,7 @@
           data-id="{{item.id}}">
       
       <view class="tool-icon" style="background-color: {{item.color}};">
-        <text class="icon-text">{{item.icon}}</text>
+        <image class="icon-image" src="{{item.icon}}" mode="aspectFit"></image>
       </view>
       
       <view class="tool-content">
@@ -23,7 +23,7 @@
       </view>
       
       <view class="tool-arrow">
-        <text class="arrow-icon">></text>
+        <text class="arrow-icon">›</text>
       </view>
     </view>
   </view>

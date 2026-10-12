@@ -41,8 +41,8 @@
         </ElSelect>
       </ElFormItem>
 
-      <ElFormItem label="负责护理区" prop="workZone">
-        <ElSelect v-model="formData.workZone" placeholder="请选择护理区" clearable>
+      <ElFormItem label="负责护理区" prop="careZone">
+        <ElSelect v-model="formData.careZone" placeholder="请选择护理区" clearable>
           <ElOption label="自理区" value="自理区" />
           <ElOption label="半护区" value="半护区" />
           <ElOption label="全护区" value="全护区" />
@@ -109,7 +109,7 @@
     password: '',
     phone: '',
     role: '',
-    workZone: '',
+    careZone: '',
     employeeNo: '',
     hireDate: ''
   })
@@ -152,7 +152,7 @@
         password: '', // 编辑时不显示密码
         phone: row.phone || '',
         role: row.role || '',
-        workZone: row.workZone || '',
+        careZone: row.careZone || '',
         employeeNo: row.employeeNo || '',
         hireDate: row.hireDate || ''
       })
@@ -165,7 +165,7 @@
         password: '',
         phone: '',
         role: '',
-        workZone: '',
+        careZone: '',
         employeeNo: '',
         hireDate: ''
       })
@@ -226,3 +226,4 @@
     }
   }
 </script>
+

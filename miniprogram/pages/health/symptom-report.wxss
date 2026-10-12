@@ -1,6 +1,6 @@
 /* 症状上报页面样式 */
 .symptom-page {
-  background: #f5f5f5;
+  background: #eef6ff;
   min-height: 100vh;
 }
 

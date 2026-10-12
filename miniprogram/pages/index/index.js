@@ -43,7 +43,7 @@ Page({
     app.request('/dashboard/stats').then(res => {
       this.setData({ 
         stats: {
-          onlineResident: res.residentCount || res.residentCount || 0,
+          onlineResident: Number(res.residentCount || 0),
           todayHighRisk: res.highRiskCount || 0,
           todayAssessments: res.evalCount || 0,
           pendingAlerts: 0

@@ -1,0 +1,7 @@
+# Generated build outputs
+backend/target/
+art-design-pro-main/dist/
+art-design-pro-main/node_modules/
+
+# Local assistant/workspace metadata
+.workbuddy/

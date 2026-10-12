@@ -10,7 +10,6 @@ export interface ElderlyCareUser {
   realName: string
   role: string
   careZone?: string
-  workZone?: string
   employeeNo?: string
   hireDate?: string
   createTime: string
@@ -151,3 +150,4 @@ export function uploadAvatar(file: File) {
     params: formData
   })
 }
+

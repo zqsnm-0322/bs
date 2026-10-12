@@ -15,7 +15,7 @@ App({
     return {
       ...user,
       // 员工字段兼容
-      workZone: user.workZone || user.work_zone || user.careZone || '',
+      careZone: user.careZone || user.care_zone || user.careZone || '',
       // 老人字段兼容（如果是老人账号）
       residentId: user.residentId || user.id,
       residentNo: user.residentNo || '',
@@ -65,3 +65,4 @@ App({
     })
   }
 })
+

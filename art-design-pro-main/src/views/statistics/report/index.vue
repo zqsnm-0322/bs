@@ -169,7 +169,7 @@
       columnsFactory: () => [
         { type: 'index', label: '排名', width: 80 },
         { prop: 'evaluatorName', label: '评估人员' },
-        { prop: 'department', label: '护理区' },
+        { prop: 'careZone', label: '护理区' },
         { prop: 'assessmentCount', label: '评估次数', sortable: true },
         { prop: 'highRiskCount', label: '发现高危数', sortable: true },
         { prop: 'interventionCount', label: '干预次数', sortable: true },

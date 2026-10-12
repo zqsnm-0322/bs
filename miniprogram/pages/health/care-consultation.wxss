@@ -1,6 +1,6 @@
 /* 在线咨询页面样式 */
 .consultation-page {
-  background: #f5f5f5;
+  background: #eef6ff;
   min-height: 100vh;
 }
 

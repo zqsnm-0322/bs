@@ -44,7 +44,7 @@
               </div>
               <div class="info-item">
                 <span class="label">护理区：</span>
-                <span class="value">{{ userProfile.workZone || userProfile.careZone || '-' }}</span>
+                <span class="value">{{ userProfile.careZone || userProfile.careZone || '-' }}</span>
               </div>
               <div class="info-item">
                 <span class="label">电话：</span>
@@ -448,3 +448,4 @@
   }
 }
 </style>
+

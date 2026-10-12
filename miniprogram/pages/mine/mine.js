@@ -25,7 +25,7 @@ Page({
       'RESIDENT': '老人'
     }
     const roleText = roleMap[userInfo.role] || '员工'
-    const zoneText = userInfo.workZone || userInfo.careZone || ''
+    const zoneText = userInfo.careZone || ''
     
     this.setData({ displayName, avatarText, roleText, zoneText })
   },
@@ -77,3 +77,4 @@ Page({
     })
   }
 })
+

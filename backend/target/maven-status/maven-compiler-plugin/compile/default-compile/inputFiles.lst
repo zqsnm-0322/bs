@@ -1,72 +1,74 @@
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\annotation\OperationLogAnnotation.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\OperationLog.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\SymptomReport.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\aspect\OperationLogAspect.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\MedicalApplication.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\User.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\ScaleDefMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\util\AuthUtil.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\Appointment.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\LabResults.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\CarePlanMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\common\Result.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\AppointmentController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\exception\GlobalExceptionHandler.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\PatientMedicalHistoryMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\TestDataController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\AlertController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\PatientController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\util\MD5Util.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\LabResultsMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\BedMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\ScaleQuestionMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\Medication.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\CareTaskMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\MedicationMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\DoctorNotification.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\ScaleDef.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\ScaleQuestion.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\AppointmentMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\RiskRecordMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\AlertMsgMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\SymptomReportMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\UserMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\BedController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\service\ScaleEvaluationService.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\LoginController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\VitalSignsController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\CareTask.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\RiskTestController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\PatientPortalController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\RiskRecord.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\MedicationController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\config\MybatisPlusConfig.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\OperationLogMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\SymptomReportController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\service\SymptomReportService.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\CarePlanController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\RiskRecordController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\RiskAssessment.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\service\EnhancedRiskPredictionService.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\UserController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\PatientMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\StatisticsController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\VitalSigns.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\DoctorNotificationMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\NotificationController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\ScaleController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\EnhancedRiskController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\Patient.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\MiniprogramController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\service\NotificationService.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\service\ExportService.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\DashboardController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\AlertMsg.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\controller\SystemTestController.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\config\DateFormatConfig.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\Bed.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\CarePlan.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\entity\PatientMedicalHistory.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\RiskAssessmentMapper.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\config\CorsConfig.java
-D:\software\´úÂë¿â\bs\backend\src\main\java\com\graduation\medical\mapper\VitalSignsMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\VisitController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\ScaleDef.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\AlertMsg.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\config\DateFormatConfig.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\service\ExportService.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\SymptomReportController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\config\CorsConfig.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\RiskRecordController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\aspect\OperationLogAspect.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\ResidentMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\CarePlan.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\ElderlyCareApplication.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\FamilyMemberMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\BedController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\ScaleQuestion.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\MedicationMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\service\NotificationService.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\FamilyController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\AlertMsgMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\VisitAppointmentMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\MedicationController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\HealthCheckupMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\RiskRecordMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\util\MD5Util.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\CareNotification.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\CarePlanMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\util\AuthUtil.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\VisitAppointment.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\CarePlanController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\Medication.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\ResidentController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\ResidentHealthHistoryMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\Bed.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\service\SymptomReportService.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\DashboardController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\UserController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\exception\GlobalExceptionHandler.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\CareNotificationMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\UserMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\RiskAssessmentMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\SymptomReportMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\ScaleController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\CareTaskMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\HealthCheckupController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\service\EnhancedRiskPredictionService.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\StatisticsController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\OperationLogMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\MiniprogramController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\UserProfileController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\FamilyMember.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\HealthCheckup.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\ScaleQuestionMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\config\MybatisPlusConfig.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\CareTask.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\common\Result.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\OperationLog.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\Resident.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\RiskRecord.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\SymptomReport.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\User.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\VitalSigns.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\service\ScaleEvaluationService.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\VitalSignsController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\BedMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\VitalSignsMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\annotation\OperationLogAnnotation.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\ResidentHealthHistory.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\NotificationController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\entity\RiskAssessment.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\AlertController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\LoginController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\mapper\ScaleDefMapper.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\SystemTestController.java
+D:\software\Code Base\bs\backend\src\main\java\com\graduation\elderlycare\controller\EnhancedRiskController.java

@@ -143,7 +143,7 @@
           }
         },
         { prop: 'employeeNo', label: '员工工号' },
-        { prop: 'workZone', label: '负责护理区' },
+        { prop: 'careZone', label: '负责护理区' },
         { prop: 'hireDate', label: '入职日期' },
         {
           prop: 'createTime',
@@ -251,3 +251,4 @@
     console.log('选中行数据:', selectedRows.value)
   }
 </script>
+

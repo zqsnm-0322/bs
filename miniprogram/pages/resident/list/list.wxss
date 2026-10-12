@@ -1,5 +1,5 @@
 .container {
-  background: #f5f5f5;
+  background: #eef6ff;
   min-height: 100vh;
 }
 
@@ -83,7 +83,7 @@
 /* 医护人员界面样式 */
 .search-bar {
   padding: 40rpx 40rpx 20rpx;
-  background: #f5f5f5;
+  background: #eef6ff;
 }
 
 .search-input {

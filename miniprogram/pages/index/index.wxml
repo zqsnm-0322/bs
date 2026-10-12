@@ -10,7 +10,7 @@
     <!-- 数据概览 -->
     <view class="card-container">
       <view class="card bg-blue">
-        <text class="num">{{stats.onlineResidents || 0}}</text>
+        <text class="num">{{stats.onlineResident || 0}}</text>
         <text class="label">在住老人</text>
       </view>
       <view class="card bg-red">
