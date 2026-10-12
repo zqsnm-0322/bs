@@ -1,6 +1,6 @@
-page { background: #f4f7f6; color: #1f2937; }
+page { background: #eef6ff; color: #1f2937; }
 .page { min-height: 100vh; padding-bottom: 60rpx; }
-.hero { position: relative; overflow: hidden; padding: 44rpx 36rpx 34rpx; background: linear-gradient(135deg, #19b98b, #22c99a); }
+.hero { position: relative; overflow: hidden; padding: 44rpx 36rpx 34rpx; background: linear-gradient(135deg, #7cc7f5, #a7ddf8); }
 .hero-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,.1); }
 .orb-one { width: 260rpx; height: 260rpx; top: -150rpx; right: -50rpx; }.orb-two { width: 150rpx; height: 150rpx; bottom: -90rpx; left: -30rpx; }
 .hero-content { position: relative; z-index: 1; display: flex; align-items: center; }.hero-icon { display: flex; align-items: center; justify-content: center; width: 84rpx; height: 84rpx; margin-right: 24rpx; border-radius: 24rpx; color: #18aa7f; font-size: 34rpx; font-weight: 700; background: #fff; box-shadow: 0 10rpx 24rpx rgba(8,100,75,.18); }

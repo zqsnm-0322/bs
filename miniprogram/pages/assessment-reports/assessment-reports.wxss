@@ -7,7 +7,7 @@
 
 .header {
   padding: 30rpx 20rpx;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   border-radius: 20rpx;
   margin-bottom: 20rpx;
 }
@@ -128,7 +128,7 @@
 .score {
   font-size: 32rpx;
   font-weight: bold;
-  color: #667eea;
+  color: #7cc7f5;
 }
 
 /* 建议措施 */
@@ -170,7 +170,7 @@
 
 .view-detail {
   font-size: 28rpx;
-  color: #667eea;
+  color: #7cc7f5;
   font-weight: bold;
 }
 

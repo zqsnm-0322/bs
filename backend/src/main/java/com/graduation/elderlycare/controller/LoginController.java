@@ -163,7 +163,6 @@ public class LoginController {
                 userInfo.put("username", resident.getUsername());
                 userInfo.put("residentNo", resident.getResidentId());
                 userInfo.put("bedNo", resident.getRoomBedNo());
-                userInfo.put("residentId", resident.getResidentId());
                 userInfo.put("roomBedNo", resident.getRoomBedNo());
                 userInfo.put("careZone", resident.getCareZone());
                 userInfo.put("role", "RESIDENT");

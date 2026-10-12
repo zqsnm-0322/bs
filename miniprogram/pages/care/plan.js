@@ -29,16 +29,11 @@ Page({
   // 下拉刷新
   onPullDownRefresh() {
     this.setData({ refreshing: true })
-    
-    // 模拟刷新延迟
+    this.loadPlans()
     setTimeout(() => {
-      this.setData({ 
-        plans: this.getMockPlans(),
-        stats: this.getMockStats(),
-        refreshing: false
-      })
+      this.setData({ refreshing: false })
       wx.stopPullDownRefresh()
-    }, 1000)
+    }, 500)
   },
 
   // 加载护理计划
@@ -345,7 +340,7 @@ Page({
     
     if (plan) {
       wx.navigateTo({
-        url: `/pages/resident/detail/detail?residentName=${plan.residentName}&bedNo=${plan.bedNo}`
+        url: `/pages/resident/detail/detail?id=${plan.residentId}`
       })
     }
   }

@@ -6,7 +6,7 @@
 
 /* 页面头部 */
 .page-header {
-  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #5aafe5 100%);
   padding: 60rpx 40rpx 40rpx;
   text-align: center;
 }
@@ -76,7 +76,7 @@
 
 .input:focus {
   background: white;
-  border-color: #17a2b8;
+  border-color: #7cc7f5;
 }
 
 .picker {
@@ -99,7 +99,7 @@
 
 .textarea:focus {
   background: white;
-  border-color: #17a2b8;
+  border-color: #7cc7f5;
 }
 
 .char-count {
@@ -114,10 +114,10 @@
 .add-task-btn {
   padding: 10rpx 20rpx;
   background: linear-gradient(135deg, rgba(23, 162, 184, 0.1) 0%, rgba(19, 132, 150, 0.1) 100%);
-  border: 2rpx solid #17a2b8;
+  border: 2rpx solid #7cc7f5;
   border-radius: 20rpx;
   font-size: 24rpx;
-  color: #17a2b8;
+  color: #7cc7f5;
   line-height: 1;
 }
 
@@ -132,7 +132,7 @@
   background: #f8f9fa;
   border-radius: 12rpx;
   padding: 20rpx;
-  border-left: 4rpx solid #17a2b8;
+  border-left: 4rpx solid #7cc7f5;
 }
 
 .task-header {
@@ -145,7 +145,7 @@
 .task-number {
   font-size: 26rpx;
   font-weight: bold;
-  color: #17a2b8;
+  color: #7cc7f5;
 }
 
 .remove-task {
@@ -181,7 +181,7 @@
   align-items: center;
   justify-content: center;
   font-size: 26rpx;
-  color: #17a2b8;
+  color: #7cc7f5;
   font-weight: bold;
   border: 1rpx solid #e0e0e0;
 }
@@ -224,7 +224,7 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #5aafe5 100%);
   color: white;
 }
 
@@ -242,7 +242,7 @@
   padding: 24rpx;
   background: #e8f4ff;
   border-radius: 12rpx;
-  border-left: 6rpx solid #17a2b8;
+  border-left: 6rpx solid #7cc7f5;
 }
 
 .info-row {
@@ -271,7 +271,7 @@
   padding: 24rpx;
   background: #f8f9fa;
   border-radius: 12rpx;
-  color: #17a2b8;
+  color: #7cc7f5;
   font-size: 28rpx;
   font-weight: 500;
 }

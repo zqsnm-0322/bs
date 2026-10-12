@@ -60,8 +60,8 @@
 }
 
 .tab-item.active {
-  color: #667eea;
-  border-bottom-color: #667eea;
+  color: #7cc7f5;
+  border-bottom-color: #7cc7f5;
   font-weight: bold;
 }
 
@@ -110,7 +110,7 @@
 
 .symptom-item.selected {
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border-color: #667eea;
+  border-color: #7cc7f5;
 }
 
 .symptom-icon {
@@ -144,7 +144,7 @@
 
 .severity-item.selected {
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border-color: #667eea;
+  border-color: #7cc7f5;
 }
 
 .severity-indicator {
@@ -242,9 +242,9 @@
 }
 
 .trigger-item.selected {
-  background: #667eea;
+  background: #7cc7f5;
   color: white;
-  border-color: #667eea;
+  border-color: #7cc7f5;
   font-weight: bold;
 }
 
@@ -309,7 +309,7 @@
   background: #f8f9fa;
   border-radius: 16rpx;
   padding: 30rpx;
-  border-left: 6rpx solid #667eea;
+  border-left: 6rpx solid #7cc7f5;
   transition: all 0.3s ease;
 }
 

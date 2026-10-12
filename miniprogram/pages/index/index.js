@@ -81,7 +81,7 @@ Page({
   // 加载老人数据
   loadResidentData() {
     const userInfo = this.data.userInfo || app.globalData.userInfo || wx.getStorageSync('userInfo')
-    const residentId = userInfo?.residentId || userInfo?.id
+    const residentId = userInfo?.id || userInfo?.residentId
     
     if (residentId) {
       // 加载老人照护风险数据
@@ -187,6 +187,11 @@ Page({
         })
       }
       
+      if (notification.notificationType === 'SYMPTOM_REPORT') {
+        wx.navigateTo({ url: '/pages/caregiver/symptom-list/index' })
+        return
+      }
+
       // 显示通知详情
       wx.showModal({
         title: notification.title,
@@ -207,7 +212,7 @@ Page({
   },
   // 查看照护风险提示详情
   viewPredictionDetail() {
-    const residentId = this.data.userInfo?.residentId || this.data.userInfo?.id
+    const residentId = this.data.userInfo?.id || this.data.userInfo?.residentId
     if (residentId) {
       wx.navigateTo({ 
         url: `/pages/health/predictions?residentId=${residentId}` 

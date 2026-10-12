@@ -3,6 +3,7 @@ package com.graduation.elderlycare.controller;
 import com.graduation.elderlycare.common.Result;
 import com.graduation.elderlycare.entity.CareNotification;
 import com.graduation.elderlycare.service.NotificationService;
+import com.graduation.elderlycare.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ public class NotificationController {
     @GetMapping("/unread")
     public Result<?> getUnreadNotifications(@RequestParam(required = false) String careManagerId) {
         try {
-            List<CareNotification> notifications = notificationService.getUnreadNotifications(careManagerId);
+            String recipientId = resolveRecipientId(careManagerId);
+            List<CareNotification> notifications = notificationService.getUnreadNotifications(recipientId);
             
             Map<String, Object> result = new HashMap<>();
             result.put("notifications", notifications);
@@ -44,7 +46,8 @@ public class NotificationController {
     public Result<?> getAllNotifications(@RequestParam(required = false) String careManagerId,
                                        @RequestParam(defaultValue = "20") Integer limit) {
         try {
-            List<CareNotification> notifications = notificationService.getAllNotifications(careManagerId, limit);
+            String recipientId = resolveRecipientId(careManagerId);
+            List<CareNotification> notifications = notificationService.getAllNotifications(recipientId, limit);
             return Result.success(notifications);
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +75,8 @@ public class NotificationController {
     @PostMapping("/read-all")
     public Result<?> markAllAsRead(@RequestParam(required = false) String careManagerId) {
         try {
-            List<CareNotification> unreadNotifications = notificationService.getUnreadNotifications(careManagerId);
+            String recipientId = resolveRecipientId(careManagerId);
+            List<CareNotification> unreadNotifications = notificationService.getUnreadNotifications(recipientId);
             for (CareNotification notification : unreadNotifications) {
                 notificationService.markAsRead(notification.getId());
             }
@@ -81,5 +85,11 @@ public class NotificationController {
             e.printStackTrace();
             return Result.error("标记失败: " + e.getMessage());
         }
+    }
+
+    private String resolveRecipientId(String recipientId) {
+        if (recipientId != null && !recipientId.trim().isEmpty()) return recipientId;
+        Long currentUserId = AuthUtil.getCurrentUserId();
+        return currentUserId == null ? null : String.valueOf(currentUserId);
     }
 }

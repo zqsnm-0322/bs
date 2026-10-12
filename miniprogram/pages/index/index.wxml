@@ -35,9 +35,9 @@
         <text class="grid-icon">📅</text>
         <text>探访管理</text>
       </view>
-      <view wx:if="{{userType === 'CAREGIVER'}}" class="grid-item" bindtap="goSymptomList">
+      <view wx:if="{{userType === 'CAREGIVER' || userType === 'CARE_MANAGER'}}" class="grid-item" bindtap="goSymptomList">
         <text class="grid-icon">📝</text>
-        <text>照护记录</text>
+        <text>症状上报处理</text>
       </view>
     </view>
 

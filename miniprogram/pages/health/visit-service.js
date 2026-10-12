@@ -52,7 +52,7 @@ Page({
   },
 
   loadAppointments() {
-    const residentId = this.data.userInfo.residentId || this.data.userInfo.id
+    const residentId = this.data.userInfo.id || this.data.userInfo.residentId
     if (!residentId) return
     this.setData({ loading: true })
     app.request(`/visit/list?current=1&size=50&residentId=${residentId}`, 'GET')
@@ -70,7 +70,7 @@ Page({
   },
 
   validate() {
-    if (!(this.data.userInfo.residentId || this.data.userInfo.id)) return '未获取到老人信息'
+    if (!(this.data.userInfo.id || this.data.userInfo.residentId)) return '未获取到老人信息'
     if (!this.data.visitorName.trim()) return '请输入探访人姓名'
     if (!this.data.visitorPhone.trim()) return '请输入探访人电话'
     if (!/^1[3-9]\d{9}$/.test(this.data.visitorPhone.trim())) return '请输入正确的手机号码'
@@ -83,7 +83,7 @@ Page({
     const error = this.validate()
     if (error) return wx.showToast({ title: error, icon: 'none' })
     const data = {
-      residentId: this.data.userInfo.residentId || this.data.userInfo.id,
+      residentId: this.data.userInfo.id || this.data.userInfo.residentId,
       visitorName: this.data.visitorName.trim(), visitorPhone: this.data.visitorPhone.trim(),
       visitorRelation: this.data.visitorRelation.trim(), visitorCount: Number(this.data.visitorCount) || 1,
       visitDate: this.data.selectedDate, visitStartTime: this.data.startTime,

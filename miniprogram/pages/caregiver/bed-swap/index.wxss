@@ -7,7 +7,7 @@
 
 /* 页面头部 */
 .page-header {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   padding: 60rpx 40rpx 80rpx;
   text-align: center;
   position: relative;
@@ -65,7 +65,7 @@
 }
 
 .resident-card.selected {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   margin: 0 40rpx 20rpx;
 }
 
@@ -170,7 +170,7 @@
 
 /* 调换按钮 */
 .swap-btn {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   color: white;
   border: none;
   border-radius: 12rpx;
@@ -201,7 +201,7 @@
 }
 
 .resident-card.active {
-  border: 2rpx solid #4facfe;
+  border: 2rpx solid #7cc7f5;
   box-shadow: 0 4rpx 20rpx rgba(79, 172, 254, 0.2);
 }
 
@@ -209,7 +209,7 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   display: flex;
   align-items: center;
   justify-content: center;

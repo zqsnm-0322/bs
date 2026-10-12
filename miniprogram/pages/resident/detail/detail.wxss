@@ -110,7 +110,7 @@
 
 .add-btn {
   font-size: 26rpx;
-  color: #409EFF;
+  color: #7cc7f5;
   padding: 8rpx 16rpx;
   background: #ecf5ff;
   border-radius: 8rpx;
@@ -119,7 +119,7 @@
 
 .refresh-btn {
   font-size: 26rpx;
-  color: #409EFF;
+  color: #7cc7f5;
   font-weight: normal;
 }
 
@@ -309,7 +309,7 @@
   width: 400rpx;
   height: 80rpx;
   line-height: 80rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   color: white;
   border: none;
   border-radius: 40rpx;

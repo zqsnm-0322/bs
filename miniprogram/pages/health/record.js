@@ -7,7 +7,7 @@ Page({
       name: '',
       residentNo: '',
       bedNo: '',
-      age: 0,
+      age: '',
       gender: '',
       admitDate: '',
       healthLevel: '',
@@ -39,8 +39,8 @@ Page({
     const userInfo = app.globalData.userInfo || {}
     
     // 如果有老人ID，从后端获取完整信息
-    if (userInfo.residentId || userInfo.id) {
-      const residentId = userInfo.residentId || userInfo.id
+    if (userInfo.id || userInfo.residentId) {
+      const residentId = userInfo.id || userInfo.residentId
       
       wx.showLoading({ title: '加载中...' })
       
@@ -51,7 +51,7 @@ Page({
           name: resident.name || userInfo.name || '',
           residentNo: resident.residentNo || resident.residentId || userInfo.residentNo || userInfo.residentId || '',
           bedNo: resident.roomBedNo || userInfo.roomBedNo || '未分配',
-          age: resident.age || userInfo.age || 0,
+          age: resident.age || userInfo.age || '',
           gender: resident.gender || userInfo.gender || '',
           admitDate: resident.admitTime ? this.formatDate(resident.admitTime) : '未知',
           healthLevel: resident.healthLevel || userInfo.healthLevel || '待评估',
@@ -82,7 +82,7 @@ Page({
       name: userInfo.name || '',
       residentNo: userInfo.residentNo || userInfo.residentId || '',
       bedNo: userInfo.roomBedNo || userInfo.bedNo || '未分配',
-      age: userInfo.age || 0,
+      age: userInfo.age || '',
       gender: userInfo.gender || '',
       admitDate: '未知',
       healthLevel: userInfo.healthLevel || '待评估',
@@ -113,7 +113,7 @@ Page({
   // 老人可以查看自己的风险评估报告
   loadRiskRecords() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       console.log('没有老人ID，无法加载风险评估记录')
@@ -391,7 +391,7 @@ Page({
 
   loadVitalSigns() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       console.log('没有老人ID，无法加载生命体征')
@@ -413,7 +413,7 @@ Page({
   // 需求8: 用药记录添加结束日期
   loadMedications() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       console.log('没有老人ID，无法加载用药记录')
@@ -465,7 +465,7 @@ Page({
   // 添加用药
   addMedication() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       wx.showToast({
@@ -484,7 +484,7 @@ Page({
   editMedication(e) {
     const { id } = e.currentTarget.dataset
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     wx.navigateTo({
       url: `/pages/health/add-medication?id=${id}&residentId=${residentId}`
@@ -586,7 +586,7 @@ Page({
   // 加载照护风险提示
   loadHealthPredictions() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       console.log('没有老人ID，无法加载照护风险提示')
@@ -662,7 +662,7 @@ Page({
   // 查看所有预测
   viewAllPredictions() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     wx.navigateTo({
       url: `/pages/health/predictions?residentId=${residentId}`

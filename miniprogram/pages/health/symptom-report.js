@@ -72,7 +72,7 @@ Page({
 
   // 加载上报历史
   loadReportHistory() {
-    const residentId = this.data.userInfo.residentId || this.data.userInfo.id
+    const residentId = this.data.userInfo.id || this.data.userInfo.residentId
     if (!residentId) return
 
     app.request(`/symptom/my?residentId=${residentId}`).then(res => {
@@ -171,7 +171,7 @@ Page({
 
     this.setData({ submitting: true })
 
-    const residentId = this.data.userInfo.residentId || this.data.userInfo.id
+    const residentId = this.data.userInfo.id || this.data.userInfo.residentId
     const reportData = {
       residentId: residentId,
       symptomType: this.data.reportForm.symptomType,

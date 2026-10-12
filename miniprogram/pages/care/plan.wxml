@@ -65,7 +65,7 @@
       <view class="plan-header">
         <view class="resident-info">
           <text class="resident-name">{{item.residentName}}</text>
-          <text class="bed-info">{{item.bedNo}}床 · {{item.careZone}}</text>
+          <text class="bed-info">{{item.roomBedNo || '未分配床位'}} · {{item.careZone}}</text>
         </view>
         <view class="plan-priority" style="color: {{getPriorityColor(item.priority)}}">
           <text wx:if="{{item.priority === 'HIGH'}}">🔴</text>
@@ -133,7 +133,7 @@
         <view class="detail-section">
           <text class="section-title">老人信息</text>
           <view class="resident-detail">
-            <text>{{selectedPlan.residentName}} - {{selectedPlan.bedNo}}床</text>
+            <text>{{selectedPlan.residentName}} - {{selectedPlan.roomBedNo || '未分配床位'}}</text>
             <text>{{selectedPlan.careZone}}</text>
           </view>
         </view>

@@ -7,7 +7,7 @@
 
 /* 页面头部 */
 .page-header {
-  background: #17a2b8;
+  background: #7cc7f5;
   padding: 60rpx 40rpx 80rpx;
   text-align: center;
   position: relative;
@@ -120,7 +120,7 @@
 }
 
 .filter-tab.active {
-  background: #17a2b8;
+  background: #7cc7f5;
   color: white;
   box-shadow: 0 4rpx 15rpx rgba(23, 162, 184, 0.3);
 }
@@ -205,7 +205,7 @@
 .plan-type {
   padding: 8rpx 16rpx;
   background: rgba(23, 162, 184, 0.1);
-  color: #17a2b8;
+  color: #7cc7f5;
   border-radius: 20rpx;
   font-size: 24rpx;
   font-weight: bold;
@@ -231,7 +231,7 @@
 .progress-percent {
   font-size: 26rpx;
   font-weight: bold;
-  color: #17a2b8;
+  color: #7cc7f5;
 }
 
 .progress-bar {
@@ -243,7 +243,7 @@
 
 .progress-fill {
   height: 100%;
-  background: #17a2b8;
+  background: #7cc7f5;
   border-radius: 4rpx;
   transition: width 0.3s ease;
 }
@@ -266,7 +266,7 @@
 
 .assigned-caregiver {
   font-size: 26rpx;
-  color: #17a2b8;
+  color: #7cc7f5;
   font-weight: bold;
 }
 
@@ -334,7 +334,7 @@
   align-items: center;
   padding: 30rpx;
   border-bottom: 1rpx solid #f0f0f0;
-  background: #17a2b8;
+  background: #7cc7f5;
   color: white;
 }
 
@@ -476,7 +476,7 @@
 .btn-primary {
   flex: 1;
   height: 80rpx;
-  background: #17a2b8;
+  background: #7cc7f5;
   color: white;
   border: none;
   border-radius: 40rpx;
@@ -491,7 +491,7 @@
   right: 40rpx;
   width: 120rpx;
   height: 120rpx;
-  background: #17a2b8;
+  background: #7cc7f5;
   border-radius: 50%;
   display: flex;
   align-items: center;

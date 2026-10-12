@@ -7,6 +7,7 @@ import com.graduation.elderlycare.entity.SymptomReport;
 import com.graduation.elderlycare.entity.Resident;
 import com.graduation.elderlycare.mapper.SymptomReportMapper;
 import com.graduation.elderlycare.mapper.ResidentMapper;
+import com.graduation.elderlycare.service.SymptomReportService;
 import com.graduation.elderlycare.annotation.OperationLogAnnotation;
 import com.graduation.elderlycare.util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class SymptomReportController {
 
     @Autowired
     private ResidentMapper residentMapper;
+
+    @Autowired
+    private SymptomReportService symptomReportService;
 
     /**
      * 老人提交症状上报
@@ -84,7 +88,7 @@ public class SymptomReportController {
             report.setStatus("PENDING");
             report.setCreateTime(LocalDateTime.now());
 
-            symptomReportMapper.insert(report);
+            symptomReportService.createReport(report);
 
             return Result.success("症状上报成功，护理员将尽快处理");
         } catch (Exception e) {
@@ -305,12 +309,13 @@ public class SymptomReportController {
     }
 
     private Map<String, Object> convertReport(SymptomReport r) {
+        Resident resident = residentMapper.selectById(r.getResidentId());
         Map<String, Object> item = new HashMap<>();
         item.put("id", r.getId());
         item.put("residentId", r.getResidentId());
-        item.put("residentName", r.getResidentName());
-        item.put("roomBedNo", r.getRoomBedNo());
-        item.put("careZone", r.getCareZone());
+        item.put("residentName", resident == null ? r.getResidentName() : resident.getName());
+        item.put("roomBedNo", resident == null ? r.getRoomBedNo() : resident.getRoomBedNo());
+        item.put("careZone", resident == null ? r.getCareZone() : resident.getCareZone());
         item.put("symptomType", r.getSymptomType());
         item.put("symptomName", r.getSymptomName());
         item.put("severity", r.getSeverity());

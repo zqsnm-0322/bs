@@ -1,4 +1,6 @@
 {
-    "navigationBarTitleText": "症状上报管理",
+    "navigationBarTitleText": "症状上报处理",
+    "navigationBarBackgroundColor": "#7cc7f5",
+    "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true
 }

@@ -9,6 +9,14 @@ Page({
     // 照护主管工具
     careManagerTools: [
       {
+        id: 'symptom-list',
+        name: '症状上报处理',
+        desc: '接收并处理老人症状上报',
+        icon: '/images/tool-symptom.svg',
+        color: '#7cc7f5',
+        url: '/pages/caregiver/symptom-list/index'
+      },
+      {
         id: 'resident-manage',
         name: '老人管理',
         desc: '查看和管理老人档案',
@@ -51,6 +59,14 @@ Page({
     ],
     // 护理员/照护员工具
     caregiverTools: [
+      {
+        id: 'symptom-list',
+        name: '症状上报处理',
+        desc: '接收并处理负责老人的症状上报',
+        icon: '/images/tool-symptom.svg',
+        color: '#7cc7f5',
+        url: '/pages/caregiver/symptom-list/index'
+      },
       {
         id: 'resident-manage',
         name: '老人管理',

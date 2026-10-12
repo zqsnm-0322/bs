@@ -26,7 +26,7 @@ Page({
   // 加载风险评估报告
   loadRiskReport() {
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo')
-    const residentId = userInfo?.residentId || userInfo?.id
+    const residentId = userInfo?.id || userInfo?.residentId
     
     if (!residentId) {
       wx.showToast({

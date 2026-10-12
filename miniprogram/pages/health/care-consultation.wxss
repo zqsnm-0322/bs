@@ -11,7 +11,7 @@
 
 /* 页面头部 */
 .page-header {
-  background: #17a2b8;
+  background: #7cc7f5;
   padding: 60rpx 40rpx 80rpx;
   text-align: center;
   position: relative;
@@ -145,7 +145,7 @@
 .careManager-title {
   display: block;
   font-size: 26rpx;
-  color: #667eea;
+  color: #7cc7f5;
   margin-bottom: 8rpx;
 }
 
@@ -364,9 +364,9 @@
 }
 
 .reply-item:active {
-  background: #667eea;
+  background: #7cc7f5;
   color: white;
-  border-color: #667eea;
+  border-color: #7cc7f5;
 }
 
 /* 输入区域 */
@@ -395,7 +395,7 @@
 }
 
 .send-btn {
-  background: #17a2b8;
+  background: #7cc7f5;
   color: white;
   border: none;
   border-radius: 30rpx;

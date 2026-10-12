@@ -44,7 +44,7 @@
   font-weight: bold;
 }
 .btn-submit {
-  background: #409EFF;
+  background: #7cc7f5;
   color: #fff;
   font-size: 28rpx;
   margin: 0;

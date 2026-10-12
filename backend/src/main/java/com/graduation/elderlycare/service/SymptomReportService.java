@@ -41,8 +41,8 @@ public class SymptomReportService {
         String careZone = report.getCareZone();
         if (careZone != null && !careZone.isEmpty()) {
             LambdaQueryWrapper<User> userWrapper = new LambdaQueryWrapper<>();
-            userWrapper.eq(User::getRole, "CAREGIVER")
-                      .eq(User::getCareZone, careZone);
+            userWrapper.in(User::getRole, "CAREGIVER", "CARE_MANAGER")
+                       .eq(User::getCareZone, careZone);
             List<User> caregivers = userMapper.selectList(userWrapper);
             
             for (User caregiver : caregivers) {

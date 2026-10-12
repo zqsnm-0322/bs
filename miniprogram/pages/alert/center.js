@@ -46,7 +46,7 @@ Page({
           id: item.id,
           residentId: item.residentId, // 添加老人ID
           residentName: item.residentName || '未知',
-          bedNo: item.bedNo || '-',
+          roomBedNo: item.roomBedNo || item.bedNo || '未分配床位',
           careZone: item.careZone || '护理区待分配',
           riskType: item.riskType || 'FALL',
           riskLevel: item.riskLevel || 'MEDIUM',
@@ -186,7 +186,7 @@ Page({
     const interventionText = alert.interventions.join('、')
     
     wx.showModal({
-      title: `${alert.residentName} - ${alert.bedNo}床`,
+      title: `${alert.residentName} - ${alert.roomBedNo}`,
       content: `风险类型：${this.getRiskTypeText(alert.riskType)}\n风险等级：${alert.riskLevel}\n评估分数：${alert.riskScore}分\n建议措施：${interventionText}`,
       showCancel: false,
       confirmText: '知道了'

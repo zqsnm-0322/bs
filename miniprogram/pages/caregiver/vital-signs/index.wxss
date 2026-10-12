@@ -1,6 +1,6 @@
 .vital-signs-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #eef6ff;
   padding: 20rpx;
 }
 
@@ -124,6 +124,6 @@
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #7cc7f5 0%, #a7ddf8 100%);
   color: #fff;
 }

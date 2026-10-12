@@ -28,7 +28,7 @@ Page({
   // 需求8: 用药记录添加结束日期
   loadMedicationData() {
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
     
     if (!residentId) {
       console.log('没有老人ID，无法加载用药数据')

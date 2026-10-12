@@ -1,14 +1,14 @@
 .symptom-list-page { background: #eef6ff; min-height: 100vh; }
-.page-header { background: linear-gradient(135deg, #409EFF, #2b7de9); padding: 40rpx 30rpx 30rpx; color: #fff; position: relative; }
+.page-header { background: linear-gradient(135deg, #7cc7f5, #5aafe5); padding: 40rpx 30rpx 30rpx; color: #fff; position: relative; }
 .page-title { font-size: 40rpx; font-weight: bold; display: block; }
 .page-subtitle { font-size: 24rpx; opacity: 0.8; display: block; margin-top: 8rpx; }
 .pending-badge { position: absolute; right: 30rpx; top: 40rpx; background: #F5222D; color: #fff; font-size: 22rpx; padding: 6rpx 16rpx; border-radius: 20rpx; }
 .search-bar { display: flex; padding: 16rpx 20rpx; background: #fff; gap: 12rpx; }
 .search-input { flex: 1; height: 64rpx; background: #f5f5f5; border-radius: 32rpx; padding: 0 24rpx; font-size: 26rpx; }
-.search-btn { width: 120rpx; height: 64rpx; line-height: 64rpx; background: #409EFF; color: #fff; font-size: 26rpx; border-radius: 32rpx; padding: 0; }
+.search-btn { width: 120rpx; height: 64rpx; line-height: 64rpx; background: #7cc7f5; color: #fff; font-size: 26rpx; border-radius: 32rpx; padding: 0; }
 .filter-bar { display: flex; background: #fff; padding: 12rpx 20rpx; margin-bottom: 16rpx; border-top: 1rpx solid #f0f0f0; }
 .filter-item { flex: 1; text-align: center; padding: 12rpx 0; font-size: 26rpx; color: #666; border-radius: 8rpx; }
-.filter-item.active { background: #409EFF; color: #fff; }
+.filter-item.active { background: #7cc7f5; color: #fff; }
 .report-list { padding: 0 20rpx; }
 .report-card { background: #fff; border-radius: 16rpx; padding: 24rpx; margin-bottom: 16rpx; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06); }
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16rpx; }
@@ -32,7 +32,7 @@
 .result-content { font-size: 26rpx; color: #333; display: block; margin-top: 4rpx; }
 .handler-name { font-size: 22rpx; color: #999; display: block; text-align: right; margin-top: 4rpx; }
 .card-actions { display: flex; justify-content: flex-end; margin-top: 16rpx; padding-top: 16rpx; border-top: 1rpx solid #f0f0f0; }
-.handle-btn { background: #409EFF; color: #fff; font-size: 26rpx; padding: 8rpx 32rpx; border-radius: 8rpx; line-height: 1.5; }
+.handle-btn { background: #7cc7f5; color: #fff; font-size: 26rpx; padding: 8rpx 32rpx; border-radius: 8rpx; line-height: 1.5; }
 .empty-state { text-align: center; padding: 100rpx 0; }
 .empty-icon { font-size: 80rpx; display: block; }
 .empty-text { font-size: 28rpx; color: #999; display: block; margin-top: 16rpx; }

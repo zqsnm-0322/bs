@@ -149,7 +149,7 @@
 
 .bed {
   font-size: 24rpx;
-  color: #409EFF;
+  color: #7cc7f5;
   background: #e8f4fd;
   padding: 4rpx 12rpx;
   border-radius: 12rpx;
@@ -171,8 +171,8 @@
   font-weight: bold;
   box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
   background: #fff;
-  color: #409EFF;
-  border: 1rpx solid #409EFF;
+  color: #7cc7f5;
+  border: 1rpx solid #7cc7f5;
   border-radius: 30rpx;
 }
 .empty {

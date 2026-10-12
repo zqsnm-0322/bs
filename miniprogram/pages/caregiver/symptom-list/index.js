@@ -71,7 +71,7 @@ Page({
         if (!report) return
 
         let content = `老人：${report.residentName}\n`
-        if (report.bedNo) content += `床位：${report.bedNo}\n`
+        if (report.roomBedNo) content += `床位：${report.roomBedNo}\n`
         if (report.careZone) content += `护理区：${report.careZone}\n`
         content += `症状：${report.symptomName}\n`
         content += `严重程度：${report.severityName}\n`

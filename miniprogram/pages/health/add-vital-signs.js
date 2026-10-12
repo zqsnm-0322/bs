@@ -92,7 +92,7 @@ Page({
     }
 
     const userInfo = app.globalData.userInfo || {}
-    const residentId = userInfo.residentId || userInfo.id
+    const residentId = userInfo.id || userInfo.residentId
 
     if (!residentId) {
       wx.showToast({ title: '老人信息缺失', icon: 'none' })

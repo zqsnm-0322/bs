@@ -13,8 +13,8 @@ Page({
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {}
     
     // 如果有老人ID，从后端获取完整档案
-    if (userInfo.residentId || userInfo.id) {
-      const residentId = userInfo.residentId || userInfo.id
+    if (userInfo.id || userInfo.residentId) {
+      const residentId = userInfo.id || userInfo.residentId
       
       wx.showLoading({ title: '加载中...' })
       

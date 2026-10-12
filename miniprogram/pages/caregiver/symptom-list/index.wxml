@@ -1,6 +1,6 @@
 <view class="symptom-list-page">
   <view class="page-header">
-    <text class="page-title">症状上报管理</text>
+    <text class="page-title">症状上报处理</text>
     <text class="page-subtitle">查看并处理老人健康状况上报</text>
     <view class="pending-badge" wx:if="{{pendingCount > 0}}">
       <text>{{pendingCount}} 条待处理</text>

@@ -65,7 +65,7 @@
       <view class="alert-header">
         <view class="resident-info">
           <text class="resident-name">{{item.residentName}}</text>
-          <text class="bed-info">{{item.bedNo}} · {{item.careZone}}</text>
+          <text class="bed-info">{{item.roomBedNo}} · {{item.careZone}}</text>
         </view>
         <view class="alert-status {{item.status.toLowerCase()}}">
           <text wx:if="{{item.status === 'PENDING'}}">待处理</text>
