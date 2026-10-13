@@ -507,10 +507,16 @@ public class EnhancedRiskController {
             
             report.put("riskFactors", simplifiedFactors);
             report.put("healthAdvice", generalAdvice);
-            report.put("shareTime", new Date());
             report.put("validUntil", new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000L)); // 7天有效期
             
-            // 记录分享操作（可选：保存到数据库）
+            // 持久化分享状态。小程序只展示已发送给老人的报告，不能只返回一份临时报告。
+            Date shareTime = new Date();
+            assessment.setSentToResident(1);
+            assessment.setSentTime(shareTime);
+            assessment.setSentBy("系统");
+            riskAssessmentMapper.updateById(assessment);
+            report.put("shareTime", shareTime);
+
             System.out.println("风险评估报告已分享给老人: " + residentId + ", 评估ID: " + assessment.getId());
             
             return Result.success(report);
@@ -576,6 +582,7 @@ public class EnhancedRiskController {
             wrapper.orderByDesc(RiskAssessment::getAssessmentTime);
             
             List<RiskAssessment> assessments = riskAssessmentMapper.selectList(wrapper);
+            Resident resident = residentMapper.selectById(residentId);
             
             // 转换为前端需要的格式
             List<Map<String, Object>> reports = new java.util.ArrayList<>();
@@ -583,13 +590,18 @@ public class EnhancedRiskController {
                 Map<String, Object> report = new HashMap<>();
                 report.put("id", assessment.getId());
                 report.put("residentId", assessment.getResidentId());
+                report.put("residentName", resident != null ? resident.getName() : "未知");
+                report.put("bedNo", resident != null ? resident.getRoomBedNo() : "-");
+                report.put("careZone", resident != null ? resident.getCareZone() : "-");
                 report.put("scaleType", assessment.getScaleType());
-                report.put("scaleName", getScaleName(assessment.getScaleType()));
+                report.put("scaleName", assessment.getScaleType() == null
+                        ? "综合风险评估" : getScaleName(assessment.getScaleType()));
                 report.put("totalScore", assessment.getTotalScore());
                 report.put("riskLevel", assessment.getRiskLevel());
                 report.put("riskLevelText", getRiskLevelText(assessment.getRiskLevel()));
                 report.put("suggestion", assessment.getSuggestion());
-                report.put("evaluatorName", assessment.getEvaluatorName());
+                report.put("evaluatorName", assessment.getEvaluatorName() != null
+                        ? assessment.getEvaluatorName() : assessment.getAssessedBy());
                 report.put("evaluateTime", assessment.getAssessmentTime());
                 report.put("sentTime", assessment.getSentTime());
                 report.put("sentBy", assessment.getSentBy());
@@ -601,6 +613,46 @@ public class EnhancedRiskController {
         } catch (Exception e) {
             e.printStackTrace();
             return Result.error("获取评估报告失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 获取老人端综合风险评估报告详情。
+     * 与 share-report、resident-reports 统一使用 biz_risk_assessment，避免列表和详情跨表查询。
+     */
+    @GetMapping("/report-detail/{id}")
+    public Result<?> getResidentAssessmentReportDetail(@PathVariable("id") Long id) {
+        try {
+            RiskAssessment assessment = riskAssessmentMapper.selectById(id);
+            if (assessment == null || assessment.getSentToResident() == null
+                    || assessment.getSentToResident() != 1) {
+                return Result.error("评估报告不存在或尚未分享");
+            }
+
+            Resident resident = residentMapper.selectById(assessment.getResidentId());
+            Map<String, Object> report = new HashMap<>();
+            report.put("id", assessment.getId());
+            report.put("residentId", assessment.getResidentId());
+            report.put("residentName", resident != null ? resident.getName() : "未知");
+            report.put("bedNo", resident != null ? resident.getRoomBedNo() : "-");
+            report.put("careZone", resident != null ? resident.getCareZone() : "-");
+            report.put("scaleType", assessment.getScaleType());
+            report.put("scaleName", assessment.getScaleType() == null
+                    ? "综合风险评估" : getScaleName(assessment.getScaleType()));
+            report.put("totalScore", assessment.getTotalScore());
+            report.put("riskLevel", assessment.getRiskLevel());
+            report.put("riskLevelText", getRiskLevelText(assessment.getRiskLevel()));
+            report.put("suggestion", assessment.getSuggestion());
+            report.put("evaluatorName", assessment.getEvaluatorName() != null
+                    ? assessment.getEvaluatorName() : assessment.getAssessedBy());
+            report.put("evaluateTime", assessment.getAssessmentTime());
+            report.put("sentTime", assessment.getSentTime());
+            report.put("sentBy", assessment.getSentBy());
+
+            return Result.success(report);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("获取评估报告详情失败: " + e.getMessage());
         }
     }
 

@@ -19,7 +19,7 @@
 
       <view class="info-item">
         <text class="label">入住编号</text>
-        <text class="value">{{userInfo.residentId || '-'}}</text>
+        <text class="value">{{userInfo.residentNo || '-'}}</text>
       </view>
 
       <view class="info-item">

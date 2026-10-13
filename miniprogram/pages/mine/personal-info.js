@@ -27,7 +27,9 @@ Page({
           ...res,
           id: res.id || userInfo.id,
           name: res.name || userInfo.name,
-          residentId: res.residentId || userInfo.residentId,
+          // residentId 用于接口关联（数字主键），residentNo 才是展示给用户的入住编号。
+          residentId: res.id || userInfo.id || userInfo.residentId,
+          residentNo: res.residentId || userInfo.residentNo,
           roomBedNo: res.roomBedNo || userInfo.roomBedNo,
           age: res.age || userInfo.age,
           gender: res.gender || userInfo.gender,

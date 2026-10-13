@@ -52,7 +52,7 @@
           <text class="score-number">{{detail.totalScore}}</text>
           <text class="score-label">总分</text>
         </view>
-        <view class="risk-badge {{detail.riskLevel === 'HIGH' ? 'high' : detail.riskLevel === 'MEDIUM' ? 'medium' : 'low'}}">
+        <view class="risk-badge {{detail.riskLevel === 'HIGH' || detail.riskLevel === 'CRITICAL' ? 'high' : detail.riskLevel === 'MEDIUM' ? 'medium' : 'low'}}">
           <text>{{detail.riskLevelText}}</text>
         </view>
       </view>

@@ -32,10 +32,10 @@ Page({
     this.setData({ loading: true })
 
     console.log('开始加载评估报告，userId:', this.data.userId)
-    console.log('API地址:', `${app.globalData.baseUrl}/risk/resident-reports/${this.data.userId}`)
+    console.log('API地址:', `${app.globalData.baseUrl}/enhanced-risk/resident-reports/${this.data.userId}`)
 
     wx.request({
-      url: `${app.globalData.baseUrl}/risk/resident-reports/${this.data.userId}`,
+      url: `${app.globalData.baseUrl}/enhanced-risk/resident-reports/${this.data.userId}`,
       method: 'GET',
       header: {
         'content-type': 'application/json',
@@ -47,6 +47,10 @@ Page({
         if (res.data.code === 200) {
           const reports = (res.data.data || []).map(item => ({
             ...item,
+            scaleName: item.scaleName && item.scaleName !== '未知量表'
+              ? item.scaleName
+              : '综合风险评估',
+            evaluatorName: item.evaluatorName || item.assessedBy || item.sentBy || '系统评估',
             evaluateTime: this.formatDateTime(item.evaluateTime),
             riskLevel: this.getRiskLevelCode(item.riskLevel)
           }))
@@ -76,6 +80,8 @@ Page({
 
   viewDetail(e) {
     const report = e.currentTarget.dataset.report
+    // 详情页先使用列表数据渲染；接口暂时不可用时也不会显示整页空白。
+    wx.setStorageSync('selectedAssessmentReport', report)
     wx.navigateTo({
       url: `/pages/risk/assessment-detail?id=${report.id}`
     })
@@ -102,6 +108,7 @@ Page({
   getRiskLevelCode(level) {
     const codeMap = {
       'HIGH': 'high',
+      'CRITICAL': 'high',
       'MEDIUM': 'medium',
       'LOW': 'low'
     }

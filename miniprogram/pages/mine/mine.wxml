@@ -6,7 +6,7 @@
       </view>
       <view class="info">
         <text class="name">{{displayName}}</text>
-        <text class="dept" wx:if="{{userInfo.role === 'RESIDENT'}}">入住编号：{{userInfo.residentId || '-'}}</text>
+        <text class="dept" wx:if="{{userInfo.role === 'RESIDENT'}}">入住编号：{{userInfo.residentNo || '-'}}</text>
         <text class="dept" wx:else>{{zoneText || '未分配护理区'}}</text>
         <text class="role">{{roleText}}</text>
       </view>
